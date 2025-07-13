@@ -1,0 +1,33 @@
+{% load static %}
+
+<header class="navbar">
+  <div class="container">
+      <div class="logo">
+          <i class="fas fa-heartbeat"></i>
+          <span>MediCare</span>
+          <span class="healthcare-platform">Healthcare Platform</span>
+      </div>
+      <nav class="nav-links">
+          <a href="#" class="dropdown">Find Doctors <i class="fas fa-chevron-down"></i></a>
+          
+          <a href="#">Specialties</a>
+          <a href="#">Health Plans</a>
+          <a href="#">Lab Tests</a>
+          <a href="#">About</a>
+      </nav>
+      <div class="auth-buttons">
+        {% if request.user.first_name %}
+        <a class="btn btn-Primary mx-2">
+          {{request.user.first_name}}{{request.user.last_name}}
+        </a>
+        <a class="btn btn-danger mx-2" href="{% url 'logout' %}" role="button" id="button">logout</a>
+        {% else %}
+          <a href="#" class="icon-link"><i class="fas fa-bell"></i></a>
+          <a href="{% url 'login' %}" class="icon-link"><i class="fas fa-user-circle"></i> Login</a>
+          <button class="sign-up-btn">Sign Up Free</button>
+          {% endif %}
+      </div>
+  </div>
+</header>
+
+    

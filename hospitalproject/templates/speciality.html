@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+           <h1>{{speciality.speciality_name}}</h1>
+           <div class="row row-cols-1 row-cols-md-4 g-4">
+           {% for product in speciality.doctor_set.all %}
+                {% include "doctor_card.html" with d=doctor %}
+            {% empty %}
+                <h1>No Products found</h1>
+           {% endfor%}
+           </div>
+
+           <hr>
+           <p>Other Products</p>
+           {% for doctor in doctors %}
+
+           <li>{{doctor.doctor_name}}</li>
+
+           {% endfor %}
+
+
+{% endblock%}

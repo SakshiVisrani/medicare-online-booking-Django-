@@ -1,0 +1,461 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+    
+    {% block content %}
+    <main>
+        {# Hero Section #}
+        <section class="hero-section bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 overflow-hidden">
+            <div class="container">
+                <div class="trusted-badge">
+                    <span class="dot green"></span>
+                    <span class="dot blue"></span>
+                    <span class="dot purple"></span>
+                    Trusted by 2M+ patients worldwide
+                </div>
+                <h1>Your Health,<br>Our Priority</h1>
+                <p>Connect with verified doctors, book instant appointments, and get quality healthcare <span class="highlight">from the comfort of your home</span></p>
+
+                {# Search Bar #}
+                <div class="search-bar-container" id="searchbar">
+                  <div class="row">
+                    <div class="col-md-5 mb-3">
+                      <label for="what-looking-for" class="form-label">What are you looking for?</label>
+                      <div class="input-group">
+                        <span class="input-group-text">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Search doctors, specialties, symptoms..." id="what-looking-for">
+                      </div>
+                    </div>
+                    <div class="col-md-5 mb-3">
+                      <label for="where" class="form-label">Where?</label>
+                      <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                        <input type="text" class="form-control" id="where" placeholder="Enter your location">
+                      </div>
+                    </div>
+                    <div class="col-md-1 d-flex align-items-end">
+    <button class="search-btn" style="position: relative; bottom: 10px;"><i class="fas fa-search"></i> Search</button>
+                    </div>
+                  </div>
+                </div>
+
+                {# Popular Searches #}
+                <div class="popular-searches">
+                    <span>Popular searches:</span>
+                    <a href="#">Cardiologist</a>
+                    <a href="#">Dentist</a>
+                    <a href="#">Dermatologist</a>
+                    <a href="#">Pediatrician</a>
+                </div>
+            </div>
+            {# Background Blobs #}
+            <div class="blob-pink"></div>
+            <div class="blob-purple"></div>
+        </section>
+
+        <section class="features-stats-section">
+            <div class="container feature-cards-grid">
+                <div class="feature-card">
+                    <div class="icon-wrapper red">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>15,000+</h3>
+                    <p>Verified Doctors</p>
+                    <div class="sub-info">
+                        <i class="fas fa-star" style="color: gold;"></i>
+                        <span>4.8 avg rating</span>
+                    </div>
+                </div>
+    
+                <div class="feature-card">
+                    <div class="icon-wrapper green">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>2M+</h3>
+                    <p>Appointments Booked</p>
+                    <div class="sub-info">
+                        <i class="fas fa-clock" style="color: #666;"></i>
+                        <span>Avg 15 min wait</span>
+                    </div>
+                </div>
+    
+                <div class="feature-card">
+                    <div class="icon-wrapper blue">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>500+</h3>
+                    <p>Cities Covered</p>
+                    <div class="sub-info">
+                        <i class="fas fa-globe" style="color: #666;"></i>
+                        <span>24/7 Available</span>
+                    </div>
+                </div>
+    
+                <div class="feature-card">
+                    <div class="icon-wrapper orange">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>100%</h3>
+                    <p>Secure & Private</p>
+                    <div class="sub-info">
+                        <i class="fas fa-lock" style="color: #666;"></i>
+                        <span>HIPAA Compliant</span>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="container call-to-action-buttons">
+             <button class="book-appointment-btn">Book Appointment Now <i class="fas fa-arrow-right"></i></button>
+                <button class="watch-demo-btn"><i class="fas fa-play"></i> Watch Demo</button>
+            </div>
+
+            <div class="blob-pink"></div>
+            <div class="blob-purple"></div>
+        </section>
+
+        
+
+        <section class="specialties-section">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="tagline"><i class="fas fa-stethoscope"></i> Medical Specialties</span>
+                    <h2>Find the Right <span class="highlight">Specialist</span> for You</h2>
+                    <p>Browse through our comprehensive list of medical specialties and connect with top-rated doctors who are experts in their field.</p>
+                </div>
+    
+                <div class="specialty-cards-grid">
+                    <div class="specialty-card">
+                        <span class="popular-tag">Popular</span>
+                        <div class="icon-wrapper red">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4>Cardiology</h4>
+                        <p>Heart & cardiovascular specialists</p>
+                        <div class="card-footer-info">
+                            <span class="stats"><i class="fas fa-dot-circle dot-green"></i> 1200+ doctors</span>
+                            <a href="#" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+    
+                    <div class="specialty-card">
+                        <span class="popular-tag">Popular</span>
+                        <div class="icon-wrapper purple">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h4>Neurology</h4>
+                        <p>Brain & nervous system experts</p>
+                        <div class="card-footer-info">
+                            <span class="stats"><i class="fas fa-dot-circle dot-green"></i> 800+ doctors</span>
+                            <a href="#" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+    
+                    <div class="specialty-card">
+                        <div class="icon-wrapper blue">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h4>Ophthalmology</h4>
+                        <p>Eye care & vision specialists</p>
+                        <div class="card-footer-info">
+                            <span class="stats"><i class="fas fa-dot-circle dot-green"></i> 600+ doctors</span>
+                            <a href="#" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+    
+                    <div class="specialty-card">
+                        <span class="popular-tag">Popular</span>
+                        <div class="icon-wrapper green-teal">
+                            <i class="fas fa-stethoscope"></i>
+                        </div>
+                        <h4>General Medicine</h4>
+                        <p>Primary care physicians</p>
+                        <div class="card-footer-info">
+                            <span class="stats"><i class="fas fa-dot-circle dot-green"></i> 2000+ doctors</span>
+                            <a href="#" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+    
+                    <div class="specialty-card">
+                        <span class="popular-tag">Popular</span>
+                        <div class="icon-wrapper dark-pink">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <h4>Pediatrics</h4>
+                        <p>Child healthcare specialists</p>
+                        <div class="card-footer-info">
+                            <span class="stats"><i class="fas fa-dot-circle dot-green"></i> 900+ doctors</span>
+                            <a href="#" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+    
+                    <div class="specialty-card">
+                        <span class="popular-tag">Popular</span>
+                        <div class="icon-wrapper deep-orange">
+                            <i class="fas fa-bone"></i>
+                        </div>
+                        <h4>Orthopedics</h4>
+                        <p>Bone & joint specialists</p>
+                        <div class="card-footer-info">
+                            <span class="stats"><i class="fas fa-dot-circle dot-green"></i> 750+ doctors</span>
+                            <a href="#" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+    
+                    <div class="specialty-card">
+                        <div class="icon-wrapper amber">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h4>Dermatology</h4>
+                        <p>Skin & beauty specialists</p>
+                        <div class="card-footer-info">
+                            <span class="stats"><i class="fas fa-dot-circle dot-green"></i> 500+ doctors</span>
+                            <a href="#" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+    
+                    <div class="specialty-card">
+                        <div class="icon-wrapper deep-purple">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Psychiatry</h4>
+                        <p>Mental health experts</p>
+                        <div class="card-footer-info">
+                            <span class="stats"><i class="fas fa-dot-circle dot-green"></i> 400+ doctors</span>
+                            <a href="#" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        
+        <section class="expert-doctors-section">
+            <div class="container">
+                <div class="top-rated-tag">
+                    <i class="fas fa-star"></i> Top Rated Doctors
+                </div>
+                <h2 class="section-title">Meet Our <span class="highlight">Expert Doctors</span></h2>
+                <p class="section-description">Book appointments with our verified and experienced doctors. Get quality healthcare from the comfort of your home.</p>
+        
+                <div class="doctor-search-bar">
+                    <div class="search-input-group">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search doctors...">
+                    </div>
+                    <div class="search-input-group">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" placeholder="Location...">
+                    </div>
+                    <div class="search-input-group select-group">
+                        <i class="fas fa-th-list"></i>
+                        <select>
+                            <option value="">All Specialties</option>
+                            </select>
+                    </div>
+                    <div class="search-input-group select-group">
+                        <i class="fas fa-sort-amount-up"></i>
+                        <select>
+                            <option value="">Sort by Rating</option>
+                            </select>
+                    </div>
+                </div>
+        
+                <div class="quick-filters">
+                    <span class="filter-label">Quick filters:</span>
+                    <button class="filter-button">Available Today</button>
+                    <button class="filter-button">Video Consultation</button>
+                    <button class="filter-button">Top Rated</button>
+                    <button class="filter-button">Under ₹500</button>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="experience-healthcare-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="tagline-star">
+                        <i class="far fa-star"></i> Why Choose MediCare?
+                    </span>
+                    <h2 class="section-title">Experience Healthcare <span class="highlight-pink">Like Never Before</span></h2> 
+                    <p class="section-description">Our comprehensive platform is designed with your convenience in mind, offering cutting-edge features that make healthcare accessible and efficient.</p> 
+                </div>
+                <!-- This section typically precedes detailed feature cards or other content -->
+            </div>
+        </section>
+
+
+
+
+<section class="feature-cards-section">
+    <div class="container">
+        <div class="feature-cards-grid">
+            <div class="feature-card">
+                <div class="icon-wrapper green-light">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Verified Doctors</h3>
+                <p>All doctors are verified and licensed healthcare professionals with proven track records</p>
+                <div class="card-bottom-info">
+                    <span class="info-item">
+                        <i class="fas fa-check-circle check-green"></i> 15,000+ verified
+                    </span>
+                    <a href="#" class="learn-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-wrapper blue-light">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3>Instant Booking</h3>
+                <p>Book appointments instantly with real-time availability and immediate confirmation</p>
+                <div class="card-bottom-info">
+                    <span class="info-item">
+                        <i class="fas fa-check-circle check-green"></i> Under 60 seconds
+                    </span>
+                    <a href="#" class="learn-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-wrapper orange-light">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h3>Top Rated</h3>
+                <p>Choose from highly rated doctors with excellent reviews and patient satisfaction</p>
+                <div class="card-bottom-info">
+                    <span class="info-item">
+                        <i class="fas fa-check-circle check-green"></i> 4.8+ avg rating
+                    </span>
+                    <a href="#" class="learn-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="feature-cards-section">
+    <div class="container">
+        <div class="feature-cards-grid">
+            <div class="feature-card">
+                <div class="icon-wrapper red-gradient">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>Quality Care</h3>
+                <p>Get premium healthcare services at affordable prices with personalized attention</p>
+                <div class="card-bottom-info">
+                    <span class="info-item">
+                        <i class="fas fa-check-circle check-green"></i> 98% satisfaction
+                    </span>
+                    <a href="#" class="learn-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-wrapper purple-gradient-light">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <h3>Telemedicine</h3>
+                <p>Video consultations available for remote healthcare with HD quality calls</p>
+                <div class="card-bottom-info">
+                    <span class="info-item">
+                        <i class="fas fa-check-circle check-green"></i> 24/7 available
+                    </span>
+                    <a href="#" class="learn-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-wrapper purple-gradient-dark">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3>Flexible Scheduling</h3>
+                <p>Schedule appointments at your convenience with easy rescheduling options</p>
+                <div class="card-bottom-info">
+                    <span class="info-item">
+                        <i class="fas fa-check-circle check-green"></i> Same day slots
+                    </span>
+                    <a href="#" class="learn-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="feature-cards-section">
+    <div class="container">
+        <div class="feature-cards-grid">
+            <div class="feature-card">
+                <div class="icon-wrapper gray-light">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h3>Secure & Private</h3>
+                <p>Your health data is protected with bank-level security and HIPAA compliance</p>
+                <div class="card-bottom-info">
+                    <span class="info-item">
+                        <i class="fas fa-check-circle check-green"></i> 256-bit encryption
+                    </span>
+                    <a href="#" class="learn-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-wrapper teal-light">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>Multi-language</h3>
+                <p>Consult with doctors in your preferred language for better communication</p>
+                <div class="card-bottom-info">
+                    <span class="info-item">
+                        <i class="fas fa-check-circle check-green"></i> 15+ languages
+                    </span>
+                    <a href="#" class="learn-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-wrapper orange-red-light">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Quick Response</h3>
+                <p>Get quick responses from doctors with average response time under 15 minutes</p>
+                <div class="card-bottom-info">
+                    <span class="info-item">
+                        <i class="fas fa-check-circle check-green"></i> < 15 min response
+                    </span>
+                    <a href="#" class="learn-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="ready-to-get-started-section">
+    <div class="container">
+        <h2 class="section-title">Ready to Get Started?</h2>
+        <p class="section-description">Join millions of satisfied patients who trust MediCare for their healthcare needs</p>
+        <div class="cta-buttons">
+            <a href="{% url 'signin' %}" class="btn btn-primary-outline">Book Your First Appointment</a>
+            <a href="#" class="btn btn-secondary-solid">Learn More</a>
+        </div>
+    </div>
+</section>
+
+        
+    </main>
+
+{% endblock content %}
+
+
+
+
+

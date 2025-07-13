@@ -1,0 +1,3986 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+/* Root Variables for Consistent Styling */
+:root {
+    --primary-purple: #8B5CF6; /* Approximate purple from the image */
+    --light-purple: #EDE9FE;
+    --dark-text: #2D3748; /* Darker text for headings */
+    --gray-text: #666;
+    --light-gray-bg: #F9FAFB; /* Used for initial section background */
+    --section-bg-light: #F8FAFC; /* Slightly different light background for some sections */
+    --border-color: #E5E7EB;
+    --pink-blob: #FFD6F6; /* Approximate blob colors */
+    --purple-blob: #D6D6FF;
+    --green-dot: #84CC16;
+    --blue-dot: #3B82F6;
+    --purple-dot: #A855F7;
+
+    /* Feature card specific colors (existing) */
+    --feature-red: #EF4444;
+    --feature-green: #10B981;
+    --feature-blue: #6366F1;
+    --feature-orange: #F97316;
+
+    /* New Feature Card Colors (for icons and hover effects) */
+    --feature-teal: #16A34A; /* Verified Doctors icon */
+    --feature-light-blue: #3B82F6; /* Instant Booking icon */
+    --feature-orange-gradient-start: #F97316; /* Top Rated icon start */
+    --feature-orange-gradient-end: #EA580C; /* Top Rated icon end */
+    --feature-pink: #EC4899; /* Quality Care icon */
+    --feature-purple-call: #A855F7; /* Telemedicine icon */
+    --feature-purple-calendar: #8B5CF6; /* Flexible Scheduling icon */
+    --feature-dark-purple: #4C1D95; /* Secure & Private icon */
+    --feature-teal-globe: #0D9488; /* Multi-language icon */
+    --feature-orange-flash: #F97316; /* Quick Response icon */
+
+    --card-bg: #FFFFFF;
+    --card-shadow: rgba(0, 0, 0, 0.05);
+    --primary-purple-rgb: 139, 92, 246; /* RGB for use in rgba() for shadows */
+
+    /* Specific colors for new sections */
+    --tagline-star-bg: #FCE7F6; /* Light pink for star taglines */
+    --tagline-star-text: #DB2777; /* Deep pink for star tagline text */
+    --highlight-pink-color: #DB2777; /* Deep pink for highlight */
+    --purple-gradient-start: #A855F7; /* Start color for purple gradient text */
+    --purple-gradient-end: #6D28D9; /* End color for purple gradient text */
+}
+
+/* Universal Box-Sizing Reset */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Base Body Styles */
+body {
+    font-family: 'Poppins', sans-serif; /* Primary font for body text */
+    line-height: 1.6;
+    color: var(--dark-text);
+    background-color: #fff; /* White background */
+    overflow-x: hidden; /* Prevent horizontal scroll due to blobs */
+}
+
+/* Global Container for Centering Content */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    /* Default flex properties for most containers - adjusted per section */
+    /* display: flex; */
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+/* ------------------------------------- */
+/* NAVBAR SECTION */
+/* ------------------------------------- */
+.navbar {
+    background-color: #fff;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: relative;
+    z-index: 10;
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-purple);
+    margin-right: 30px;
+}
+
+.navbar .logo i {
+    font-size: 30px;
+    margin-right: 8px;
+}
+
+.navbar .logo .healthcare-platform {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-text);
+    margin-left: 5px;
+    opacity: 0.8;
+}
+
+.navbar .nav-links {
+    display: flex;
+    gap: 25px;
+    flex-grow: 1; /* Allows nav links to take available space */
+}
+
+.navbar .nav-links a {
+    text-decoration: none;
+    color: var(--gray-text);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    font-size: 15px;
+}
+
+.navbar .nav-links a:hover {
+    color: var(--primary-purple);
+}
+
+.navbar .nav-links .dropdown i {
+    font-size: 10px;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.navbar .auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.navbar .auth-buttons .icon-link {
+    text-decoration: none;
+    color: var(--gray-text);
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .auth-buttons .icon-link i {
+    margin-right: 5px;
+    font-size: 18px;
+}
+
+.navbar .sign-up-btn {
+    background-color: var(--primary-purple);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.navbar .sign-up-btn:hover {
+    background-color: #7B4FE0;
+}
+
+/* ------------------------------------- */
+/* HERO SECTION */
+/* ------------------------------------- */
+.hero-section {
+    position: relative;
+    padding: 80px 0 100px;
+    text-align: center;
+    overflow: hidden; /* To contain blobs */
+}
+
+.hero-section .container {
+    flex-direction: column; /* Stack content vertically */
+    justify-content: center;
+    text-align: center;
+    gap: 25px;
+    position: relative;
+    z-index: 1; /* Ensure content is above blobs */
+}
+
+.hero-section h1 {
+    font-family: 'Playfair Display', serif; /* Specific font for heading */
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--dark-text);
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.hero-section p {
+    font-size: 19px;
+    color: var(--gray-text);
+    max-width: 700px;
+    margin: 0 auto 40px;
+    line-height: 1.8;
+}
+
+.hero-section .highlight {
+    color: var(--primary-purple);
+    font-weight: 600;
+}
+
+.trusted-badge {
+    background-color: #F3F4F6;
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-text);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 30px;
+}
+
+.trusted-badge .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.trusted-badge .dot.green { background-color: var(--green-dot); }
+.trusted-badge .dot.blue { background-color: var(--blue-dot); }
+.trusted-badge .dot.purple { background-color: var(--purple-dot); }
+
+
+/* Search Bar Container */
+.search-bar-container {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Align labels/inputs to the bottom line */
+    gap: 20px;
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+.search-input-group {
+    flex: 1;
+    text-align: left;
+}
+
+.search-input-group label {
+    display: block;
+    font-size: 14px;
+    color: var(--gray-text);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.search-input-group .input-wrapper {
+    position: relative;
+}
+
+.search-input-group .input-wrapper i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9CA3AF;
+}
+
+.search-input-group input {
+    width: 100%;
+    padding: 12px 12px 12px 45px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 16px;
+    color: var(--dark-text);
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.search-input-group input::placeholder {
+    color: #9CA3AF;
+}
+
+.search-input-group input:focus {
+    border-color: var(--primary-purple);
+}
+
+.search-btn {
+    background-image: linear-gradient(90deg, #C026F8 0%, #8B5CF6 100%); /* Gradient background */
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3); /* Soft shadow */
+}
+
+.search-btn i {
+    font-size: 18px;
+}
+
+.search-btn:hover {
+    transform: translateY(-2px); /* Slight lift */
+    box-shadow: 0 6px 15px rgba(139, 92, 246, 0.4); /* Enhanced shadow */
+}
+
+/* Popular Searches */
+.popular-searches {
+    margin-top: 30px;
+    text-align: center;
+    display: flex; /* Use flexbox for alignment */
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 10px; /* Space between items */
+}
+
+.popular-searches span {
+    font-size: 15px;
+    color: var(--gray-text);
+    font-weight: 500;
+    margin-right: 5px; /* Space before the actual links */
+}
+
+.popular-searches a {
+    text-decoration: none;
+    color: var(--primary-purple);
+    font-size: 15px;
+    font-weight: 500;
+    padding: 6px 14px; /* Pill button styling */
+    border-radius: 20px;
+    background-color: var(--light-purple); /* Light background for pills */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.popular-searches a:hover {
+    background-color: var(--primary-purple);
+    color: #fff;
+    text-decoration: none; /* Ensure no underline on hover */
+}
+
+/* Background Blobs */
+.blob-pink, .blob-purple {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px); /* Soft blur effect */
+    opacity: 0.3; /* Translucency */
+    z-index: 0; /* Behind content */
+}
+
+.blob-pink {
+    background-color: var(--pink-blob);
+    width: 300px;
+    height: 300px;
+    top: 50px;
+    left: -100px;
+    transform: rotate(20deg);
+}
+
+.blob-purple {
+    background-color: var(--purple-blob);
+    width: 400px;
+    height: 400px;
+    bottom: -50px;
+    right: -150px;
+    transform: rotate(-30deg);
+}
+
+/* ------------------------------------- */
+/* FEATURES SECTION (Cards) */
+/* ------------------------------------- */
+.features-section {
+    background-color: var(--section-bg-light); /* Very light background */
+    padding: 80px 0;
+    margin-top: -60px; /* Pulls section up to overlap hero section visually */
+    position: relative;
+    z-index: 2; /* Ensures it sits above hero blobs */
+    border-radius: 20px 20px 0 0; /* Rounded top corners */
+}
+
+.features-section .container {
+    display: grid;
+    /* Adjusted minmax to ensure 3 columns with reasonable card size and gap */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px; /* Space between cards */
+    justify-content: center; /* Center cards if row isn't full */
+    align-items: stretch; /* Stretch cards to be same height */
+}
+
+/* Feature Card Styling */
+.feature-card {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 20px var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally within card */
+    position: relative; /* For sub-info positioning or learn more */
+    min-height: 250px; /* Ensure a minimum height for consistency */
+}
+
+.feature-card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
+    color: white; /* Text turns white on hover for all cards */
+}
+
+.feature-card h3,
+.feature-card p,
+.feature-card .sub-info,
+.feature-card .sub-info i,
+.feature-card .learn-more {
+    transition: color 0.3s ease; /* Smooth transition for text colors */
+}
+
+.feature-card:hover h3,
+.feature-card:hover p,
+.feature-card:hover .sub-info,
+.feature-card:hover .sub-info i,
+.feature-card:hover .learn-more {
+    color: white; /* All text elements turn white on hover */
+}
+
+/* Special case for gold star and verified green check to remain distinct */
+.feature-card:hover .sub-info i.fa-star {
+    color: gold; /* Keep star gold */
+}
+.feature-card:hover .sub-info i.verified {
+    color: #A7F3D0; /* Light green on hover for verified check */
+}
+
+
+.feature-card .icon-wrapper {
+    width: 70px;
+    height: 70px;
+    border-radius: 12px; /* Slightly rounded squares */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.feature-card .icon-wrapper i {
+    font-size: 30px;
+    color: #fff; /* Icons are white by default */
+    transition: color 0.3s ease;
+}
+
+/* Specific icon wrapper background colors */
+.feature-card .icon-wrapper.red { background-color: var(--feature-red); }
+.feature-card .icon-wrapper.green { background-color: var(--feature-green); }
+.feature-card .icon-wrapper.blue { background-color: var(--feature-blue); }
+.feature-card .icon-wrapper.orange { background-color: var(--feature-orange); }
+
+/* New icon wrapper background colors based on image designs */
+.feature-card .icon-wrapper.teal { background-color: var(--feature-teal); }
+.feature-card .icon-wrapper.light-blue { background-color: var(--feature-light-blue); }
+.feature-card .icon-wrapper.orange-gradient { background: linear-gradient(135deg, var(--feature-orange-gradient-start), var(--feature-orange-gradient-end)); }
+.feature-card .icon-wrapper.pink { background-color: var(--feature-pink); }
+.feature-card .icon-wrapper.purple-call { background-color: var(--feature-purple-call); }
+.feature-card .icon-wrapper.purple-calendar { background-color: var(--feature-purple-calendar); }
+.feature-card .icon-wrapper.dark-purple { background-color: var(--feature-dark-purple); }
+.feature-card .icon-wrapper.teal-globe { background-color: var(--feature-teal-globe); }
+.feature-card .icon-wrapper.orange-flash { background-color: var(--feature-orange-flash); }
+
+
+.feature-card h3 {
+    font-size: 20px; /* Slightly smaller for new cards' titles */
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    font-size: 15px; /* Slightly smaller for new cards' paragraphs */
+    color: var(--gray-text);
+    margin-bottom: 20px; /* More space for new card descriptions */
+    flex-grow: 1; /* Allow paragraph to take available space */
+}
+
+.feature-card .sub-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--gray-text);
+    margin-bottom: 15px;
+}
+
+.feature-card .sub-info i {
+    font-size: 14px;
+}
+
+/* Default color for check circle icon in sub-info */
+.feature-card .sub-info i.verified {
+    color: var(--feature-teal); /* Use a consistent green for verified */
+}
+
+.feature-card .learn-more {
+    text-decoration: none;
+    color: var(--primary-purple); /* Purple for learn more link */
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-block; /* Ensures consistent spacing */
+    margin-top: auto; /* Push to the bottom of the card */
+}
+
+.feature-card .learn-more:hover {
+    text-decoration: underline; /* Underline on hover when text is white */
+}
+
+
+/* Individual card hover effects - background color changes to icon color */
+.feature-card:hover.feature-card:has(.icon-wrapper.red) {
+    background-color: var(--feature-red);
+}
+.feature-card:hover.feature-card:has(.icon-wrapper.green) {
+    background-color: var(--feature-green);
+}
+.feature-card:hover.feature-card:has(.icon-wrapper.blue) {
+    background-color: var(--feature-blue);
+}
+.feature-card:hover.feature-card:has(.icon-wrapper.orange) {
+    background-color: var(--feature-orange);
+}
+.feature-card:hover.feature-card:has(.icon-wrapper.teal) {
+    background-color: var(--feature-teal);
+}
+.feature-card:hover.feature-card:has(.icon-wrapper.light-blue) {
+    background-color: var(--feature-light-blue);
+}
+.feature-card:hover.feature-card:has(.icon-wrapper.orange-gradient) {
+    /* For gradients on hover, you need to re-apply the gradient as background-color won't work */
+    background: linear-gradient(135deg, var(--feature-orange-gradient-start), var(--feature-orange-gradient-end));
+}
+.feature-card:hover.feature-card:has(.icon-wrapper.pink) {
+    background-color: var(--feature-pink);
+}
+.feature-card:hover.feature-card:has(.icon-wrapper.purple-call) {
+    background-color: var(--feature-purple-call);
+}
+.feature-card:hover.feature-card:has(.icon-wrapper.purple-calendar) {
+    background-color: var(--feature-purple-calendar);
+}
+.feature-card:hover.feature-card:has(.icon-wrapper.dark-purple) {
+    background-color: var(--feature-dark-purple);
+}
+.feature-card:hover.feature-card:has(.icon-wrapper.teal-globe) {
+    background-color: var(--feature-teal-globe);
+}
+.feature-card:hover.feature-card:has(.icon-wrapper.orange-flash) {
+    background-color: var(--feature-orange-flash);
+}
+
+
+/* ------------------------------------- */
+/* CALL TO ACTION SECTION (Buttons) */
+/* ------------------------------------- */
+.call-to-action {
+    padding: 60px 0;
+    background-color: var(--section-bg-light); /* Same light background as features */
+    text-align: center;
+}
+.call-to-action .container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.book-appointment-btn,
+.watch-demo-btn {
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+.book-appointment-btn {
+    background: linear-gradient(90deg, #C026F8 0%, #6B21A8 100%); /* Gradient similar to image */
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(107, 33, 168, 0.3);
+}
+.book-appointment-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(107, 33, 168, 0.4);
+}
+.watch-demo-btn {
+    background-color: #E0F2FE; /* Light blue background */
+    color: var(--primary-purple);
+    border: 1px solid var(--primary-purple);
+    box-shadow: 0 4px 10px rgba(var(--primary-purple-rgb), 0.2);
+}
+.watch-demo-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(var(--primary-purple-rgb), 0.3);
+}
+.book-appointment-btn i {
+    font-size: 18px;
+}
+.watch-demo-btn i {
+    font-size: 18px;
+}
+
+/* ------------------------------------- */
+/* SECTION HEADING (General Reusable Style) */
+/* ------------------------------------- */
+.section-heading {
+    max-width: 700px; /* Default max-width for headings */
+    margin: 0 auto;
+    margin-bottom: 40px; /* Space below heading block */
+}
+
+.section-heading h2 {
+    font-family: 'Playfair Display', serif; /* Specific font for main section headings */
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.section-heading p {
+    font-size: 18px;
+    color: var(--gray-text);
+    line-height: 1.7;
+}
+
+/* ------------------------------------- */
+/* TAGLINE (General Reusable Style) */
+/* ------------------------------------- */
+.tagline { /* Default tagline style for specialist section */
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--light-purple); /* Light purple background */
+    color: var(--primary-purple);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.tagline i {
+    font-size: 16px;
+}
+
+/* ------------------------------------- */
+/* SPECIALIST SECTION */
+/* ------------------------------------- */
+.specialist-section {
+    padding: 100px 0;
+    text-align: center;
+    background: linear-gradient(180deg, var(--section-bg-light) 0%, #FFFFFF 100%); /* Subtle gradient */
+}
+.specialist-section .section-heading .highlight {
+    color: var(--primary-purple);
+}
+
+
+/* ------------------------------------- */
+/* EXPERIENCE SECTION */
+/* ------------------------------------- */
+.experience-section {
+    padding: 100px 0;
+    text-align: center;
+    background: var(--section-bg-light); /* Slightly different light background color */
+}
+.experience-section .section-heading {
+    max-width: 800px;
+}
+.tagline-star { /* New tagline style for star badges */
+    background-color: var(--tagline-star-bg);
+    color: var(--tagline-star-text);
+    padding: 8px 18px; /* Slightly more padding than default tagline */
+    border-radius: 25px; /* More rounded */
+}
+.experience-section h2 { /* Override default h2 for this section for larger size */
+    font-size: 50px;
+}
+.highlight-pink { /* Specific highlight color */
+    color: var(--highlight-pink-color);
+}
+.experience-section p { /* Override default p for this section for larger size */
+    font-size: 19px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* ------------------------------------- */
+/* EXPERT DOCTORS SECTION */
+/* ------------------------------------- */
+.expert-doctors-section {
+    padding: 100px 0;
+    text-align: center;
+    background: linear-gradient(180deg, var(--section-bg-light) 0%, #FFFFFF 100%); /* Same subtle gradient */
+}
+.expert-doctors-section .section-heading {
+    max-width: 700px;
+}
+/* Re-using tagline-star for this section as well */
+.expert-doctors-section h2 .highlight-purple-gradient { /* Gradient text highlight */
+    background: linear-gradient(90deg, var(--purple-gradient-start) 0%, var(--purple-gradient-end) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent; /* Fallback for browsers that don't support text fill color */
+    display: inline-block; /* Essential for background-clip to work */
+}
+
+/* Expert Doctor Search Bar */
+.expert-search-bar-container {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Responsive grid for multiple inputs */
+    gap: 15px;
+    max-width: 1000px; /* Wider search bar */
+    margin: 0 auto 30px; /* Center and add space below */
+}
+.expert-search-input-group,
+.expert-filter-dropdown {
+    position: relative;
+    display: flex; /* For icon and input/select alignment */
+    align-items: center;
+}
+.expert-search-input-group i,
+.expert-filter-dropdown i {
+    position: absolute;
+    left: 15px;
+    color: #9CA3AF;
+    font-size: 16px;
+    z-index: 1; /* Ensure icon is above input */
+}
+.expert-search-input-group input,
+.expert-filter-dropdown select {
+    width: 100%;
+    padding: 12px 12px 12px 45px; /* Adjust padding for icon */
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 16px;
+    color: var(--dark-text);
+    outline: none;
+    transition: border-color 0.3s ease;
+    background-color: #fff; /* Ensure white background for inputs/selects */
+    appearance: none; /* Remove default select arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer; /* Indicate select is clickable */
+}
+.expert-search-input-group input::placeholder {
+    color: #9CA3AF;
+}
+.expert-search-input-group input:focus,
+.expert-filter-dropdown select:focus {
+    border-color: var(--primary-purple);
+}
+/* Custom arrow for dropdowns */
+.expert-filter-dropdown::after {
+    content: '\\f078'; /* Font Awesome chevron-down icon */
+    font-family: 'Font Awesome 5 Free'; /* Specify font-family for icon */
+    font-weight: 900; /* Solid icon weight */
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9CA3AF;
+    pointer-events: none; /* Make sure it doesn't interfere with select click */
+}
+
+/* Quick Filters */
+.quick-filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Allow filters to wrap */
+    gap: 10px;
+    margin-top: 20px;
+}
+.quick-filters span {
+    font-size: 15px;
+    color: var(--gray-text);
+    font-weight: 500;
+    margin-right: 5px; /* Space before buttons */
+}
+.quick-filter-btn {
+    background-color: var(--light-purple); /* Light purple background */
+    color: var(--primary-purple);
+    border: 1px solid var(--primary-purple); /* Border for quick filters */
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.quick-filter-btn:hover {
+    background-color: var(--primary-purple);
+    color: #fff;
+}
+
+/* ------------------------------------- */
+/* RESPONSIVENESS */
+/* ------------------------------------- */
+@media (max-width: 1024px) {
+    .navbar .nav-links {
+        gap: 15px;
+    }
+    .navbar .nav-links a, .navbar .auth-buttons .icon-link {
+        font-size: 14px;
+    }
+    .navbar .sign-up-btn {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+    .hero-section h1 {
+        font-size: 48px;
+    }
+    .hero-section p {
+        font-size: 17px;
+    }
+    .trusted-badge {
+        font-size: 13px;
+        padding: 6px 15px;
+    }
+    .search-bar-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-btn {
+        width: 100%;
+    }
+    .blob-pink {
+        width: 250px;
+        height: 250px;
+        left: -80px;
+        top: 20px;
+    }
+    .blob-purple {
+        width: 350px;
+        height: 350px;
+        right: -100px;
+        bottom: 0px;
+    }
+    .features-section .container {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Maintain 2 columns on tablets */
+        gap: 25px;
+    }
+    .features-section {
+        padding: 60px 0;
+        margin-top: -40px;
+    }
+    .feature-card {
+        padding: 25px;
+    }
+    .feature-card .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 15px;
+    }
+    .feature-card .icon-wrapper i {
+        font-size: 26px;
+    }
+    .feature-card h3 {
+        font-size: 19px;
+    }
+    .feature-card p {
+        font-size: 14px;
+    }
+    .feature-card .sub-info {
+        font-size: 13px;
+    }
+    .specialist-section h2, .expert-doctors-section h2 {
+        font-size: 38px;
+    }
+    .specialist-section p, .expert-doctors-section p {
+        font-size: 16px;
+    }
+    .experience-section h2 {
+        font-size: 42px;
+    }
+    .experience-section p {
+        font-size: 17px;
+    }
+    .expert-search-bar-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar .container {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .navbar .logo {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 15px;
+        margin-right: 0;
+    }
+    .navbar .nav-links {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 15px;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .navbar .auth-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+    .hero-section h1 {
+        font-size: 38px;
+    }
+    .hero-section p {
+        font-size: 16px;
+    }
+    .trusted-badge {
+        font-size: 13px;
+        padding: 6px 15px;
+    }
+    .search-bar-container {
+        padding: 20px;
+    }
+    .search-input-group label {
+        font-size: 13px;
+    }
+    .search-input-group input {
+        padding: 10px 10px 10px 40px;
+        font-size: 15px;
+    }
+    .search-btn {
+        padding: 12px 25px;
+        font-size: 16px;
+    }
+    .popular-searches {
+        flex-direction: column; /* Stack search pills vertically */
+        align-items: flex-start; /* Align to the left */
+        padding-left: 20px; /* Indent slightly */
+    }
+    .popular-searches span {
+        font-size: 14px;
+        margin-right: 0; /* Reset margin for stacking */
+        width: 100%; /* Take full width for stacking */
+        text-align: left; /* Align text within pills */
+    }
+    .popular-searches a {
+        font-size: 14px;
+        margin: 0; /* Reset margin for stacking */
+        width: 100%; /* Take full width for stacking */
+        text-align: left; /* Align text within pills */
+        padding: 8px 15px; /* Adjust padding for stacked pills */
+    }
+    .blob-pink {
+        width: 200px;
+        height: 200px;
+        left: -50px;
+        top: 0px;
+    }
+    .blob-purple {
+        width: 300px;
+        height: 300px;
+        right: -80px;
+        bottom: -30px;
+    }
+    .features-section .container {
+        grid-template-columns: 1fr; /* Single column on smaller tablets and mobile */
+        max-width: 400px;
+    }
+    .features-section {
+        padding: 50px 0;
+        margin-top: -30px;
+    }
+    .feature-card {
+        margin: 0 auto;
+        min-height: auto; /* Allow height to adjust for single column */
+    }
+    .feature-card .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 15px;
+    }
+    .feature-card .icon-wrapper i {
+        font-size: 26px;
+    }
+    .feature-card h3 {
+        font-size: 19px;
+    }
+    .feature-card p {
+        font-size: 14px;
+    }
+    .feature-card .sub-info {
+        font-size: 13px;
+    }
+    .call-to-action .container {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    .book-appointment-btn,
+    .watch-demo-btn {
+        width: 80%;
+        padding: 12px 25px;
+        font-size: 15px;
+    }
+    .specialist-section h2, .expert-doctors-section h2 {
+        font-size: 32px;
+    }
+    .specialist-section p, .expert-doctors-section p {
+        font-size: 16px;
+    }
+    .tagline-star {
+        font-size: 13px;
+        padding: 6px 15px;
+    }
+    .experience-section h2 {
+        font-size: 32px;
+    }
+    .experience-section p {
+        font-size: 16px;
+    }
+    .expert-search-bar-container {
+        grid-template-columns: 1fr; /* Stack inputs vertically */
+        max-width: 400px;
+        padding: 15px;
+    }
+    .expert-search-input-group input,
+    .expert-filter-dropdown select {
+        padding: 10px 10px 10px 40px;
+        font-size: 15px;
+    }
+    .quick-filters {
+        justify-content: center;
+        gap: 8px 10px;
+    }
+    .quick-filters span {
+        margin-right: 0; /* Remove extra margin on very small screens */
+        width: 100%;
+    }
+    .quick-filter-btn {
+        width: auto; /* Let buttons size naturally */
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar .logo {
+        font-size: 20px;
+    }
+    .navbar .logo i {
+        font-size: 25px;
+    }
+    .navbar .logo .healthcare-platform {
+        font-size: 12px;
+    }
+    .navbar .nav-links {
+        flex-direction: column;
+        align-items: center;
+    }
+    .navbar .auth-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .hero-section h1 {
+        font-size: 30px;
+    }
+    .hero-section p {
+        font-size: 15px;
+    }
+    .search-bar-container {
+        padding: 15px;
+    }
+    .search-input-group input {
+        padding: 8px 8px 8px 35px;
+        font-size: 14px;
+    }
+    .search-btn {
+        font-size: 15px;
+        padding: 10px 20px;
+    }
+    .popular-searches a {
+        font-size: 13px;
+    }
+    .blob-pink {
+        width: 150px;
+        height: 150px;
+        filter: blur(60px);
+    }
+    .blob-purple {
+        width: 250px;
+        height: 250px;
+        filter: blur(60px);
+    }
+    .features-section {
+        padding: 40px 0;
+        margin-top: -20px;
+    }
+    .feature-card {
+        padding: 20px;
+    }
+    .feature-card .icon-wrapper {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;
+    }
+    .feature-card .icon-wrapper i {
+        font-size: 22px;
+    }
+    .feature-card h3 {
+        font-size: 18px; /* Further reduced for smaller screens */
+    }
+    .feature-card p {
+        font-size: 13px; /* Further reduced for smaller screens */
+    }
+    .feature-card .sub-info {
+        font-size: 12px;
+    }
+    .book-appointment-btn,
+    .watch-demo-btn {
+        width: 95%;
+        font-size: 14px;
+    }
+    .specialist-section h2 {
+        font-size: 28px;
+    }
+    .specialist-section p {
+        font-size: 15px;
+    }
+    .expert-search-bar-container {
+        padding: 10px;
+    }
+    .quick-filters span {
+        margin-right: 0; /* Remove extra margin on very small screens */
+        width: 100%;
+    }
+    .quick-filter-btn {
+        width: auto; /* Let buttons size naturally */
+    }
+}
+
+
+.features-stats-section {
+    background-color: var(--section-bg-light); /* Using a light background variable */
+    padding: 80px 0 60px; /* Adjust padding as needed */
+    margin-top: -60px; /* Pulls section up to overlap hero section if desired, adjust as per layout */
+    position: relative;
+    z-index: 2; /* Ensures it sits above hero blobs */
+    border-radius: 20px 20px 0 0; /* Rounded top corners if overlapping */
+}
+
+.features-stats-section .feature-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the start of their grid area */
+    margin-bottom: 50px; /* Space between cards and buttons */
+}
+
+/* Feature Card Styling (Specific to this section, reusing existing patterns) */
+.features-stats-section .feature-card {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05); /* Soft shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.features-stats-section .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+}
+
+.features-stats-section .feature-card .icon-wrapper {
+    width: 70px;
+    height: 70px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px; /* Center and add space */
+}
+
+.features-stats-section .feature-card .icon-wrapper i {
+    font-size: 30px;
+    color: #fff;
+}
+
+/* Specific icon wrapper background colors (ensure these are in your :root or here) */
+.features-stats-section .feature-card .icon-wrapper.red { background-color: var(--feature-red); } /* */
+.features-stats-section .feature-card .icon-wrapper.green { background-color: var(--feature-green); } /* */
+.features-stats-section .feature-card .icon-wrapper.blue { background-color: var(--feature-blue); } /* */
+.features-stats-section .feature-card .icon-wrapper.orange { background-color: var(--feature-orange); } /* */
+
+.features-stats-section .feature-card h3 {
+    font-size: 28px; /* Larger font for numbers */
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 5px;
+}
+
+.features-stats-section .feature-card p {
+    font-size: 16px;
+    color: var(--gray-text);
+    margin-bottom: 15px;
+}
+
+.features-stats-section .feature-card .sub-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--gray-text);
+}
+
+.features-stats-section .feature-card .sub-info i {
+    font-size: 14px;
+}
+
+/* Call to Action Buttons Container */
+.features-stats-section .call-to-action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 20px; /* Add some space from the cards above */
+}
+
+/* Button Styling (reusing existing variables and patterns) */
+.features-stats-section .book-appointment-btn,
+.features-stats-section .watch-demo-btn {
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.features-stats-section .book-appointment-btn {
+    background: linear-gradient(90deg, #C026F8 0%, #6B21A8 100%); /* Gradient similar to image */
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(107, 33, 168, 0.3);
+}
+
+.features-stats-section .book-appointment-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(107, 33, 168, 0.4);
+}
+
+.features-stats-section .watch-demo-btn {
+    background-color: #E0F2FE; /* Light blue background */
+    color: var(--primary-purple);
+    border: 1px solid var(--primary-purple);
+    box-shadow: 0 4px 10px rgba(var(--primary-purple-rgb), 0.2);
+}
+
+.features-stats-section .watch-demo-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(var(--primary-purple-rgb), 0.3);
+}
+
+.features-stats-section .book-appointment-btn i,
+.features-stats-section .watch-demo-btn i {
+    font-size: 18px;
+}
+
+
+/* Responsive Adjustments for this specific section */
+@media (max-width: 1024px) {
+    .features-stats-section .feature-cards-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+    }
+    .features-stats-section .feature-card {
+        padding: 25px;
+    }
+    .features-stats-section .feature-card h3 {
+        font-size: 24px;
+    }
+    .features-stats-section .feature-card p {
+        font-size: 15px;
+    }
+    .features-stats-section .feature-card .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 15px;
+    }
+    .features-stats-section .feature-card .icon-wrapper i {
+        font-size: 26px;
+    }
+    .features-stats-section .book-appointment-btn,
+    .features-stats-section .watch-demo-btn {
+        padding: 12px 25px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .features-stats-section .feature-cards-grid {
+        grid-template-columns: 1fr; /* Stack cards vertically on smaller screens */
+        max-width: 400px; /* Constrain width of stacked cards */
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .features-stats-section .call-to-action-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    .features-stats-section .book-appointment-btn,
+    .features-stats-section .watch-demo-btn {
+        width: 80%; /* Make buttons take more width */
+        max-width: 350px; /* Max width for buttons */
+    }
+}
+
+@media (max-width: 480px) {
+    .features-stats-section {
+        padding: 40px 0 30px;
+    }
+    .features-stats-section .feature-card {
+        padding: 20px;
+    }
+    .features-stats-section .feature-card h3 {
+        font-size: 22px;
+    }
+    .features-stats-section .feature-card p {
+        font-size: 14px;
+    }
+    .features-stats-section .book-appointment-btn,
+    .features-stats-section .watch-demo-btn {
+        width: 95%; /* Even wider on very small screens */
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}
+
+
+/* Add these new variables to your :root in style.css if not already present */
+:root {
+    /* --- Basic Colors (from previous code) --- */
+    --primary-purple: #8B5CF6; /* Main purple color (logo color) */
+    --primary-purple-light: #F3EDFF; /* A very light version of --primary-purple for quick filter hover */
+    --dark-text: #1F2937; /* Dark text for headings */
+    --gray-text: #4B5563; /* Gray text for paragraphs */
+    --light-gray-bg: #F9FAFB; /* Light gray background */
+    --section-bg-light: #FBF8FF; /* Lighter background for some sections */
+    --card-bg: #FFFFFF; /* White background for cards */
+    --card-shadow: rgba(0, 0, 0, 0.05); /* Light shadow for cards */
+    --border-color: #E5E7EB; /* Default border color */
+    --green-dot: #10B981; /* Green dot for stats */
+
+    /* --- New & Corrected Specialty Icon Colors (from images) --- */
+    --specialty-red: #FE4A6E; /* Cardiology icon color */
+    --specialty-red-light: #FFEBEE; /* Light hover for Cardiology */
+    --specialty-purple: #7C3AED; /* Neurology icon color */
+    --specialty-purple-light: #F3EDFF; /* Light hover for Neurology */
+    --specialty-blue: #3699FF; /* Ophthalmology icon color */
+    --specialty-blue-light: #E8F6FF; /* Light hover for Ophthalmology */
+    --specialty-green-teal: #16A34A; /* General Medicine icon color */
+    --specialty-green-teal-light: #D4F7DB; /* Light hover for General Medicine */
+    --specialty-dark-pink: #EC4899; /* Pediatrics icon color */
+    --specialty-dark-pink-light: #FCE7F6; /* Light hover for Pediatrics */
+    --specialty-deep-orange: #F97316; /* Orthopedics icon color */
+    --specialty-deep-orange-light: #FFF7ED; /* Light hover for Orthopedics */
+    --specialty-amber: #F59E0B; /* Dermatology icon color */
+    --specialty-amber-light: #FFFBEB; /* Light hover for Dermatology */
+    --specialty-deep-purple: #8B5CF6; /* Psychiatry icon color */
+    --specialty-deep-purple-light: #EDE9FE; /* Light hover for Psychiatry */
+
+    --popular-tag-bg: #FFEDD5; /* Background for 'Popular' tag */
+    --popular-tag-text: #F59E0B; /* Text color for 'Popular' tag */
+
+    /* --- Existing variables that should be there from previous code --- */
+    --tagline-star-bg: #FEE2E2; /* Example: light red background for star tagline */
+    --tagline-star-text: #EF4444; /* Example: red text for star tagline */
+    --purple-gradient-start: #A855F7;
+    --purple-gradient-end: #6D28D9;
+    /* Define primary-purple-rgb if using rgba with it, e.g., 139, 92, 246 */
+    --primary-purple-rgb: 139, 92, 246; /* RGB values for --primary-purple */
+}
+
+/* ------------------------------------- */
+/* MEDICAL SPECIALTIES SECTION (from image_9168d3.jpg, image_910efa.jpg) */
+/* ------------------------------------- */
+.specialties-section {
+    background-color: var(--section-bg-light); /* Or white, depending on your desired background */
+    padding: 100px 0;
+    text-align: center;
+}
+
+.specialties-section .container {
+    display: flex; /* Ensure container uses flex to manage children */
+    flex-direction: column; /* Stack heading and cards */
+    align-items: center;
+    max-width: 1200px; /* Constrain content width */
+    margin: 0 auto; /* Center the container */
+    padding: 0 20px; /* Add horizontal padding for smaller screens */
+}
+
+.specialties-section .section-heading {
+    max-width: 700px;
+    margin-bottom: 50px;
+}
+
+.specialties-section .tagline { /* Reusing existing tagline style */
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--light-purple); /* Light purple background */
+    color: var(--primary-purple); /* */
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.specialties-section .section-heading h2 {
+    font-family: 'Playfair Display', serif; /* Based on font usage in other sections */
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.specialties-section .section-heading h2 .highlight {
+    color: var(--primary-purple); /* Or a specific gradient purple from design */
+}
+
+.specialties-section .section-heading p {
+    font-size: 18px;
+    color: var(--gray-text);
+    line-height: 1.7;
+}
+
+.specialty-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid for 4 columns */
+    gap: 30px;
+    justify-content: center;
+    align-items: stretch; /* Make cards the same height */
+    width: 100%; /* Ensure it spans the container */
+}
+
+.specialty-card {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: left; /* Text aligns left within card */
+    box-shadow: 0 10px 20px var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    position: relative; /* For the 'Popular' tag */
+    display: flex; /* For internal layout */
+    flex-direction: column;
+    justify-content: space-between; /* Push footer to bottom */
+}
+
+/* Hover effect: background changes to light version of icon color, text turns white */
+/* Using :has() pseudo-class for targeted hover effect */
+.specialty-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+}
+
+.specialty-card:hover h4,
+.specialty-card:hover p,
+.specialty-card:hover .card-footer-info .stats,
+.specialty-card:hover .card-footer-info .view-all,
+.specialty-card:hover .card-footer-info .view-all i {
+    color: var(--dark-text); /* Keep original text color when background changes to light version of logo */
+}
+
+/* Specific hover background colors for each card based on its icon's base color */
+.specialty-card:hover.specialty-card:has(.icon-wrapper.red) {
+    background-color: var(--specialty-red-light);
+}
+.specialty-card:hover.specialty-card:has(.icon-wrapper.purple) {
+    background-color: var(--specialty-purple-light);
+}
+.specialty-card:hover.specialty-card:has(.icon-wrapper.blue) {
+    background-color: var(--specialty-blue-light);
+}
+.specialty-card:hover.specialty-card:has(.icon-wrapper.green-teal) {
+    background-color: var(--specialty-green-teal-light);
+}
+.specialty-card:hover.specialty-card:has(.icon-wrapper.dark-pink) {
+    background-color: var(--specialty-dark-pink-light);
+}
+.specialty-card:hover.specialty-card:has(.icon-wrapper.deep-orange) {
+    background-color: var(--specialty-deep-orange-light);
+}
+.specialty-card:hover.specialty-card:has(.icon-wrapper.amber) {
+    background-color: var(--specialty-amber-light);
+}
+.specialty-card:hover.specialty-card:has(.icon-wrapper.deep-purple) {
+    background-color: var(--specialty-deep-purple-light);
+}
+
+/* 'Popular' tag styling */
+.specialty-card .popular-tag {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: var(--popular-tag-bg);
+    color: var(--popular-tag-text);
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.specialty-card .icon-wrapper {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Slight shadow on icons */
+}
+
+.specialty-card .icon-wrapper i {
+    font-size: 24px;
+    color: #fff;
+}
+
+/* Icon specific background colors */
+.specialty-card .icon-wrapper.red { background-color: var(--specialty-red); } /* */
+.specialty-card .icon-wrapper.purple { background-color: var(--specialty-purple); } /* */
+.specialty-card .icon-wrapper.blue { background-color: var(--specialty-blue); } /* */
+.specialty-card .icon-wrapper.green-teal { background-color: var(--specialty-green-teal); } /* */
+.specialty-card .icon-wrapper.dark-pink { background-color: var(--specialty-dark-pink); } /* */
+.specialty-card .icon-wrapper.deep-orange { background-color: var(--specialty-deep-orange); } /* */
+.specialty-card .icon-wrapper.amber { background-color: var(--specialty-amber); } /* */
+.specialty-card .icon-wrapper.deep-purple { background-color: var(--specialty-deep-purple); } /* */
+
+
+.specialty-card h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 8px;
+}
+
+.specialty-card p {
+    font-size: 14px;
+    color: var(--gray-text);
+    line-height: 1.5;
+    flex-grow: 1; /* Allows description to take available space */
+    margin-bottom: 15px;
+}
+
+.specialty-card .card-footer-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto; /* Pushes to the bottom */
+}
+
+.specialty-card .card-footer-info .stats {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    color: var(--gray-text);
+    font-weight: 500;
+}
+
+.specialty-card .card-footer-info .dot-green {
+    color: var(--green-dot); /* Reusing the green dot color */
+    font-size: 8px; /* Smaller dot */
+}
+
+.specialty-card .card-footer-info .view-all {
+    text-decoration: none;
+    color: var(--primary-purple);
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.specialty-card .card-footer-info .view-all i {
+    transition: color 0.3s ease;
+}
+
+/* Responsive Adjustments for this section */
+@media (max-width: 1200px) {
+    .specialty-cards-grid {
+        gap: 25px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .specialties-section .section-heading h2 {
+        font-size: 38px;
+    }
+    .specialties-section .section-heading p {
+        font-size: 17px;
+    }
+    .specialty-cards-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* 3 or 4 columns on tablets */
+        gap: 20px;
+    }
+    .specialty-card {
+        padding: 25px;
+    }
+    .specialty-card .icon-wrapper {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 15px;
+    }
+    .specialty-card .icon-wrapper i {
+        font-size: 20px;
+    }
+    .specialty-card h4 {
+        font-size: 17px;
+    }
+    .specialty-card p {
+        font-size: 13px;
+    }
+    .specialty-card .card-footer-info .stats,
+    .specialty-card .card-footer-info .view-all {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .specialties-section .section-heading h2 {
+        font-size: 32px;
+    }
+    .specialties-section .section-heading p {
+        font-size: 16px;
+    }
+    .specialty-cards-grid {
+        grid-template-columns: 1fr; /* Single column on mobile */
+        max-width: 400px; /* Constrain width of stacked cards */
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .specialty-card {
+        padding: 20px;
+    }
+    .specialty-card .icon-wrapper {
+        width: 45px;
+        height: 45px;
+        margin-bottom: 10px;
+    }
+    .specialty-card .icon-wrapper i {
+        font-size: 18px;
+    }
+    .specialty-card h4 {
+        font-size: 16px;
+    }
+    .specialty-card p {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .specialties-section {
+        padding: 60px 0;
+    }
+    .specialties-section .section-heading h2 {
+        font-size: 28px;
+    }
+    .specialties-section .section-heading p {
+        font-size: 14px;
+    }
+    .specialty-card {
+        padding: 15px;
+    }
+}
+
+
+
+/* Add these variables to your :root section if they are not already there */
+:root {
+    --primary-purple: #8B5CF6; /* Main highlight color for text and buttons */
+    --light-purple: #F3EDFF; /* Background for 'Top Rated Doctors' tag and filter buttons */
+    --text-dark: #1F2937; /* Main dark text color */
+    --text-gray: #4B5563; /* Secondary text color */
+    --input-border: #E5E7EB; /* Border color for search inputs */
+    --button-hover-bg: #8B5CF6; /* Hover background for filter buttons */
+    --button-hover-text: #FFFFFF; /* Hover text for filter buttons */
+    --section-bg-white: #FFFFFF; /* Section background color */
+    --shadow-light: rgba(0, 0, 0, 0.08); /* Light shadow for elements */
+}
+
+/* ------------------------------------- */
+/* EXPERT DOCTORS SECTION */
+/* ------------------------------------- */
+.expert-doctors-section {
+    background-color: var(--section-bg-white);
+    padding: 80px 0;
+    text-align: center;
+}
+
+.expert-doctors-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.expert-doctors-section .top-rated-tag {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--light-purple);
+    color: var(--primary-purple);
+    padding: 8px 18px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+.expert-doctors-section .top-rated-tag i {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.expert-doctors-section .section-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.expert-doctors-section .section-title .highlight {
+    color: var(--primary-purple);
+}
+
+.expert-doctors-section .section-description {
+    font-size: 18px;
+    color: var(--text-gray);
+    max-width: 650px;
+    margin: 0 auto 50px;
+    line-height: 1.6;
+}
+
+.doctor-search-bar {
+    background-color: var(--section-bg-white);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px var(--shadow-light);
+    padding: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.search-input-group {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 220px; /* Adjust based on desired minimum input width */
+    border: 1px solid var(--input-border);
+    border-radius: 10px;
+    padding: 12px 15px;
+    background-color: #f9fafb; /* Light background for inputs */
+}
+
+.search-input-group i {
+    color: var(--text-gray);
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.search-input-group input,
+.search-input-group select {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+    color: var(--text-dark);
+    background-color: transparent;
+    padding: 0;
+}
+
+.search-input-group select {
+    -webkit-appearance: none; /* Remove default arrow for Chrome/Safari */
+    -moz-appearance: none; /* Remove default arrow for Firefox */
+    appearance: none; /* Remove default arrow */
+    cursor: pointer;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%234B5563%22%20d%3D%22M287%2C114.7L159.2%2C242.5c-4.5%2C4.5-10.6%2C6.7-16.8%2C6.7c-6.1%2C0-12.2-2.2-16.8-6.7L5.4%2C114.7c-9.1-9.1-9.1-23.7%2C0-32.8c9.1-9.1%2C23.7-9.1%2C32.8%2C0l118.6%2C118.6L254.2%2C81.9c9.1-9.1%2C23.7-9.1%2C32.8%2C0C296.1%2C91%2C296.1%2C105.6%2C287%2C114.7z%22%2F%3E%3C%2Fsvg%3E'); /* Custom arrow */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    padding-right: 30px; /* Space for custom arrow */
+}
+
+.quick-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.filter-label {
+    font-size: 15px;
+    color: var(--text-gray);
+    font-weight: 500;
+    margin-right: 8px;
+}
+
+.filter-button {
+    background-color: var(--light-purple);
+    color: var(--primary-purple);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.filter-button:hover {
+    background-color: var(--primary-purple);
+    color: var(--button-hover-text);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .doctor-search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-input-group {
+        min-width: unset; /* Allow inputs to take full width */
+    }
+    .expert-doctors-section .section-title {
+        font-size: 40px;
+    }
+    .expert-doctors-section .section-description {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .expert-doctors-section {
+        padding: 60px 0;
+    }
+    .expert-doctors-section .section-title {
+        font-size: 32px;
+    }
+    .expert-doctors-section .section-description {
+        font-size: 15px;
+        margin-bottom: 40px;
+    }
+    .doctor-search-bar {
+        padding: 20px;
+        gap: 15px;
+    }
+    .search-input-group {
+        padding: 10px 12px;
+    }
+    .search-input-group i {
+        font-size: 16px;
+    }
+    .search-input-group input,
+    .search-input-group select {
+        font-size: 14px;
+    }
+    .quick-filters {
+        justify-content: flex-start; /* Align filters to the left on small screens */
+        margin-left: 15px; /* Add some padding if needed */
+        margin-right: 15px;
+    }
+    .filter-label {
+        width: 100%; /* Make label take full width */
+        text-align: left;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .expert-doctors-section .section-title {
+        font-size: 28px;
+    }
+    .top-rated-tag {
+        font-size: 13px;
+        padding: 6px 15px;
+    }
+    .filter-button {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+}
+
+/* Add these variables to your :root section if they are not already there */
+:root {
+    --section-bg-light: #FBF8FF; /* A very light, almost white background */
+    --tagline-star-bg: #FEE2E2; /* Light pink background for the star tagline */
+    --tagline-star-text: #EF4444; /* Reddish text for the star tagline */
+    --text-dark: #1F2937; /* Dark text for main headings */
+    --highlight-pink: #EC4899; /* The specific pink highlight color */
+    --text-gray: #4B5563; /* General gray text color */
+    --font-heading: 'Playfair Display', serif; /* Font for headings */
+    --font-primary: 'Poppins', sans-serif; /* General text font */
+}
+
+/* ------------------------------------- */
+/* EXPERIENCE HEALTHCARE SECTION */
+/* ------------------------------------- */
+.experience-healthcare-section {
+    background-color: var(--section-bg-light); /* Light background as seen in image */
+    padding: 100px 0; /* Ample padding top and bottom */
+    text-align: center; /* Center align all content within the section */
+}
+
+.experience-healthcare-section .container {
+    max-width: 1200px; /* Standard container width */
+    margin: 0 auto; /* Center the container */
+    padding: 0 15px; /* Horizontal padding for responsiveness */
+}
+
+.experience-healthcare-section .section-header {
+    max-width: 800px; /* Constrain width of header content */
+    margin: 0 auto; /* Center the header content */
+}
+
+.experience-healthcare-section .tagline-star {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--tagline-star-bg); /* Light pink background [cite: image_908b96.jpg] */
+    color: var(--tagline-star-text); /* Reddish text color [cite: image_908b96.jpg] */
+    padding: 8px 18px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 25px; /* Space below the tagline */
+}
+
+.experience-healthcare-section .tagline-star i {
+    margin-right: 8px; /* Space between icon and text */
+    font-size: 14px;
+}
+
+.experience-healthcare-section .section-title {
+    font-family: var(--font-heading); /* Specific font for this heading */
+    font-size: 48px; /* Large font size for impact */
+    font-weight: 700;
+    color: var(--text-dark); /* Dark text color */
+    margin-bottom: 20px; /* Space below title */
+    line-height: 1.2; /* Tight line height */
+}
+
+.experience-healthcare-section .section-title .highlight-pink {
+    color: var(--highlight-pink); /* Specific pink highlight color [cite: image_908b96.jpg] */
+}
+
+.experience-healthcare-section .section-description {
+    font-family: var(--font-primary); /* General text font */
+    font-size: 18px; /* Slightly larger paragraph text */
+    color: var(--text-gray); /* Gray text color */
+    max-width: 700px; /* Constrain width for readability */
+    margin: 0 auto; /* Center the paragraph */
+    line-height: 1.6; /* Comfortable line height */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .experience-healthcare-section {
+        padding: 80px 0;
+    }
+    .experience-healthcare-section .section-title {
+        font-size: 40px;
+    }
+    .experience-healthcare-section .section-description {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .experience-healthcare-section {
+        padding: 60px 0;
+    }
+    .experience-healthcare-section .section-title {
+        font-size: 32px;
+    }
+    .experience-healthcare-section .section-description {
+        font-size: 15px;
+    }
+    .experience-healthcare-section .section-header {
+        max-width: 90%; /* Allow header to take more width on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .experience-healthcare-section {
+        padding: 40px 0;
+    }
+    .experience-healthcare-section .tagline-star {
+        font-size: 13px;
+        padding: 6px 15px;
+    }
+    .experience-healthcare-section .section-title {
+        font-size: 28px;
+    }
+    .experience-healthcare-section .section-description {
+        font-size: 14px;
+    }
+}
+
+
+/* Add these variables to your :root section if they are not already there */
+:root {
+    --section-bg-light: #FBF8FF; /* Background for the overall section */
+    --card-bg: #FFFFFF; /* Background for individual cards */
+    --card-shadow: rgba(0, 0, 0, 0.08); /* Shadow for cards */
+
+    /* Icon base colors from image_907f79.png and image_285422.png */
+    --icon-color-green: #10B981; /* Verified Doctors icon color */
+    --icon-color-blue: #3B82F6; /* Instant Booking icon color */
+    --icon-color-orange: #F97316; /* Top Rated icon color */
+
+    /* Light background for icons (from image_907f79.png, image_285422.png) */
+    --icon-bg-green-light: #ECFDF5; /* Verified Doctors icon background */
+    --icon-bg-blue-light: #EFF6FF; /* Instant Booking icon background */
+    --icon-bg-orange-light: #FFF7ED; /* Top Rated icon background */
+
+    /* Light hover backgrounds (derived from icon colors, ~10-15% opacity) */
+    --hover-green-light: rgba(16, 185, 129, 0.1); /* Derived from --icon-color-green */
+    --hover-blue-light: rgba(59, 130, 246, 0.1); /* Derived from --icon-color-blue */
+    --hover-orange-light: rgba(249, 115, 22, 0.1); /* Derived from --icon-color-orange */
+
+
+    --text-dark: #1F2937; /* Dark text for headings */
+    --text-gray: #4B5563; /* Gray text for paragraphs */
+    --check-green: #10B981; /* Green color for check icons */
+
+    /* Keep --logo-purple if used elsewhere, but for these specific card hovers,
+       we're using colors derived from their own icons as requested. */
+    --logo-purple: #8B5CF6; /* Example general logo purple for other elements */
+}
+
+/* ------------------------------------- */
+/* FEATURE CARDS SECTION */
+/* ------------------------------------- */
+.feature-cards-section {
+    background-color: var(--section-bg-light);
+    padding: 80px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.feature-cards-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.feature-cards-grid {
+    display: grid;
+    /* This ensures three columns when there's enough space */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px; /* Space between cards */
+    justify-content: center;
+    align-items: stretch; /* Make cards same height */
+}
+
+.feature-card {
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    padding: 35px;
+    text-align: left;
+    box-shadow: 0 10px 30px var(--card-shadow);
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Individual card hover effects */
+.feature-card:hover {
+    transform: translateY(-8px); /* Lift effect */
+}
+
+/* Specific hover background colors based on icon color */
+.feature-card:hover:has(.icon-wrapper.green-light) {
+    background-color: var(--hover-green-light);
+    box-shadow: 0 15px 40px rgba(16, 185, 129, 0.15); /* Shadow with green tint */
+}
+.feature-card:hover:has(.icon-wrapper.blue-light) {
+    background-color: var(--hover-blue-light);
+    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.15); /* Shadow with blue tint */
+}
+.feature-card:hover:has(.icon-wrapper.orange-light) {
+    background-color: var(--hover-orange-light);
+    box-shadow: 0 15px 40px rgba(249, 115, 22, 0.15); /* Shadow with orange tint */
+}
+
+
+.feature-card .icon-wrapper {
+    width: 70px;
+    height: 70px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    transition: background-color 0.3s ease;
+}
+
+/* Icon background colors as per image */
+.feature-card .icon-wrapper.green-light {
+    background-color: var(--icon-bg-green-light);
+}
+.feature-card .icon-wrapper.blue-light {
+    background-color: var(--icon-bg-blue-light);
+}
+.feature-card .icon-wrapper.orange-light {
+    background-color: var(--icon-bg-orange-light);
+}
+
+.feature-card .icon-wrapper i {
+    font-size: 30px;
+    transition: color 0.3s ease;
+}
+
+/* Icon colors as per image */
+.feature-card .icon-wrapper.green-light i {
+    color: var(--icon-color-green);
+}
+.feature-card .icon-wrapper.blue-light i {
+    color: var(--icon-color-blue);
+}
+.feature-card .icon-wrapper.orange-light i {
+    color: var(--icon-color-orange);
+}
+
+/* Hover effect on card should change icon color to its base color (not a new color) */
+.feature-card:hover .icon-wrapper.green-light i {
+    color: var(--icon-color-green);
+}
+.feature-card:hover .icon-wrapper.blue-light i {
+    color: var(--icon-color-blue);
+}
+.feature-card:hover .icon-wrapper.orange-light i {
+    color: var(--icon-color-orange);
+}
+
+
+.feature-card h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+    transition: color 0.3s ease;
+}
+
+/* Hover effect on card should keep h3 color dark as per image analysis (no change) */
+.feature-card:hover h3 {
+    color: var(--text-dark);
+}
+
+.feature-card p {
+    font-size: 16px;
+    color: var(--text-gray);
+    line-height: 1.6;
+    margin-bottom: 25px;
+    flex-grow: 1;
+    transition: color 0.3s ease;
+}
+
+/* Hover effect on card should keep p color gray as per image analysis (no change) */
+.feature-card:hover p {
+    color: var(--text-gray);
+}
+
+.feature-card .card-bottom-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.feature-card .info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-gray);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.feature-card .info-item .check-green {
+    color: var(--check-green);
+    font-size: 16px;
+}
+
+/* Hover effect on card should keep info-item color gray (no change) */
+.feature-card:hover .info-item {
+    color: var(--text-gray);
+}
+
+.feature-card .learn-more {
+    text-decoration: none;
+    color: var(--logo-purple); /* Learn more link is logo purple */
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease;
+}
+
+.feature-card .learn-more i {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.feature-card .learn-more:hover {
+    color: var(--text-dark); /* Learn more text becomes darker on hover */
+}
+
+.feature-card .learn-more:hover i {
+    transform: translateX(3px); /* Arrow moves on hover */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .feature-cards-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjust to 2 or 1 column on smaller screens */
+        gap: 25px;
+    }
+    .feature-card {
+        padding: 30px;
+    }
+    .feature-card .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 20px;
+    }
+    .feature-card .icon-wrapper i {
+        font-size: 26px;
+    }
+    .feature-card h3 {
+        font-size: 20px;
+    }
+    .feature-card p {
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .feature-cards-section {
+        padding: 60px 0;
+    }
+    .feature-cards-grid {
+        grid-template-columns: 1fr; /* Stack cards on very small screens */
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .feature-card {
+        padding: 25px;
+    }
+    .feature-card .icon-wrapper {
+        margin-bottom: 15px;
+    }
+    .feature-card h3 {
+        font-size: 18px;
+    }
+    .feature-card p {
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+    .feature-card .info-item,
+    .feature-card .learn-more {
+        font-size: 13px;
+    }
+}
+
+
+/* Add these variables to your :root section if they are not already there */
+:root {
+    /* Existing variables from previous sections */
+    --section-bg-light: #FBF8FF;
+    --card-bg: #FFFFFF;
+    --card-shadow: rgba(0, 0, 0, 0.08);
+    --text-dark: #1F2937;
+    --text-gray: #4B5563;
+    --check-green: #10B981;
+    --logo-purple: #8B5CF6; /* General logo purple for learn-more link */
+
+    /* NEW Icon base colors for Quality Care, Telemedicine, Flexible Scheduling (from image_901a99.png) */
+    --icon-color-red: #FE4A6E; /* Quality Care icon color */
+    --icon-color-purple-light: #7C3AED; /* Telemedicine icon color */
+    --icon-color-purple-dark: #6D28D9; /* Flexible Scheduling icon color */
+
+    /* NEW Light background for icons (from image_901a99.png) */
+    --icon-bg-red-light: #FFEBEE; /* Quality Care icon background */
+    --icon-bg-purple-light: #F3EDFF; /* Telemedicine icon background */
+    --icon-bg-purple-dark: #EDE9FE; /* Flexible Scheduling icon background */
+
+    /* NEW Light hover backgrounds (derived from icon colors, ~10-15% opacity) */
+    --hover-red-light: rgba(254, 74, 110, 0.1); /* Derived from --icon-color-red */
+    --hover-purple-light: rgba(124, 58, 237, 0.1); /* Derived from --icon-color-purple-light */
+    --hover-purple-dark: rgba(109, 40, 217, 0.1); /* Derived from --icon-color-purple-dark */
+}
+
+/* ------------------------------------- */
+/* FEATURE CARDS SECTION (continued, with new card styles) */
+/* ------------------------------------- */
+
+/* The .feature-cards-section, .container, .feature-cards-grid, .feature-card,
+   .card-bottom-info, .info-item, .info-item .check-green, .learn-more,
+   .learn-more i, and their general hover effects should largely remain the same
+   as previously provided to maintain consistency.
+
+   The key changes are in the .icon-wrapper classes and their specific hover rules.
+*/
+
+/* --- Existing general card styles (if not already in your CSS) --- */
+.feature-cards-section {
+    background-color: var(--section-bg-light);
+    padding: 80px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.feature-cards-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.feature-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Ensures three columns */
+    gap: 30px;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.feature-card {
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    padding: 35px;
+    text-align: left;
+    box-shadow: 0 10px 30px var(--card-shadow);
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* General card lift effect on hover */
+.feature-card:hover {
+    transform: translateY(-8px);
+}
+
+.feature-card .icon-wrapper {
+    width: 70px;
+    height: 70px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    transition: background-color 0.3s ease;
+}
+
+.feature-card .icon-wrapper i {
+    font-size: 30px;
+    transition: color 0.3s ease;
+}
+
+.feature-card h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+    transition: color 0.3s ease;
+}
+
+.feature-card p {
+    font-size: 16px;
+    color: var(--text-gray);
+    line-height: 1.6;
+    margin-bottom: 25px;
+    flex-grow: 1;
+    transition: color 0.3s ease;
+}
+
+.feature-card .card-bottom-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.feature-card .info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-gray);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.feature-card .info-item .check-green {
+    color: var(--check-green);
+    font-size: 16px;
+}
+
+.feature-card .learn-more {
+    text-decoration: none;
+    color: var(--logo-purple);
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease;
+}
+
+.feature-card .learn-more i {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.feature-card .learn-more:hover {
+    color: var(--text-dark);
+}
+
+.feature-card .learn-more:hover i {
+    transform: translateX(3px);
+}
+
+/* --- NEW Specific styles for Quality Care, Telemedicine, Flexible Scheduling cards --- */
+
+/* Quality Care Card */
+.feature-card .icon-wrapper.red-gradient {
+    background-color: var(--icon-bg-red-light);
+}
+.feature-card .icon-wrapper.red-gradient i {
+    color: var(--icon-color-red);
+}
+.feature-card:hover:has(.icon-wrapper.red-gradient) {
+    background-color: var(--hover-red-light);
+    box-shadow: 0 15px 40px rgba(254, 74, 110, 0.15); /* Shadow with red tint */
+}
+.feature-card:hover:has(.icon-wrapper.red-gradient) h3 {
+    color: var(--icon-color-red); /* Heading color changes to icon color on hover */
+}
+.feature-card:hover:has(.icon-wrapper.red-gradient) .learn-more {
+    color: var(--icon-color-red); /* Learn more color changes to icon color on hover */
+}
+.feature-card:hover:has(.icon-wrapper.red-gradient) .learn-more:hover {
+    color: var(--text-dark); /* Keep dark on inner hover */
+}
+
+/* Telemedicine Card */
+.feature-card .icon-wrapper.purple-gradient-light {
+    background-color: var(--icon-bg-purple-light);
+}
+.feature-card .icon-wrapper.purple-gradient-light i {
+    color: var(--icon-color-purple-light);
+}
+.feature-card:hover:has(.icon-wrapper.purple-gradient-light) {
+    background-color: var(--hover-purple-light);
+    box-shadow: 0 15px 40px rgba(124, 58, 237, 0.15); /* Shadow with purple tint */
+}
+.feature-card:hover:has(.icon-wrapper.purple-gradient-light) h3 {
+    color: var(--icon-color-purple-light); /* Heading color changes to icon color on hover */
+}
+.feature-card:hover:has(.icon-wrapper.purple-gradient-light) .learn-more {
+    color: var(--icon-color-purple-light); /* Learn more color changes to icon color on hover */
+}
+.feature-card:hover:has(.icon-wrapper.purple-gradient-light) .learn-more:hover {
+    color: var(--text-dark); /* Keep dark on inner hover */
+}
+
+/* Flexible Scheduling Card */
+.feature-card .icon-wrapper.purple-gradient-dark {
+    background-color: var(--icon-bg-purple-dark);
+}
+.feature-card .icon-wrapper.purple-gradient-dark i {
+    color: var(--icon-color-purple-dark);
+}
+.feature-card:hover:has(.icon-wrapper.purple-gradient-dark) {
+    background-color: var(--hover-purple-dark);
+    box-shadow: 0 15px 40px rgba(109, 40, 217, 0.15); /* Shadow with dark purple tint */
+}
+.feature-card:hover:has(.icon-wrapper.purple-gradient-dark) h3 {
+    color: var(--icon-color-purple-dark); /* Heading color changes to icon color on hover */
+}
+.feature-card:hover:has(.icon-wrapper.purple-gradient-dark) .learn-more {
+    color: var(--icon-color-purple-dark); /* Learn more color changes to icon color on hover */
+}
+.feature-card:hover:has(.icon-wrapper.purple-gradient-dark) .learn-more:hover {
+    color: var(--text-dark); /* Keep dark on inner hover */
+}
+
+/* --- Responsive Adjustments (apply to all feature card sections) --- */
+@media (max-width: 992px) {
+    .feature-cards-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjust to 2 or 1 column on smaller screens */
+        gap: 25px;
+    }
+    .feature-card {
+        padding: 30px;
+    }
+    .feature-card .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 20px;
+    }
+    .feature-card .icon-wrapper i {
+        font-size: 26px;
+    }
+    .feature-card h3 {
+        font-size: 20px;
+    }
+    .feature-card p {
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .feature-cards-section {
+        padding: 60px 0;
+    }
+    .feature-cards-grid {
+        grid-template-columns: 1fr; /* Stack cards on very small screens */
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .feature-card {
+        padding: 25px;
+    }
+    .feature-card .icon-wrapper {
+        margin-bottom: 15px;
+    }
+    .feature-card h3 {
+        font-size: 18px;
+    }
+    .feature-card p {
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+    .feature-card .info-item,
+    .feature-card .learn-more {
+        font-size: 13px;
+    }
+}
+
+/* Add these variables to your :root section if they are not already there */
+:root {
+    /* Existing variables from previous sections */
+    --section-bg-light: #FBF8FF;
+    --card-bg: #FFFFFF;
+    --card-shadow: rgba(0, 0, 0, 0.08);
+    --text-dark: #1F2937;
+    --text-gray: #4B5563;
+    --check-green: #10B981;
+    --logo-purple: #8B5CF6; /* General logo purple for learn-more link */
+
+    /* NEW Icon base colors for Secure & Private, Multi-language, Quick Response (from image_901a5b.png, image_285064.png) */
+    --icon-color-gray: #4B5563; /* Secure & Private icon color */
+    --icon-color-teal: #14B8A6; /* Multi-language icon color */
+    --icon-color-orange-red: #F56565; /* Quick Response icon color */
+
+    /* NEW Light background for icons (from image_901a5b.png, image_285064.png) */
+    --icon-bg-gray-light: #F3F4F6; /* Secure & Private icon background */
+    --icon-bg-teal-light: #ECFDF5; /* Multi-language icon background */
+    --icon-bg-orange-red-light: #FFF1F0; /* Quick Response icon background */
+
+    /* NEW Light hover backgrounds (derived from icon colors, ~10-15% opacity) */
+    --hover-gray-light: rgba(75, 85, 99, 0.05); /* Derived from --icon-color-gray, lighter opacity */
+    --hover-teal-light: rgba(20, 184, 166, 0.1); /* Derived from --icon-color-teal */
+    --hover-orange-red-light: rgba(245, 101, 101, 0.1); /* Derived from --icon-color-orange-red */
+}
+
+/* ------------------------------------- */
+/* FEATURE CARDS SECTION (continued, with new card styles) */
+/* ------------------------------------- */
+
+/* Ensure these general styles are already present in your CSS from previous sections */
+.feature-cards-section {
+    background-color: var(--section-bg-light);
+    padding: 80px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.feature-cards-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.feature-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Ensures three columns */
+    gap: 30px;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.feature-card {
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    padding: 35px;
+    text-align: left;
+    box-shadow: 0 10px 30px var(--card-shadow);
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* General card lift effect on hover */
+.feature-card:hover {
+    transform: translateY(-8px);
+}
+
+.feature-card .icon-wrapper {
+    width: 70px;
+    height: 70px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    transition: background-color 0.3s ease;
+}
+
+.feature-card .icon-wrapper i {
+    font-size: 30px;
+    transition: color 0.3s ease;
+}
+
+.feature-card h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+    transition: color 0.3s ease;
+}
+
+.feature-card p {
+    font-size: 16px;
+    color: var(--text-gray);
+    line-height: 1.6;
+    margin-bottom: 25px;
+    flex-grow: 1;
+    transition: color 0.3s ease;
+}
+
+.feature-card .card-bottom-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.feature-card .info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-gray);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.feature-card .info-item .check-green {
+    color: var(--check-green);
+    font-size: 16px;
+}
+
+.feature-card .learn-more {
+    text-decoration: none;
+    color: var(--logo-purple); /* Learn more link default color */
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease;
+}
+
+.feature-card .learn-more i {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.feature-card .learn-more:hover {
+    color: var(--text-dark); /* Learn more text becomes darker on hover */
+}
+
+.feature-card .learn-more:hover i {
+    transform: translateX(3px); /* Arrow moves on hover */
+}
+
+/* --- NEW Specific styles for Secure & Private, Multi-language, Quick Response cards --- */
+
+/* Secure & Private Card */
+.feature-card .icon-wrapper.gray-light {
+    background-color: var(--icon-bg-gray-light);
+}
+.feature-card .icon-wrapper.gray-light i {
+    color: var(--icon-color-gray);
+}
+.feature-card:hover:has(.icon-wrapper.gray-light) {
+    background-color: var(--hover-gray-light);
+    box-shadow: 0 15px 40px rgba(75, 85, 99, 0.1); /* Shadow with gray tint */
+}
+.feature-card:hover:has(.icon-wrapper.gray-light) h3 {
+    color: var(--icon-color-gray); /* Heading color changes to icon color on hover */
+}
+.feature-card:hover:has(.icon-wrapper.gray-light) .learn-more {
+    color: var(--icon-color-gray); /* Learn more color changes to icon color on hover */
+}
+.feature-card:hover:has(.icon-wrapper.gray-light) .learn-more:hover {
+    color: var(--text-dark); /* Keep dark on inner hover */
+}
+
+/* Multi-language Card */
+.feature-card .icon-wrapper.teal-light {
+    background-color: var(--icon-bg-teal-light);
+}
+.feature-card .icon-wrapper.teal-light i {
+    color: var(--icon-color-teal);
+}
+.feature-card:hover:has(.icon-wrapper.teal-light) {
+    background-color: var(--hover-teal-light);
+    box-shadow: 0 15px 40px rgba(20, 184, 166, 0.15); /* Shadow with teal tint */
+}
+.feature-card:hover:has(.icon-wrapper.teal-light) h3 {
+    color: var(--icon-color-teal); /* Heading color changes to icon color on hover */
+}
+.feature-card:hover:has(.icon-wrapper.teal-light) .learn-more {
+    color: var(--icon-color-teal); /* Learn more color changes to icon color on hover */
+}
+.feature-card:hover:has(.icon-wrapper.teal-light) .learn-more:hover {
+    color: var(--text-dark); /* Keep dark on inner hover */
+}
+
+/* Quick Response Card */
+.feature-card .icon-wrapper.orange-red-light {
+    background-color: var(--icon-bg-orange-red-light);
+}
+.feature-card .icon-wrapper.orange-red-light i {
+    color: var(--icon-color-orange-red);
+}
+.feature-card:hover:has(.icon-wrapper.orange-red-light) {
+    background-color: var(--hover-orange-red-light);
+    box-shadow: 0 15px 40px rgba(245, 101, 101, 0.15); /* Shadow with orange-red tint */
+}
+.feature-card:hover:has(.icon-wrapper.orange-red-light) h3 {
+    color: var(--icon-color-orange-red); /* Heading color changes to icon color on hover */
+}
+.feature-card:hover:has(.icon-wrapper.orange-red-light) .learn-more {
+    color: var(--icon-color-orange-red); /* Learn more color changes to icon color on hover */
+}
+.feature-card:hover:has(.icon-wrapper.orange-red-light) .learn-more:hover {
+    color: var(--text-dark); /* Keep dark on inner hover */
+}
+
+/* --- Responsive Adjustments (apply to all feature card sections) --- */
+/* (These should be copied directly from the previous section's CSS if they are not already universal) */
+@media (max-width: 992px) {
+    .feature-cards-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+    .feature-card {
+        padding: 30px;
+    }
+    .feature-card .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 20px;
+    }
+    .feature-card .icon-wrapper i {
+        font-size: 26px;
+    }
+    .feature-card h3 {
+        font-size: 20px;
+    }
+    .feature-card p {
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .feature-cards-section {
+        padding: 60px 0;
+    }
+    .feature-cards-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .feature-card {
+        padding: 25px;
+    }
+    .feature-card .icon-wrapper {
+        margin-bottom: 15px;
+    }
+    .feature-card h3 {
+        font-size: 18px;
+    }
+    .feature-card p {
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+    .feature-card .info-item,
+    .feature-card .learn-more {
+        font-size: 13px;
+    }
+}
+
+/* Add these variables to your :root section if they are not already there */
+:root {
+    /* Colors derived from image_901319.jpg and image_900eda.jpg */
+    --gradient-start: #8B5CF6; /* Purple (left side of gradient) */
+    --gradient-end: #EC4899; /* Pink (right side of gradient) */
+
+    --white-text: #FFFFFF; /* Text color for headings and descriptions */
+    --btn-primary-outline-bg: #FFFFFF; /* Background for "Book Your First Appointment" button */
+    --btn-primary-outline-text: #6D28D9; /* Text color for "Book Your First Appointment" button */
+
+    --btn-secondary-solid-bg: #D946EF; /* Background for "Learn More" button (a shade of purple/pink) */
+    --btn-secondary-solid-text: #FFFFFF; /* Text color for "Learn More" button */
+    --btn-secondary-solid-border: #D946EF; /* Border for "Learn More" button */
+
+    --font-heading: 'Playfair Display', serif; /* Assuming Playfair Display for headings */
+    --font-primary: 'Poppins', sans-serif; /* Assuming Poppins for general text */
+}
+
+/* ------------------------------------- */
+/* READY TO GET STARTED SECTION */
+/* ------------------------------------- */
+.ready-to-get-started-section {
+    background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+    border-radius: 25px; /* Rounded corners for the entire banner */
+    padding: 60px 40px; /* Ample padding inside the banner */
+    text-align: center;
+    max-width: 1000px; /* Max width for the banner container */
+    margin: 80px auto; /* Center the banner horizontally with vertical spacing */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+.ready-to-get-started-section .container {
+    /* No specific styles needed for .container if .ready-to-get-started-section is already constrained */
+    padding: 0; /* Remove default container padding if banner has its own */
+}
+
+.ready-to-get-started-section .section-title {
+    font-family: var(--font-heading);
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--white-text);
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.ready-to-get-started-section .section-description {
+    font-family: var(--font-primary);
+    font-size: 18px;
+    color: var(--white-text);
+    max-width: 600px; /* Constrain description width */
+    margin: 0 auto 40px auto; /* Center and add space below */
+    line-height: 1.6;
+    opacity: 0.9; /* Slightly less opaque than title */
+}
+
+.ready-to-get-started-section .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between buttons */
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+
+/* Base Button Styles (if not already defined globally) */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 30px;
+    border-radius: 30px; /* Highly rounded buttons */
+    text-decoration: none;
+    font-family: var(--font-primary);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Prevent text wrapping within button */
+}
+
+/* "Book Your First Appointment" - Outline Button */
+.btn-primary-outline {
+    background-color: var(--btn-primary-outline-bg);
+    color: var(--btn-primary-outline-text);
+    border: 2px solid var(--btn-primary-outline-bg); /* Border same as background for solid look */
+}
+
+.btn-primary-outline:hover {
+    background-color: transparent; /* Transparent background on hover */
+    color: var(--white-text); /* White text on hover */
+    border-color: var(--white-text); /* White border on hover */
+}
+
+/* "Learn More" - Solid Button */
+.btn-secondary-solid {
+    background-color: var(--btn-secondary-solid-bg);
+    color: var(--btn-secondary-solid-text);
+    border: 2px solid var(--btn-secondary-solid-border);
+}
+
+.btn-secondary-solid:hover {
+    background-color: var(--white-text); /* White background on hover */
+    color: var(--btn-primary-outline-text); /* Purple text on hover */
+    border-color: var(--white-text); /* White border on hover */
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .ready-to-get-started-section {
+        padding: 40px 25px;
+        margin: 60px 15px; /* Adjust margins for smaller screens */
+        border-radius: 20px;
+    }
+    .ready-to-get-started-section .section-title {
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+    .ready-to-get-started-section .section-description {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+    .ready-to-get-started-section .cta-buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 15px;
+    }
+    .btn {
+        width: 100%; /* Full width for stacked buttons */
+        max-width: 280px; /* Max width for individual buttons when stacked */
+        margin: 0 auto; /* Center buttons when stacked */
+    }
+}
+
+@media (max-width: 480px) {
+    .ready-to-get-started-section {
+        padding: 30px 20px;
+        margin: 40px 10px;
+    }
+    .ready-to-get-started-section .section-title {
+        font-size: 24px;
+    }
+    .ready-to-get-started-section .section-description {
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+}
+
+/* Add these variables to your :root section if they are not already there */
+:root {
+    /* Colors derived from image_900473.png */
+    --footer-bg-dark: #1A2033; /* Dark background color of the footer */
+    --footer-text-light: #E0E2E7; /* Light gray text color for paragraphs and links */
+    --footer-heading-color: #FFFFFF; /* White color for column headings */
+    --footer-link-hover: #8B5CF6; /* Purple color for link hover, consistent with logo */
+    --footer-logo-purple: #8B5CF6; /* Specific purple for the Medicare logo text */
+
+    /* Font Families (adjust if you have specific brand fonts) */
+    --font-heading: 'Poppins', sans-serif; /* Using Poppins for headings in footer for consistency */
+    --font-primary: 'Poppins', sans-serif; /* Consistent primary font */
+}
+
+/* ------------------------------------- */
+/* FOOTER SECTION */
+/* ------------------------------------- */
+.main-footer {
+    background-color: var(--footer-bg-dark);
+    padding: 80px 0 30px; /* Top padding, bottom padding for copyright */
+    color: var(--footer-text-light);
+    font-family: var(--font-primary);
+}
+
+.main-footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr repeat(3, 1fr); /* 4 columns: first column wider */
+    gap: 40px; /* Space between columns */
+    margin-bottom: 50px;
+}
+
+.footer-col h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--footer-heading-color);
+    margin-bottom: 25px;
+}
+
+/* Footer Column 1: Info */
+.footer-info .footer-logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.footer-info .medicare-logo-img {
+    height: 40px; /* Adjust as needed */
+    width: auto;
+    margin-right: 10px;
+}
+
+.footer-info .logo-text {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--footer-logo-purple); /* Or white, as per precise logo design */
+    /* Adjust based on the actual logo image. If the text is part of the image, remove this color. */
+}
+
+.footer-info .company-description {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: var(--footer-text-light);
+}
+
+.footer-info .social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-info .social-icons a {
+    color: var(--footer-text-light);
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.footer-info .social-icons a:hover {
+    color: var(--footer-link-hover);
+}
+
+/* Footer Columns 2 & 3: Links */
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links ul li {
+    margin-bottom: 15px;
+}
+
+.footer-links ul li a {
+    text-decoration: none;
+    color: var(--footer-text-light);
+    font-size: 15px;
+    transition: color 0.3s ease;
+}
+
+.footer-links ul li a:hover {
+    color: var(--footer-link-hover);
+}
+
+/* Footer Column 4: Contact Us */
+.footer-contact p {
+    display: flex;
+    align-items: flex-start; /* Align icon to top of multi-line text */
+    gap: 10px;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: var(--footer-text-light);
+}
+
+.footer-contact p i {
+    font-size: 18px;
+    color: var(--footer-text-light); /* Or adjust to a specific icon color if needed */
+    margin-top: 2px; /* Slight adjustment for icon alignment */
+}
+
+/* Footer Bottom Section (Copyright & Policies) */
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Light separator line */
+    padding-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.footer-bottom .copyright {
+    font-size: 14px;
+    color: var(--footer-text-light);
+    opacity: 0.8;
+    margin-bottom: 10px; /* Space when wrapped */
+}
+
+.footer-bottom .policy-links {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.footer-bottom .policy-links a {
+    text-decoration: none;
+    color: var(--footer-text-light);
+    font-size: 14px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+.footer-bottom .policy-links a:hover {
+    opacity: 1;
+    color: var(--footer-link-hover);
+}
+
+/* Responsive Adjustments for Footer */
+@media (max-width: 992px) {
+    .footer-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust to 2 columns on medium screens */
+        justify-content: center;
+        text-align: left; /* Keep text aligned left */
+    }
+
+    .footer-info,
+    .footer-links,
+    .footer-contact {
+        margin-bottom: 30px; /* Add some margin between stacked columns */
+    }
+
+    .footer-info .social-icons {
+        justify-content: flex-start; /* Align social icons to left */
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-bottom .copyright {
+        margin-bottom: 15px;
+    }
+    .footer-bottom .policy-links {
+        justify-content: center;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .main-footer {
+        padding: 60px 0 20px;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr; /* Stack all columns on small screens */
+        gap: 30px;
+    }
+    .footer-col h3 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    .footer-info .footer-logo {
+        justify-content: center; /* Center logo on very small screens */
+    }
+    .footer-info .company-description {
+        text-align: center; /* Center description on very small screens */
+    }
+    .footer-info .social-icons {
+        justify-content: center; /* Center social icons on very small screens */
+    }
+    .footer-contact p {
+        justify-content: center; /* Center contact info on very small screens */
+    }
+    .footer-links ul li {
+        text-align: center; /* Center list items on very small screens */
+    }
+    .footer-bottom .policy-links {
+        flex-direction: column;
+    }
+}
+
+
+/* Login */
+
+/* CSS Variables for Theme */
+:root {
+    /* Dark Mode (Default) */
+    --rh-login-body-bg: white;
+    --rh-login-text-color: #070707;
+    --rh-login-card-bg: white;
+    --rh-login-link-color: #a0a0a0;
+    --rh-login-link-hover-color: black;
+    --rh-login-accent-green: black;
+    --rh-login-subtitle-color: black;
+    --rh-login-form-control-bg: rgba(255, 255, 255, 0.08);
+    --rh-login-form-control-border: rgba(255, 255, 255, 0.2);
+    --rh-login-border-color: rgba(255, 255, 255, 0.1);
+    --rh-login-toggle-button-color: #e0e0e0;
+  } 
+  
+  /* General Body Styles */
+  body {
+    font-family: "Inter", sans-serif;
+    background-color: var(--rh-login-body-bg);
+    color: var(--rh-login-text-color);
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Main Content Area */
+  .rh-login-main-content {
+    flex-grow: 1; /* Allow content to take available vertical space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+  }
+  
+  /* Form Card Styles */
+  .rh-login-card {
+    background-color: var(--rh-login-card-bg);
+    border-radius: 1rem;
+    padding: 2.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--rh-login-border-color);
+    text-align: center;
+    max-width: 650px;
+    width: 100%;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .rh-login-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--rh-login-text-color);
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .rh-login-subtitle {
+    font-size: 1.1rem;
+    color: var(--rh-login-subtitle-color);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    transition: color 0.3s ease;
+  }
+  
+  .rh-login-form-control {
+    background-color: var(--rh-login-form-control-bg);
+    border: 1px solid gainsboro;
+    color: var(--rh-login-text-color);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease,
+      background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .rh-login-form-control::placeholder {
+    color: var(--rh-login-subtitle-color);
+  }
+  
+  .rh-login-form-control:focus {
+    background-color: var(--rh-login-form-control-bg);
+    border: 1px solid black;
+    border-color: var(--rh-login-accent-green);
+    box-shadow: 0 0 0 0.25rem rgba(187, 190, 187, 0.25);
+    color: var(--rh-login-text-color);
+  }
+  
+  .rh-login-button {
+    background: linear-gradient(to right, #070707, #0a0b0a);
+    border: none;
+    color: #fff;
+    border-radius: 0.75rem;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 1.5rem;
+    transition: all 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 5px 15px rgba(211, 212, 211, 0.4);
+  }
+  
+  .rh-login-button:hover {
+    opacity: 0.95;
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 8px 20px rgba(57, 59, 58, 0.6);
+  }
+  
+  .rh-login-signup-link {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: var(--rh-login-subtitle-color);
+    transition: color 0.3s ease;
+  }
+  
+  .rh-login-signup-link a {
+    color: var(--rh-login-accent-green);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+  
+  .rh-login-signup-link a:hover {
+    text-decoration: underline;
+    color: var(--rh-login-link-hover-color);
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 767.98px) {
+    .rh-login-main-content {
+      padding: 1rem 0;
+    }
+    .rh-login-card {
+      padding: 1.5rem;
+    }
+    .rh-login-title {
+      font-size: 1.8rem;
+    }
+    .rh-login-subtitle {
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    .rh-login-button {
+      font-size: 1rem;
+      padding: 0.7rem 1.5rem;
+    }
+    .rh-login-signup-link {
+      font-size: 0.85rem;
+    }
+  }
+  
+  
+  /* Register */
+  
+  /* CSS Variables for Theme */
+  :root {
+    /* Dark Mode (Default) */
+    --rh-signup-body-bg: white;
+    --rh-signup-text-color: black;
+    --rh-signup-card-bg: white;
+    --rh-signup-link-color: white;
+    --rh-signup-link-hover-color: black;
+    --rh-signup-accent-green: black;
+    --rh-signup-subtitle-color: black;
+    --rh-signup-form-control-bg: rgba(255, 255, 255, 0.08);
+    --rh-signup-form-control-border: rgba(255, 255, 255, 0.2);
+    --rh-signup-border-color: rgba(255, 255, 255, 0.1);
+    --rh-signup-toggle-button-color: #e0e0e0;
+    --rh-signup-header-bg: #1a202c;
+    --rh-signup-header-border: rgba(255, 255, 255, 0.15);
+  }
+  
+  /* General Body Styles */
+  .signupbody {
+    font-family: "Inter", sans-serif;
+    background-color: var(--rh-signup-body-bg);
+    color: var(--rh-signup-text-color);
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Header Section */
+  .rh-signup-header-section {
+    background-color: var(--rh-signup-header-bg);
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rh-signup-header-border);
+    text-align: center;
+    position: relative; /* For theme toggle button */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .rh-signup-header-section h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--rh-signup-text-color);
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+  }
+  
+  /* Main Content Area */
+  .rh-signup-main-content {
+    flex-grow: 1; /* Allow content to take available vertical space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+  }
+  
+  /* Form Card Styles */
+  .rh-signup-card {
+    background-color: var(--rh-signup-card-bg);
+    border-radius: 1rem;
+    padding: 2.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--rh-signup-border-color);
+    text-align: center;
+    max-width: 700px;
+    width: 100%;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .rh-signup-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--rh-signup-text-color);
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .rh-signup-subtitle {
+    font-size: 1.1rem;
+    color: var(--rh-signup-subtitle-color);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    transition: color 0.3s ease;
+  }
+  
+  .rh-signup-form-control {
+    background-color: var(--rh-signup-form-control-bg);
+    border: 1px solid var(--rh-signup-form-control-border);
+    color: var(--rh-signup-text-color);
+    border: 1px solid gainsboro ;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease,
+      background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .rh-signup-form-control::placeholder {
+    color: var(--rh-signup-subtitle-color);
+  }
+  
+  .rh-signup-form-control:focus {
+    background-color: var(--rh-signup-form-control-bg);
+    border-color: var(--rh-signup-accent-green);
+    box-shadow: 0 0 0 0.25rem rgba(7, 7, 7, 0.25);
+    color: var(--rh-signup-text-color);
+  }
+  
+  /* Removed .rh-signup-form-label as per request */
+  
+  .rh-signup-button {
+    background: linear-gradient(to right, #111211, #040404);
+    border: none;
+    color: #fff;
+    border-radius: 0.75rem;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 1.5rem;
+    transition: all 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 5px 15px rgba(116, 117, 116, 0.4);
+  }
+  
+  .rh-signup-button:hover {
+    opacity: 0.95;
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 8px 20px rgba(40, 167, 69, 0.6);
+  }
+  
+  .rh-signup-login-link {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: var(--rh-signup-subtitle-color);
+    transition: color 0.3s ease;
+  }
+  
+  .rh-signup-login-link a {
+    color: var(--rh-signup-accent-green);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+  
+  .rh-signup-login-link a:hover {
+    text-decoration: underline;
+    color: var(--rh-signup-link-hover-color);
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 767.98px) {
+    .rh-signup-header-section h1 {
+      font-size: 1.5rem;
+    }
+    .rh-signup-header-theme-toggle-btn {
+      right: 1rem;
+      font-size: 1rem;
+    }
+    .rh-signup-main-content {
+      padding: 1rem 0;
+    }
+    .rh-signup-card {
+      padding: 1.5rem;
+    }
+    .rh-signup-title {
+      font-size: 1.8rem;
+    }
+    .rh-signup-subtitle {
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    .rh-signup-button {
+      font-size: 1rem;
+      padding: 0.7rem 1.5rem;
+    }
+    .rh-signup-login-link {
+      font-size: 0.85rem;
+    }
+  }
+
+  /* Add these variables to your :root section if they are not already there */
+:root {
+    /* Colors derived directly from image_d3a9c4.png and image_5f2534.jpg */
+    --card-bg: #FFFFFF;
+    --card-border-radius: 20px;
+    --card-shadow: rgba(0, 0, 0, 0.08); /* Soft shadow */
+
+    --text-dark: #1F2937; /* Doctor names, main numbers */
+    --text-gray: #4B5563; /* Specialties, descriptions, meta info */
+    --text-light-gray: #D1D5DB; /* Old fee strikethrough */
+
+    --online-dot-green: #10B981; /* Green dot for online status */
+    --online-text-gray: #6B7280; /* Online text color */
+
+    --star-yellow: #FBBF24; /* Star rating color */
+    --like-button-bg: #FEE2E2; /* Light red for thumbs-up button */
+    --like-button-icon: #EF4444; /* Red for thumbs-up icon */
+
+    --degree-tag-bg: #E0E7FF; /* Light blue for degree tags */
+    --degree-tag-text: #4F46E5; /* Dark blue for degree tags text */
+
+    --time-highlight-color: #10B981; /* Green for response time highlight */
+
+    --current-fee-color: #1F2937; /* Dark for current fee */
+    --old-fee-color: #6B7280; /* Gray for old fee */
+    --availability-time-color: #10B981; /* Green for available time */
+
+    /* Button gradient colors for "Book Clinic Visit" */
+    --btn-book-gradient-start: #EC4899; /* Pink */
+    --btn-book-gradient-end: #8B5CF6; /* Purple */
+    --btn-book-text: #FFFFFF;
+
+    /* View Profile button colors */
+    --btn-view-profile-bg: #FFFFFF;
+    --btn-view-profile-border: #8B5CF6; /* Purple border */
+    --btn-view-profile-text: #8B5CF6; /* Purple text */
+
+
+    /* Footer badge colors */
+    --badge-icon-verified: #10B981; /* Green for verified check */
+    --badge-icon-toprated: #FBBF24; /* Yellow for top rated star */
+    --badge-icon-secure: #10B981; /* Green for secure shield */
+    --badge-text-color: #6B7280; /* Gray for badge text */
+
+    /* Fonts (adjust if you have specific brand fonts) */
+    --font-primary: 'Poppins', sans-serif;
+    --font-heading: 'Poppins', sans-serif; /* For doctor names */
+}
+
+/* Ensure Font Awesome is loaded for icons */
+/* @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'); */
+
+/* ------------------------------------- */
+/* DOCTOR CARD STYLES */
+/* ------------------------------------- */
+
+/* Styling for the actual card itself */
+.doctor-card {
+    background-color: var(--card-bg);
+    border-radius: var(--card-border-radius);
+    box-shadow: 0 8px 25px var(--card-shadow);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* General spacing between sections within the card */
+    font-family: var(--font-primary);
+    height: 100%; /* CRUCIAL: Ensures all cards in a Bootstrap row have the same height */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    /* Add explicit width if you want a fixed size regardless of Bootstrap columns,
+       but Bootstrap's col-md-6 handles width responsively. */
+    /* max-width: 450px; /* Example: if you want to limit max width of a single card on very large screens */
+    margin: 0 auto; /* Center card content if max-width is set and space is available */
+}
+
+.doctor-header {
+    display: flex;
+    align-items: flex-start; /* Align avatar and info to top */
+    gap: 15px;
+    position: relative;
+    padding-bottom: 20px; /* Space for the bottom border */
+    border-bottom: 1px solid #F3F4F6; /* Light gray separator */
+}
+
+.doctor-avatar-wrapper {
+    position: relative;
+    flex-shrink: 0; /* Prevent avatar from shrinking */
+}
+
+.doctor-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #E0E7FF; /* Light blue border around avatar */
+}
+
+.status-online {
+    position: absolute;
+    bottom: 0px;
+    left: 50%; /* Center under avatar */
+    transform: translateX(-50%);
+    background-color: #F3F4F6; /* Light background for online badge */
+    color: var(--online-text-gray);
+    font-size: 13px;
+    padding: 4px 10px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap; /* Prevent wrapping */
+    border: 1px solid #D1D5DB; /* Light border */
+}
+
+.status-online .fa-circle {
+    font-size: 8px;
+    color: var(--online-dot-green); /* Green dot */
+}
+
+.doctor-info {
+    flex-grow: 1; /* Allow info to take remaining space */
+}
+
+.doctor-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.doctor-specialty {
+    font-size: 16px;
+    color: var(--text-gray);
+    margin-bottom: 8px;
+}
+
+.doctor-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: var(--text-gray);
+}
+
+.doctor-rating .fa-star,
+.doctor-rating .fa-star-half-alt {
+    color: var(--star-yellow);
+    font-size: 15px;
+}
+
+.favorite-btn {
+    background-color: var(--like-button-bg);
+    color: var(--like-button-icon);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    flex-shrink: 0; /* Prevent button from shrinking */
+    margin-left: auto; /* Push to the right */
+}
+
+.favorite-btn:hover {
+    background-color: #fca5a5; /* Slightly darker red on hover */
+    transform: scale(1.05);
+}
+
+.doctor-meta {
+    display: flex;
+    gap: 20px;
+    font-size: 15px;
+    color: var(--text-gray);
+    padding-bottom: 20px;
+    border-bottom: 1px solid #F3F4F6;
+    width: 100%;
+}
+
+.doctor-meta .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.doctor-degrees {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #F3F4F6;
+    width: 100%;
+}
+
+.degree-tag {
+    background-color: var(--degree-tag-bg);
+    color: var(--degree-tag-text);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.degree-tag.more-tag {
+    background-color: transparent; /* No background for "+1 more" */
+    color: var(--degree-tag-text);
+    border: 1px solid var(--degree-tag-text); /* Border for "+1 more" */
+}
+
+.doctor-languages {
+    font-size: 15px;
+    color: var(--text-gray);
+    padding-bottom: 20px;
+    border-bottom: 1px solid #F3F4F6;
+    width: 100%;
+}
+
+.doctor-languages .lang-list {
+    font-weight: 600; /* Make language list slightly bolder */
+}
+
+.doctor-response-time {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    color: var(--text-gray);
+    padding-bottom: 20px;
+    border-bottom: 1px solid #F3F4F6;
+    width: 100%;
+}
+
+.doctor-response-time .fa-clock {
+    color: var(--time-highlight-color); /* Green clock icon */
+}
+
+.doctor-response-time .time-highlight {
+    color: var(--time-highlight-color);
+    font-weight: 600;
+}
+
+.consultation-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #F3F4F6;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 10px; /* Space between fee and availability when wrapped */
+}
+
+.fee-info, .availability-info {
+    text-align: left;
+}
+
+.fee-label, .available-label {
+    font-size: 14px;
+    color: var(--text-gray);
+    display: block; /* Ensure labels are above numbers */
+    margin-bottom: 5px;
+}
+
+.current-fee {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--current-fee-color);
+    margin-right: 8px;
+}
+
+.old-fee {
+    font-size: 16px;
+    color: var(--old-fee-color);
+    text-decoration: line-through;
+}
+
+.available-time {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--availability-time-color);
+}
+
+.card-actions {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    /* Ensure buttons align nicely within the card */
+    margin-top: auto; /* Pushes action buttons to the bottom if content above varies */
+}
+
+/* Common button styles */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-book-clinic {
+    flex-grow: 1; /* Take up most space */
+    background: linear-gradient(to right, var(--btn-book-gradient-start), var(--btn-book-gradient-end));
+    color: var(--btn-book-text);
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-book-clinic:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.btn-view-profile {
+    background-color: var(--btn-view-profile-bg);
+    color: var(--btn-view-profile-text);
+    border: 1px solid var(--btn-view-profile-border);
+    padding: 15px 20px; /* Adjust padding to match design */
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; /* Space between text and arrow */
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-view-profile:hover {
+    background-color: var(--btn-view-profile-border); /* Invert colors on hover */
+    color: var(--btn-view-profile-bg);
+    transform: scale(1.02);
+}
+
+.card-footer-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 15px; /* Vertical and horizontal gap */
+    width: 100%;
+    margin-top: 10px; /* Space from buttons */
+}
+
+.footer-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--badge-text-color);
+}
+
+.footer-badge .fa-check-circle {
+    color: var(--badge-icon-verified);
+}
+.footer-badge .fa-star {
+    color: var(--badge-icon-toprated);
+}
+.footer-badge .fa-shield-alt {
+    color: var(--badge-icon-secure);
+}
+
+
+/* Responsive adjustments for the card content (when it stacks on small screens) */
+@media (max-width: 767px) { /* Small devices (less than md breakpoint) */
+    .doctor-card {
+        padding: 25px;
+        /* When stacked, center contents */
+        text-align: center;
+        align-items: center;
+    }
+    .doctor-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .status-online {
+        position: static; /* Remove absolute positioning */
+        transform: none;
+        margin-top: 10px; /* Space below avatar */
+    }
+    .doctor-info {
+        text-align: center;
+    }
+    .favorite-btn {
+        position: absolute; /* Keep thumbs up in top right */
+        top: 15px;
+        right: 15px;
+        margin-left: 0; /* Reset margin */
+    }
+    .doctor-meta,
+    .doctor-degrees,
+    .doctor-languages,
+    .doctor-response-time,
+    .consultation-details,
+    .card-actions {
+        /* When stacked, ensure these elements are properly laid out */
+        flex-direction: column; /* Stack if they were row-based */
+        align-items: center; /* Center items if stacked */
+        text-align: center;
+    }
+    .consultation-details {
+        align-items: center; /* Center fee and availability */
+    }
+    .card-actions {
+        gap: 10px;
+    }
+    .btn-book-clinic, .btn-view-profile { /* Apply to both buttons when stacked */
+        width: 100%;
+        max-width: 280px; /* Limit button width when stacked */
+    }
+    .card-footer-badges {
+        justify-content: center;
+    }
+}

@@ -1,0 +1,77 @@
+{% comment %}
+    This HTML represents a single instance of a doctor card,
+    ready to be used within a Django {% for %} loop.
+    The `col-12 col-md-6 mb-4` classes ensure responsive grid behavior:
+    - On extra-small/small screens: Full width (1 card per row).
+    - On medium devices (md) and up: Half width (2 cards per row).
+    - `mb-4` adds bottom margin for spacing between rows.
+{% endcomment %}
+
+<div class="col-12 col-md-6 mb-4"> {# Bootstrap grid classes for responsive layout #}
+  <div class="doctor-card">
+      <div class="doctor-header">
+          <div class="doctor-avatar-wrapper">
+              <img src="{{ doctor.image.url }}" alt="Dr. {{ doctor.name }}" class="doctor-avatar">
+            
+          </div>
+          <div class="doctor-info">
+              <h3 class="doctor-name">Dr. {{ doctor.name }}</h3>
+              <p class="doctor-specialty">{{ doctor.speciality }}</p>
+              <div class="doctor-rating">
+                  {% for _ in doctor.full_stars %}
+                      <i class="fas fa-star yellow"></i>
+                  {% endfor %}
+                  {% if doctor.has_half_star %}
+                      <i class="fas fa-star-half-alt yellow"></i>
+                  {% endif %}
+                  <span>{{ doctor.rating }} ({{ doctor.review_count }} reviews)</span>
+              </div>
+          </div>
+          <button class="favorite-btn" aria-label="Add to favorites">
+              <i class="far fa-thumbs-up"></i>
+          </button>
+      </div>
+
+      <div class="doctor-meta">
+          <span class="meta-item"><i class="fas fa-briefcase"></i> {{ doctor.experience }} years exp.</span>
+          <span class="meta-item"><i class="fas fa-map-marker-alt"></i> {{ doctor.location }}</span>
+      </div>
+
+      
+
+      <p class="doctor-languages">clinic name:   <span class="lang-list">  {{ doctor.clinic_name }}</span></p>
+
+      <div class="doctor-response-time">
+          <i class="fas fa-clock"></i> Responds in <span class="time-highlight">{{ doctor.response_time }} mins</span>
+      </div>
+
+      <div class="consultation-details">
+          <div class="fee-info">
+              <span class="fee-label">Consultation Fee: </span>
+              <span class="current-fee">₹{{doctor.consultation_fee}}</span>
+              <span class="old-fee">₹{{ doctor.old_fee }}</span>
+          </div>
+          <div class="availability-info">
+              <span class="available-label">Next Available:</span>
+              <span class="available-time">{{ doctor.next_available }} {{ doctor.next_available_time }}</span>
+          </div>
+      </div>
+
+      <div class="card-actions">
+          <button class="btn btn-book-clinic">Book Clinic Visit</button>
+          <button class="btn btn-view-profile">View Profile <i class="fas fa-arrow-right"></i></button> {# Changed from Video Call to View Profile #}
+      </div>
+
+      <div class="card-footer-badges">
+          {% if doctor.is_verified %}
+              <span class="footer-badge"><i class="fas fa-check-circle"></i> Verified Doctor</span>
+          {% endif %}
+          {% if doctor.is_top_rated %}
+              <span class="footer-badge"><i class="fas fa-star"></i> Top Rated</span>
+          {% endif %}
+          {% if doctor.is_secure %}
+              <span class="footer-badge"><i class="fas fa-shield-alt"></i> Safe & Secure</span>
+          {% endif %}
+      </div>
+  </div>
+</div>
