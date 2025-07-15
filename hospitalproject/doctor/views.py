@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Doctor,Speciality
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.shortcuts import render, redirect
-from datetime import datetime, timedelta, time
-from .models import Doctor
+from datetime import datetime, timedelta, time ,date
+from .models import Doctor,DoctorAvailability
 
 
 # Create your views here.
@@ -17,6 +17,9 @@ class DoctorDetailView(DetailView):
     model=Doctor
     template_name='doctor_detail.html'
     context_object_name='doctor'
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
+
 
 
 class SpecialityDetailView(DetailView):
@@ -29,6 +32,56 @@ class SpecialityDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["doctors"]=Doctor.objects.all()
         return context
+    
+
+
+def doctor_availability(request, slug):
+    doctor = get_object_or_404(Doctor, slug=slug)
+    today = date.today()
+    days = [today + timedelta(days=i) for i in range(5)]  # Today to Friday
+
+    date_slots = []
+    for d in days:
+        slots = DoctorAvailability.objects.filter(doctor=doctor, date=d, is_booked=False)
+        date_slots.append({
+        'date': d,
+        'label': 'Today' if d == today else d.strftime('%A')[:3],  # Today, Mon, Tue...
+        'slot_count': slots.count(),
+        'slots': slots,
+        })
+
+    return render(request, 'doctor/availability.html', {
+        'doctor': doctor,
+        'date_slots': date_slots,
+    })
+
+def search_doctors(request):
+    speciality_query = request.GET.get('speciality')
+    location_query = request.GET.get('location')
+
+    doctors = Doctor.objects.all()
+
+    if speciality_query:
+        doctors = doctors.filter(speciality__name__icontains=speciality_query)
+
+    if location_query:
+        doctors = doctors.filter(location__icontains=location_query)
+
+    return render(request, 'search_results.html', {
+        'doctors': doctors,
+        'speciality_query': speciality_query,
+        'location_query': location_query,
+    })
+
+
+
+
+
+
+
+
+
+
     
 # def generate_slots_for_doctors(doctor_id):
 #     doctor = Doctor.objects.get(id=doctor_id)

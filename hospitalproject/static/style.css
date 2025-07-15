@@ -3984,3 +3984,1111 @@ body {
         justify-content: center;
     }
 }
+
+
+/* Dropdown styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    z-index: 1;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    top: 100%;
+    left: 0;
+  }
+  
+  .dropdown-menu a {
+    color: #333;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-menu a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+  
+
+
+  /* Variables (ensure these are consistent and at the top of your CSS) */
+:root {
+    --card-bg: #FFFFFF;
+    --card-border-radius: 20px;
+    --card-shadow: rgba(0, 0, 0, 0.08);
+
+    --text-dark: #1F2937;
+    --text-gray: #4B5563;
+    --text-light-gray: #D1D5DB;
+
+    --online-dot-green: #10B981;
+    --online-text-color: #374151;
+    --online-bg-light: #ECFDF5;
+    --online-border-color: #A7F3D0;
+
+    --star-yellow: #FBBF24;
+
+    --social-btn-bg: #F3F4F6;
+    --social-icon-heart: #EC4899;
+    --social-icon-call: #8B5CF6;
+    --social-icon-envelope: #10B981;
+    --social-btn-border-heart: #FBCFE8;
+    --social-btn-border-call: #DDD6FE;
+    --social-btn-border-envelope: #A7F3D0;
+
+    --detail-icon-color: #6B7280;
+    --detail-text-color: #4B5563;
+    --detail-value-color: #1F2937;
+
+    --degree-tag-bg: #E0E7FF;
+    --degree-tag-text: #4F46E5;
+
+    --languages-icon-color: #4B5563;
+    --languages-list-color: #1F2937;
+
+    --badge-icon-verified: #10B981;
+    --badge-icon-toprated: #FBBF24;
+    --badge-icon-hipaa: #10B981;
+    --badge-text-color: #6B7280;
+
+    /* Consultation Type colors */
+    --purple-primary: #8B5CF6;
+    --light-purple-bg: #F5F3FF;
+    --light-purple-border: #D8B4FE;
+    --clinic-icon-bg: #FEE2E2;
+    --clinic-icon-color: #EF4444;
+    --video-icon-bg: #DBEAFE;
+    --video-icon-color: #3B82F6;
+    --price-color: #8B5CF6;
+    --price-old-color: #9CA3AF;
+
+    /* Tabs (Overview, Experience) colors */
+    --tab-border-color: #E5E7EB;
+    --specialization-tag-bg: #ECFDF5;
+    --specialization-tag-text: #059669;
+    --specialization-icon-color: #10B981;
+
+    --font-primary: 'Poppins', sans-serif;
+}
+
+/* Basic Reset & Body Styling */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-primary);
+    background-color: #F8FAFC; /* Match overall page background */
+}
+
+/* Overall page layout container */
+.doctor-page-layout {
+    display: flex;
+    justify-content: center; /* Center the entire layout on the page */
+    gap: 30px; /* Space between the left column and the right column */
+    padding: 30px; /* Overall page padding */
+    min-height: 100vh; /* Ensures full page height for visual effect */
+    align-items: flex-start; /* Align columns to the top */
+    box-sizing: border-box;
+}
+
+/* Left Column for Doctor Profile and Info Cards */
+.left-column {
+    display: flex;
+    flex-direction: column; /* Stack cards vertically */
+    gap: 15px; /* Reduced space between the two stacked cards */
+    width: 780px; /* Increased width for the left column */
+    flex-shrink: 0; /* Prevent this column from shrinking */
+}
+
+/* Right Column for Booking Card */
+.right-column {
+    display: flex;
+    flex-direction: column;
+    width: 380px; /* Fixed width for the booking card column */
+    flex-shrink: 0; /* Prevent this column from shrinking */
+}
+
+/* ************************************** */
+/* --- FIRST CARD: DETAILED DOCTOR CARD --- */
+/* ************************************** */
+
+.detailed-doctor-card-container {
+    width: 100%; /* Take full width of its parent .left-column */
+    box-sizing: border-box;
+}
+
+.detailed-doctor-card {
+    background-color: var(--card-bg);
+    border-radius: var(--card-border-radius);
+    box-shadow: 0 10px 30px var(--card-shadow);
+    padding: 30px;
+    width: 100%; /* Take full width of its container (which is 780px) */
+    height: 520px; /* Explicit height as seen in image */
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-primary);
+    box-sizing: border-box;
+    gap: 20px;
+}
+
+.doctor-profile-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #F3F4F6;
+}
+
+.doctor-avatar-section {
+    position: relative;
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+}
+
+.profile-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #E0E7FF;
+}
+
+.online-status {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--online-bg-light);
+    color: var(--online-text-color);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    border: 1px solid var(--online-border-color);
+}
+
+.online-status .online-dot {
+    font-size: 8px;
+    color: var(--online-dot-green);
+}
+
+.verified-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    color: var(--online-dot-green);
+    border: 2px solid #E0E7FF;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.doctor-main-info {
+    flex-grow: 1;
+    padding-top: 5px;
+}
+
+.doctor-name {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.doctor-specialty {
+    font-size: 17px;
+    color: var(--text-gray);
+    margin-bottom: 8px;
+}
+
+.doctor-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+    color: var(--text-gray);
+}
+
+.doctor-rating .fa-star,
+.doctor-rating .fa-star-half-alt {
+    color: var(--star-yellow);
+    font-size: 16px;
+}
+
+.social-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-shrink: 0;
+    margin-top: 5px;
+}
+
+.social-btn {
+    background-color: var(--social-btn-bg);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.social-btn.heart-btn {
+    color: var(--social-icon-heart);
+    border: 1px solid var(--social-btn-border-heart);
+}
+.social-btn.call-btn {
+    color: var(--social-icon-call);
+    border: 1px solid var(--social-btn-border-call);
+}
+.social-btn.message-btn {
+    color: var(--social-icon-envelope);
+    border: 1px solid var(--social-btn-border-envelope);
+}
+
+.social-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.doctor-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #F3F4F6;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    color: var(--detail-text-color);
+}
+
+.detail-item .detail-icon {
+    font-size: 20px;
+    color: var(--detail-icon-color);
+}
+
+.detail-item .detail-value {
+    font-weight: 600;
+    color: var(--detail-value-color);
+}
+
+.doctor-degrees-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #F3F4F6;
+}
+
+.degree-tag {
+    background-color: var(--degree-tag-bg);
+    color: var(--degree-tag-text);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.languages-spoken {
+    font-size: 16px;
+    color: var(--languages-icon-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0;
+}
+
+.languages-spoken .lang-list {
+    font-weight: 600;
+    color: var(--languages-list-color);
+}
+
+.card-footer-badges.detailed-page {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    padding-top: 25px;
+    border-top: 1px solid #F3F4F6;
+    margin-top: auto;
+}
+
+.card-footer-badges.detailed-page .footer-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--badge-text-color);
+}
+
+.card-footer-badges.detailed-page .footer-badge .fa-check-circle {
+    color: var(--badge-icon-verified);
+}
+.card-footer-badges.detailed-page .footer-badge .fa-star {
+    color: var(--badge-icon-toprated);
+}
+.card-footer-badges.detailed-page .footer-badge .fa-shield-alt {
+    color: var(--badge-icon-hipaa);
+}
+
+/* *************************************** */
+/* --- SECOND CARD: DOCTOR INFO WITH TABS --- */
+/* *************************************** */
+
+.doctor-info-card-container {
+    width: 100%; /* Ensures it takes full width of its parent .left-column */
+    box-sizing: border-box;
+}
+
+.doctor-info-card {
+    background-color: var(--card-bg);
+    border-radius: var(--card-border-radius);
+    box-shadow: 0 8px 25px var(--card-shadow);
+    padding: 30px;
+    width: 100%; /* Takes full width of its container */
+    box-sizing: border-box;
+    font-family: var(--font-primary);
+}
+
+.tab-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--tab-border-color);
+    position: relative;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tab-button {
+    background-color: transparent;
+    border: none;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-gray);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+    position: relative;
+    white-space: nowrap;
+}
+
+.tab-button i {
+    font-size: 18px;
+}
+
+.tab-button.active {
+    color: var(--purple-primary);
+    font-weight: 600;
+}
+
+.tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--purple-primary);
+    border-radius: 2px 2px 0 0;
+}
+
+.tab-button:hover:not(.active) {
+    color: var(--text-dark);
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+}
+
+.about-text {
+    font-size: 15px;
+    color: var(--text-gray);
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.section-subtitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+}
+
+.specialization-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.specialization-tag {
+    background-color: var(--specialization-tag-bg);
+    color: var(--specialization-tag-text);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+}
+
+.specialization-tag .fa-check-circle {
+    color: var(--specialization-icon-color);
+    font-size: 15px;
+}
+
+/* Services Offered Grid */
+.services-offered-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(calc(50% - 15px), 1fr)); /* Two columns, with gap */
+    gap: 15px; /* Gap between service cards */
+    margin-top: 20px; /* Space above the grid */
+}
+
+.service-option-card {
+    background-color: #F8FAFC; /* Light background */
+    border: 1px solid #E5E7EB; /* Light border */
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    transition: all 0.2s ease;
+}
+
+.service-option-card:hover {
+    border-color: var(--purple-primary); /* Highlight on hover */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Subtle shadow on hover */
+}
+
+.service-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.service-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--purple-primary); /* Use primary purple for price */
+}
+
+.service-description {
+    font-size: 13px;
+    color: var(--text-gray);
+    line-height: 1.4;
+    margin-top: 5px;
+}
+
+
+/* Styles for placeholder content in other tabs */
+.tab-pane ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 15px;
+}
+
+.tab-pane ul li {
+    margin-bottom: 10px;
+    color: var(--text-gray);
+    font-size: 15px;
+}
+
+.patient-review {
+    background-color: #F8FAFC;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #E5E7EB;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.reviewer-name {
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 16px;
+}
+
+.review-stars .fa-star, .review-stars .fa-star-half-alt {
+    color: var(--star-yellow);
+    font-size: 14px;
+}
+
+.review-text {
+    font-size: 14px;
+    color: var(--text-gray);
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.review-date {
+    font-size: 12px;
+    color: #9CA3AF;
+}
+
+.available-time {
+    font-weight: 600;
+    color: var(--specialization-icon-color);
+}
+
+
+/* ************************************ */
+/* --- RIGHT CARD: BOOK APPOINTMENT --- */
+/* ************************************ */
+
+.book-appointment-card {
+    background-color: var(--card-bg);
+    border-radius: var(--card-border-radius);
+    box-shadow: 0 8px 25px var(--card-shadow);
+    padding: 30px;
+    width: 380px; /* Specific width from the image */
+    box-sizing: border-box;
+    font-family: var(--font-primary);
+}
+
+.book-appointment-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 25px;
+}
+
+.consultation-type-heading {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+}
+
+.consultation-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.consultation-option-card {
+    display: block;
+    background-color: #F8FAFC;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.consultation-option-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.consultation-option-card .option-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.consultation-option-card .option-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.consultation-option-card .option-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.consultation-option-card .option-name {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.consultation-option-card .option-description {
+    font-size: 14px;
+    color: var(--text-gray);
+    margin-left: 52px;
+}
+
+.consultation-option-card .option-price {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--price-color);
+    margin-left: 52px;
+}
+
+.clinic-visit-selected .option-icon,
+.consultation-option-card:not(.clinic-visit-selected) .option-header .fa-hospital {
+    background-color: var(--clinic-icon-bg);
+    color: var(--clinic-icon-color);
+}
+
+.consultation-option-card:not(.clinic-visit-selected) .option-header .fa-video {
+    background-color: var(--video-icon-bg);
+    color: var(--video-icon-color);
+}
+
+.consultation-option-card.clinic-visit-selected,
+.consultation-option-card input[type="radio"]:checked + .option-content {
+    background-color: var(--light-purple-bg);
+    border-color: var(--light-purple-border);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.consultation-option-card:hover {
+    border-color: var(--purple-primary);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+
+/* Responsive Adjustments for smaller screens */
+@media (max-width: 1180px) { /* Adjust breakpoint for when columns stack */
+    .doctor-page-layout {
+        flex-direction: column; /* Stack columns vertically */
+        align-items: center; /* Center them when stacked */
+        gap: 30px; /* Space between the stacked columns */
+        padding: 20px;
+    }
+
+    .left-column {
+        width: 100%; /* Take full width on smaller screens */
+        max-width: 780px; /* Limit max width for readability */
+        gap: 20px; /* Adjust gap between stacked cards */
+    }
+
+    .detailed-doctor-card,
+    .doctor-info-card {
+        width: 100%; /* Ensure cards fill their column */
+        padding: 25px;
+    }
+
+    .detailed-doctor-card {
+        height: auto; /* Allow height to adjust */
+        gap: 15px;
+    }
+
+    .doctor-profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+        padding-bottom: 20px;
+    }
+
+    .doctor-avatar-section {
+        width: 90px;
+        height: 90px;
+    }
+
+    .online-status {
+        position: static;
+        transform: none;
+        margin-top: 10px;
+    }
+    .verified-icon {
+        top: 0px;
+        right: 0px;
+        position: absolute;
+    }
+
+    .doctor-main-info {
+        padding-top: 0;
+    }
+
+    .doctor-name {
+        font-size: 24px;
+    }
+
+    .doctor-specialty {
+        font-size: 16px;
+    }
+
+    .social-icons {
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+        margin-top: 10px;
+        gap: 10px;
+    }
+
+    .doctor-details-grid {
+        grid-template-columns: 1fr; /* Stack items in a single column */
+        gap: 15px;
+        padding-bottom: 20px;
+    }
+
+    .detail-item {
+        justify-content: center;
+        font-size: 15px;
+    }
+
+    .doctor-degrees-section {
+        justify-content: center;
+        padding-bottom: 20px;
+    }
+
+    .languages-spoken {
+        justify-content: center;
+        text-align: center;
+        flex-wrap: wrap;
+    }
+
+    .card-footer-badges.detailed-page {
+        justify-content: center;
+        gap: 8px 12px;
+        padding-top: 20px;
+    }
+
+    .right-column {
+        width: 100%;
+        max-width: 380px; /* Retain max width for booking card */
+    }
+    .book-appointment-card {
+        width: 100%;
+        padding: 25px;
+    }
+    .book-appointment-title {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+    .consultation-type-heading {
+        font-size: 17px;
+        margin-bottom: 12px;
+    }
+    .services-offered-grid {
+        grid-template-columns: 1fr; /* Stack service cards on very small screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .left-column, .right-column {
+        padding: 0 15px; /* Add some overall horizontal padding for very small screens */
+    }
+    .detailed-doctor-card,
+    .doctor-info-card,
+    .book-appointment-card {
+        padding: 20px;
+    }
+    .tab-navigation {
+        flex-direction: column;
+        align-items: center;
+        border-bottom: none;
+    }
+    .tab-button {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+        border-bottom: 1px solid var(--tab-border-color);
+        margin-bottom: 5px;
+    }
+    .tab-button:last-child {
+        border-bottom: none;
+    }
+    .tab-button.active::after {
+        display: none;
+    }
+    .consultation-option-card {
+        padding: 15px;
+    }
+    .consultation-option-card .option-name {
+        font-size: 16px;
+    }
+    .consultation-option-card .option-price {
+        font-size: 16px;
+    }
+    .service-name, .service-price {
+        font-size: 15px;
+    }
+    .service-description {
+        font-size: 12px;
+    }
+}
+
+
+
+/* New styles for Availability Tab */
+.select-date-heading {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+}
+
+.date-selection-grid {
+    display: flex; /* Use flexbox for horizontal arrangement */
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    gap: 15px; /* Space between date cards */
+    justify-content: flex-start; /* Align items to the start */
+}
+
+.date-option-card {
+    background-color: #F8FAFC; /* Light background */
+    border: 1px solid #E5E7EB; /* Light border */
+    border-radius: 12px;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 90px; /* Ensure a consistent width for each card */
+    box-sizing: border-box;
+}
+
+.date-option-card:hover {
+    border-color: var(--purple-primary);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.date-option-card.active {
+    background-color: var(--light-purple-bg);
+    border-color: var(--light-purple-border);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.date-option-card .day-of-week {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.date-option-card .slots-available {
+    font-size: 13px;
+    color: var(--text-gray);
+}
+
+.date-option-card.active .day-of-week,
+.date-option-card.active .slots-available {
+    color: var(--purple-primary); /* Text color for active state */
+}
+
+/* Available Times Section */
+.available-times-section {
+    margin-top: 25px; /* Space from the date selection grid */
+    display: none; /* Hidden by default, shown by JS */
+}
+
+.available-times-section.show {
+    display: block; /* Show when 'show' class is added */
+}
+
+.time-slots-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Space between time slot tags */
+    margin-top: 15px;
+}
+
+.time-slot-tag {
+    background-color: #F8FAFC; /* Light background */
+    border: 1px solid #E5E7EB; /* Light border */
+    color: var(--text-dark);
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap; /* Prevent time slots from breaking */
+}
+
+.time-slot-tag:hover {
+    border-color: var(--purple-primary);
+    background-color: var(--light-purple-bg);
+    color: var(--purple-primary);
+}
+
+.time-slot-tag.selected {
+    background-color: var(--purple-primary);
+    border-color: var(--purple-primary);
+    color: #FFFFFF;
+    box-shadow: 0 4px 10px rgba(139, 92, 246, 0.2); /* Shadow for selected */
+}
+
+/* Price Breakdown Section */
+.price-breakdown-section {
+    padding-top: 25px;
+    border-top: 1px solid #F3F4F6;
+    margin-top: 25px;
+    margin-bottom: 25px; /* Space between price breakdown and quick info */
+}
+
+.price-breakdown-section .section-subtitle {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.price-item:last-child {
+    margin-bottom: 0;
+}
+
+.price-label {
+    color: var(--text-gray);
+}
+
+.price-value {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.price-item.total-price {
+    font-size: 16px; /* Slightly larger for total */
+    font-weight: 700;
+    margin-top: 15px; /* Space above total */
+    padding-top: 10px;
+    border-top: 1px dashed #E5E7EB; /* Dashed line above total */
+}
+
+.price-item.total-price .price-value {
+    color: var(--purple-primary); /* Primary color for total price */
+}
+
+/* Quick Information Section */
+.quick-information-section {
+    padding-top: 25px;
+    border-top: 1px solid #F3F4F6;
+    margin-top: 25px;
+}
+
+.quick-information-section .section-subtitle {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start; /* Align icon and text at the top */
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.info-item:last-child {
+    margin-bottom: 0;
+}
+
+.info-icon {
+    font-size: 20px;
+    color: var(--detail-icon-color); /* Using existing detail icon color */
+    flex-shrink: 0; /* Prevent icon from shrinking */
+    margin-top: 2px; /* Slight adjustment for visual alignment */
+}
+
+.info-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-label {
+    font-size: 15px;
+    color: var(--text-gray);
+    margin-bottom: 2px;
+}
+
+.info-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* Responsive adjustments for these sections (if needed) */
+@media (max-width: 1180px) {
+    .price-breakdown-section,
+    .quick-information-section {
+        margin-top: 20px;
+        padding-top: 20px;
+        margin-bottom: 20px;
+    }
+    .price-breakdown-section .section-subtitle,
+    .quick-information-section .section-subtitle {
+        font-size: 17px;
+    }
+    .price-item, .info-item {
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .price-item, .info-item {
+        font-size: 14px;
+    }
+    .info-label {
+        font-size: 13px;
+    }
+    .info-value {
+        font-size: 15px;
+    }
+    .price-item.total-price {
+        font-size: 15px;
+    }
+}

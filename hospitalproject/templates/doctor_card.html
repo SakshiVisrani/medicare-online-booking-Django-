@@ -58,8 +58,10 @@
       </div>
 
       <div class="card-actions">
-          <button class="btn btn-book-clinic">Book Clinic Visit</button>
-          <button class="btn btn-view-profile">View Profile <i class="fas fa-arrow-right"></i></button> {# Changed from Video Call to View Profile #}
+        <button class="btn btn-book-clinic">Book Clinic Visit</button>
+        <a href="{% url 'doctor-detail' slug=doctor.slug %}" class="btn btn-view-profile">
+          View Profile <i class="fas fa-arrow-right"></i>
+        </a>
       </div>
 
       <div class="card-footer-badges">

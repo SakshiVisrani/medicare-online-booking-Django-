@@ -1,0 +1,15 @@
+{% extends 'base.html' %}  
+
+{% block content %}
+
+
+{% if doctors %}
+  <div class="doctor-cards-container">
+    {% for doctor in doctors %}
+      {% include "doctor_card.html" with doctor=doctor %}
+    {% endfor %}
+  </div>
+{% else %}
+  <p>No doctors found matching your criteria.</p>
+{% endif %}
+{% endblock %}

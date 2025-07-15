@@ -8,7 +8,16 @@
           <span class="healthcare-platform">Healthcare Platform</span>
       </div>
       <nav class="nav-links">
-          <a href="#" class="dropdown">Find Doctors <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <a href="#" class="dropdown-toggle">Find Doctors <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown-menu">
+              <a href="#">Cardiologist</a>
+              <a href="#">Neurologist</a>
+              <a href="#">Dermatologist</a>
+              <a href="#">Dentist</a>
+
+            </div>
+          </div>
           
           <a href="#">Specialties</a>
           <a href="#">Health Plans</a>
@@ -25,9 +34,7 @@
           <a href="#" class="icon-link"><i class="fas fa-bell"></i></a>
           <a href="{% url 'login' %}" class="icon-link"><i class="fas fa-user-circle"></i> Login</a>
           <button class="sign-up-btn">Sign Up Free</button>
-          {% endif %}
+        {% endif %}
       </div>
   </div>
 </header>
-
-    

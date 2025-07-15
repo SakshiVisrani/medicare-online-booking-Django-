@@ -19,29 +19,39 @@
                 <p>Connect with verified doctors, book instant appointments, and get quality healthcare <span class="highlight">from the comfort of your home</span></p>
 
                 {# Search Bar #}
-                <div class="search-bar-container" id="searchbar">
-                  <div class="row">
-                    <div class="col-md-5 mb-3">
-                      <label for="what-looking-for" class="form-label">What are you looking for?</label>
-                      <div class="input-group">
-                        <span class="input-group-text">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
-                        </span>
-                        <input type="text" class="form-control" placeholder="Search doctors, specialties, symptoms..." id="what-looking-for">
+                <form method="get" action="{% url 'search-doctors' %}">
+                    <div class="search-bar-container" id="searchbar">
+                      <div class="row">
+                        <div class="col-md-5 mb-3">
+                          <label for="what-looking-for" class="form-label">What are you looking for?</label>
+                          <div class="input-group">
+                            <span class="input-group-text">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.3-4.3"></path>
+                              </svg>
+                            </span>
+                            <input type="text" name="speciality" class="form-control" placeholder="Search doctors, specialties, symptoms..." id="what-looking-for" required>
+                          </div>
+                        </div>
+                  
+                        <div class="col-md-5 mb-3">
+                          <label for="where" class="form-label">Where?</label>
+                          <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                            <input type="text" name="location" class="form-control" id="where" placeholder="Enter your location" required>
+                          </div>
+                        </div>
+                  
+                        <div class="col-md-1 d-flex align-items-end">
+                          <button type="submit" class="search-btn" style="position: relative; bottom: 10px;">
+                            <i class="fas fa-search"></i> Search
+                          </button>
+                        </div>
                       </div>
                     </div>
-                    <div class="col-md-5 mb-3">
-                      <label for="where" class="form-label">Where?</label>
-                      <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                        <input type="text" class="form-control" id="where" placeholder="Enter your location">
-                      </div>
-                    </div>
-                    <div class="col-md-1 d-flex align-items-end">
-    <button class="search-btn" style="position: relative; bottom: 10px;"><i class="fas fa-search"></i> Search</button>
-                    </div>
-                  </div>
-                </div>
+                  </form>
+                  
 
                 {# Popular Searches #}
                 <div class="popular-searches">
@@ -49,7 +59,7 @@
                     <a href="#">Cardiologist</a>
                     <a href="#">Dentist</a>
                     <a href="#">Dermatologist</a>
-                    <a href="#">Pediatrician</a>
+                    <a href="#">Neurologist</a>
                 </div>
             </div>
             {# Background Blobs #}
@@ -169,10 +179,10 @@
                     <div class="specialty-card">
                         <span class="popular-tag">Popular</span>
                         <div class="icon-wrapper green-teal">
-                            <i class="fas fa-stethoscope"></i>
+                            <i class="fas fa-tooth"></i>
                         </div>
-                        <h4>General Medicine</h4>
-                        <p>Primary care physicians</p>
+                        <h4>Dentist</h4>
+                        <p>Teeth & oral care</p>
                         <div class="card-footer-info">
                             <span class="stats"><i class="fas fa-dot-circle dot-green"></i> 2000+ doctors</span>
                             <a href="#" class="view-all">View all <i class="fas fa-arrow-right"></i></a>

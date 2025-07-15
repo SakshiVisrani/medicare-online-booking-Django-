@@ -2,69 +2,443 @@
 
 {% block content %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Doctor Profile</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div class="container my-4">
-    <div class="row g-4">
-      <!-- Doctor Profile Section -->
-      <div class="col-md-8">
-        <div class="card shadow-sm p-4">
-          <div class="d-flex">
-            <img src="{{object.image.url}}" class="rounded-circle me-3" alt="{{object.doctor_name}}">
-            <div>
-              <h5 class="mb-1">{{object.doctor_name}}</h5>
-              <p class="mb-1 small text-muted">specialization in {{object.speciality}}</p>
-              <p class="small text-muted">{{object.experience}} years experience </p>
-              <span class="badge bg-success">✔ Medical Registration Verified</span>
-              <p class="text-success mt-2">👍{{object.rating}} %</p>
-            </div>
-          </div>
-          <p class="mt-3">{{object.doctor_name}} is a highly experienced medical professional committed to providing quality healthcare services with empathy and precision. Known for a patient-centric approach, they ensures clear communication, accurate diagnosis, and evidence-based treatment plans. With a reputation for professionalism, compassion, and consistent results, {{object.doctor_name}} is among the most trusted names in {{object.speciality}}.</p>
-        </div>
 
-        <!-- Clinic Info -->
-        <div class="card shadow-sm mt-4 p-4">
-          <h6>{{object.location}}</h6>
-          <a href="#" class="text-decoration-none fw-bold text-primary">{{object.clinic_name}}</a>
-          <div class="text-warning mb-2">⭐ 4.5</div>
-          <p class="mb-0">{{object.address}}</p>
-          <p class="text-muted">Mon - Sun: 09:30 AM - 07:45 PM | ₹300</p>
-          <span class="badge bg-light text-dark">💳 Online Payment Available</span>
-          <span class="badge bg-purple text-white ms-2">Prime ✓ Verified</span>
-          <button class="btn btn-primary mt-3">⚡ Book Appointment</button>
-        </div>
+
+<div class="doctor-page-layout">
+  <div class="left-column">
+      <div class="detailed-doctor-card-container">
+          <div class="detailed-doctor-card">
+              <div class="doctor-profile-header">
+                  <div class="doctor-avatar-section">
+                      <img src="{{doctor.image.url}}" alt="Dr. Sarah Johnson" class="profile-avatar">
+                      
+                      <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+                  </div>
+                  <div class="doctor-main-info">
+                      <h1 class="doctor-name">Dr.{{doctor.name}}</h1>
+                      <p class="doctor-specialty">{{doctor.speciality}}</p>
+                      <div class="doctor-rating">
+                          <i class="fas fa-star yellow"></i>
+                          <i class="fas fa-star yellow"></i>
+                          <i class="fas fa-star yellow"></i>
+                          <i class="fas fa-star yellow"></i>
+                          <i class="fas fa-star-half-alt yellow"></i>
+                          <span class="rating-text">{{doctor.rating}}</span>
+                      </div>
+                  </div>
+                  <div class="social-icons">
+                      <button class="social-btn heart-btn"><i class="far fa-heart"></i></button>
+                      <button class="social-btn call-btn"><i class="fas fa-phone-alt"></i></button>
+                      <button class="social-btn message-btn"><i class="far fa-envelope"></i></button>
+                  </div>
+              </div>
+
+              <div class="doctor-details-grid">
+                  <div class="detail-item">
+                      <i class="fas fa-briefcase detail-icon"></i>
+                      <span><span class="detail-value">{{doctor.experience}}</span> Experience</span>
+                  </div>
+                  <div class="detail-item">
+                      <i class="fas fa-map-marker-alt detail-icon"></i>
+                      <span><span class="detail-value">{{doctor.location}}</span> Location</span>
+                  </div>
+                  <div class="detail-item">
+                      <i class="fas fa-users detail-icon"></i>
+                      <span><span class="detail-value">2,500+</span> Patients Treated</span>
+                  </div>
+                  <div class="detail-item">
+                      <i class="fas fa-clock detail-icon"></i>
+                      <span><span class="detail-value">{{doctor.response_time}}</span> Response Time</span>
+                  </div>
+              </div>
+
+              <div class="doctor-degrees-section">
+                  <span class="degree-tag">MD</span>
+                  <span class="degree-tag">MBBS</span>
+                  <span class="degree-tag">DM Cardiology</span>
+                  <span class="degree-tag">FACC</span>
+              </div>
+
+              <p class="languages-spoken"><i class="fas fa-language"></i> clinic name : <span class="lang-list">{{doctor.clinic_name}}</span></p>
+
+              <div class="card-footer-badges detailed-page">
+                  <span class="footer-badge"><i class="fas fa-check-circle"></i> Verified Doctor</span>
+                  <span class="footer-badge"><i class="fas fa-star"></i> Top Rated</span>
+                  <span class="footer-badge"><i class="fas fa-shield-alt"></i> HIPAA Compliant</span>
+              </div>
+          </div>
       </div>
 
-      <!-- Booking Section -->
-      <div class="col-md-4">
-        <div class="card shadow-sm p-4">
-          <h6>Pick a time slot</h6>
-          <div class="border-bottom pb-2 mb-2">
-            <strong>Clinic Appointment</strong> - {{object.consultation_fees}}
-          </div>
-          <p class="mb-1">📍{{object.location}}</p>
-          <div class="mb-3">⭐ 4.5 (Verified)</div>
+      <div class="doctor-info-card-container">
+          <div class="doctor-info-card">
+              <div class="tab-navigation">
+                  <button class="tab-button active" data-tab="overview">
+                      <i class="fas fa-file-alt"></i> Overview
+                  </button>
+                  <button class="tab-button" data-tab="experience">
+                      <i class="fas fa-briefcase"></i> Experience
+                  </button>
+                  <button class="tab-button" data-tab="reviews">
+                      <i class="fas fa-star"></i> Reviews
+                  </button>
+                  <button class="tab-button" data-tab="availability">
+                      <i class="fas fa-calendar-alt"></i> Availability
+                  </button>
+              </div>
 
-          <div class="mb-3">
-            <div class="text-muted">Today</div>
-            <p class="text-danger mb-2">{{object.availability}}</p>
-            <button class="btn btn-info w-100">Next availability on {{object.next_availability}}</button>
-            <button class="btn btn-outline-primary mt-2 w-100">📞 Call Now on {{object.phone}}</button>
+              <div class="tab-content">
+                  <div id="overview" class="tab-pane active">
+                      <h2 class="section-title">About Dr. {{doctor.name}}</h2>
+                      <p class="about-text">
+                          Dr. {{doctor.name}} is a highly experienced {{doctor.speciality}} with over {{doctor.experience}} years of practice.
+                          Specializing in advanced procedures and preventive care, Dr. {{doctor.name}} has
+                          successfully treated thousands of patients and is known for their compassionate approach
+                          to healthcare. They are committed to providing personalized treatment plans and staying
+                          updated with the latest medical advancements.
+                      </p>
+
+                      <h3 class="section-subtitle">Specializations</h3>
+                      <div class="specialization-tags">
+                          <span class="specialization-tag"><i class="fas fa-check-circle"></i> Interventional Cardiology</span>
+                          <span class="specialization-tag"><i class="fas fa-check-circle"></i> Cardiac Catheterization</span>
+                          <span class="specialization-tag"><i class="fas fa-check-circle"></i> Heart Disease Prevention</span>
+                          <span class="specialization-tag"><i class="fas fa-check-circle"></i> Hypertension Management</span>
+                          <span class="specialization-tag"><i class="fas fa-check-circle"></i> Cholesterol Management</span>
+                          <span class="specialization-tag"><i class="fas fa-check-circle"></i> Cardiac Rehabilitation</span>
+                      </div>
+
+                      <h3 class="section-subtitle">Services Offered</h3>
+                      <div class="services-offered-grid">
+                          <div class="service-option-card">
+                              <span class="service-name">In-person Consultation</span>
+                              <span class="service-price">₹800</span>
+                              <p class="service-description">Comprehensive physical examination</p>
+                          </div>
+                          <div class="service-option-card">
+                              <span class="service-name">Video Consultation</span>
+                              <span class="service-price">₹600</span>
+                              <p class="service-description">Online consultation via video call</p>
+                          </div>
+                          <div class="service-option-card">
+                              <span class="service-name">Follow-up Consultation</span>
+                              <span class="service-price">₹500</span>
+                              <p class="service-description">Post-treatment follow-up session</p>
+                          </div>
+                          <div class="service-option-card">
+                              <span class="service-name">Emergency Consultation</span>
+                              <span class="service-price">₹1200</span>
+                              <p class="service-description">24/7 emergency medical consultation</p>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div id="experience" class="tab-pane">
+                      <h2 class="section-title">Experience & Education</h2>
+                      <p>Detailed information about Dr. {{doctor.name}} professional experience and educational background.</p>
+                      <ul>
+                          <li>**Senior Cardiologist**, Apollo Hospitals, Mumbai (2015 - Present)</li>
+                          <li>**Consultant Cardiologist**, Lilavati Hospital, Mumbai (2010 - 2015)</li>
+                          <li>**Fellowship (FACC)**, American College of Cardiology (2010)</li>
+                          <li>**DM Cardiology**, All India Institute of Medical Sciences (AIIMS), Delhi (2007)</li>
+                          <li>**MD Internal Medicine**, Grant Medical College, Mumbai (2004)</li>
+                          <li>**MBBS**, Seth G.S. Medical College, Mumbai (2001)</li>
+                      </ul>
+                  </div>
+
+                  <div id="reviews" class="tab-pane">
+                      <h2 class="section-title">Patient Reviews</h2>
+                      <p>Read what patients are saying about Dr. {{doctor.name}}.</p>
+                      <div class="review-list">
+                          <div class="patient-review">
+                              <div class="review-header">
+                                  <span class="reviewer-name">Rahul S.</span>
+                                  <div class="review-stars">
+                                      <i class="fas fa-star yellow"></i><i class="fas fa-star yellow"></i><i class="fas fa-star yellow"></i><i class="fas fa-star yellow"></i><i class="fas fa-star yellow"></i>
+                                  </div>
+                              </div>
+                              <p class="review-text">"Dr. Johnson is incredibly thorough and empathetic. She explained my condition clearly."</p>
+                              <span class="review-date">Reviewed on May 10, 2024</span>
+                          </div>
+                          <div class="patient-review">
+                              <div class="review-header">
+                                  <span class="reviewer-name">Priya K.</span>
+                                  <div class="review-stars">
+                                      <i class="fas fa-star yellow"></i><i class="fas fa-star yellow"></i><i class="fas fa-star yellow"></i><i class="fas fa-star yellow"></i><i class="fas fa-star-half-alt yellow"></i>
+                                  </div>
+                              </div>
+                              <p class="review-text">"Excellent doctor! Very professional and caring. Highly recommend."</p>
+                              <span class="review-date">Reviewed on April 22, 2024</span>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div id="availability" class="tab-pane">
+                    <h2 class="section-title">Available Time Slots</h2>
+                
+                    <h3 class="select-date-heading">Select Date</h3>
+                    <div class="date-selection-grid">
+                        <div class="date-option-card active" data-date="today">
+                            <span class="day-of-week">Today</span>
+                            <span class="slots-available">6 slots</span>
+                        </div>
+                        <div class="date-option-card" data-date="tomorrow">
+                            <span class="day-of-week">Tomorrow</span>
+                            <span class="slots-available">8 slots</span>
+                        </div>
+                        <div class="date-option-card" data-date="wed">
+                            <span class="day-of-week">Wed</span>
+                            <span class="slots-available">5 slots</span>
+                        </div>
+                        <div class="date-option-card" data-date="thu">
+                            <span class="day-of-week">Thu</span>
+                            <span class="slots-available">7 slots</span>
+                        </div>
+                        <div class="date-option-card" data-date="fri">
+                            <span class="day-of-week">Fri</span>
+                            <span class="slots-available">4 slots</span>
+                        </div>
+                    </div>
+                
+                    <div class="available-times-section">
+                        <h3 class="section-subtitle" style="margin-top: 25px;">Available Times</h3>
+                        <div class="time-slots-grid">
+                            <span class="time-slot-tag">9:00 AM</span>
+                            <span class="time-slot-tag">10:00 AM</span>
+                            <span class="time-slot-tag">11:00 AM</span>
+                            <span class="time-slot-tag">12:00 PM</span>
+                            <span class="time-slot-tag">2:00 PM</span>
+                            <span class="time-slot-tag">3:00 PM</span>
+                            <span class="time-slot-tag">4:00 PM</span>
+                            <span class="time-slot-tag">5:00 PM</span>
+                            <span class="time-slot-tag">6:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+              </div>
           </div>
-        </div>
       </div>
-    </div>
   </div>
-</body>
-</html>
+
+  <div class="right-column">
+      <div class="book-appointment-card">
+          <h2 class="book-appointment-title">Book Appointment</h2>
+          <h3 class="consultation-type-heading">Consultation Type</h3>
+
+          <div class="consultation-options">
+              <label class="consultation-option-card clinic-visit-selected">
+                  <input type="radio" name="consultation_type" value="clinic_visit" checked>
+                  <div class="option-content">
+                      <div class="option-header">
+                          <i class="fas fa-hospital option-icon"></i>
+                          <span class="option-name">Clinic Visit</span>
+                      </div>
+                      <p class="option-description">In-person consultation</p>
+                      <span class="option-price">₹{{doctor.consultation_fee}}</span>
+                  </div>
+              </label>
+
+              <label class="consultation-option-card">
+                  <input type="radio" name="consultation_type" value="video_call">
+                  <div class="option-content">
+                      <div class="option-header">
+                          <i class="fas fa-video option-icon"></i>
+                          <span class="option-name">Video Call</span>
+                      </div>
+                      <p class="option-description">Online consultation</p>
+                      <span class="option-price">₹{{doctor.online_consultation}}</span>
+                  </div>
+
+                </div> {# Closing tag for consultation-options #}
+
+                <div class="price-breakdown-section">
+                    <h3 class="section-subtitle">Price Breakdown</h3>
+                    <div class="price-item">
+                        <span class="price-label">Consultation Fee:</span>
+                        <span class="price-value">₹{{doctor.consultation_fee}}</span>
+                    </div>
+                    <div class="price-item">
+                        <span class="price-label">Platform Fee:</span>
+                        <span class="price-value">₹{{doctor.platform_fee}}</span>
+                    </div>
+                    {# Add Total row here if it's dynamic, otherwise, it can be styled with JS #}
+                    <div class="price-item total-price">
+                        <span class="price-label">Taxes (18%):</span>
+                        <span class="price-value">₹153</span>
+                    </div>
+                    <div class="price-item total-price">
+                        <span class="price-label">Total:</span>
+                        <span class="price-value">₹1003</span>
+                    </div>
+                </div>
+    
+                <div class="quick-information-section">
+                    <h3 class="section-subtitle">Quick Information</h3>
+                    <div class="info-item">
+                        <i class="fas fa-clock info-icon"></i>
+                        <div class="info-text">
+                            <span class="info-label">Next Available</span>
+                            <span class="info-value">Today 2:00 PM</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-comment-dots info-icon"></i>
+                        <div class="info-text">
+                            <span class="info-label">Response Time</span>
+                            <span class="info-value">15 mins</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-users info-icon"></i>
+                        <div class="info-text">
+                            <span class="info-label">Patients Treated</span>
+                            <span class="info-value">2,500+ patients</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-globe-americas info-icon"></i>
+                        <div class="info-text">
+                            <span class="info-label">Consultation Types</span>
+                            <span class="info-value">In-person & Video</span>
+                        </div>
+                    </div>
+                </div>
+    
+                {# The "Book Appointment" button will likely go here #}
+              </label>
+          </div>
+
+          {# The "Price Breakdown" section will go here later #}
+      </div>
+  </div>
+</div>
+
+<script>
+  // Simple JavaScript for tab switching
+  document.addEventListener('DOMContentLoaded', () => {
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const tabPanes = document.querySelectorAll('.tab-pane');
+
+      tabButtons.forEach(button => {
+          button.addEventListener('click', () => {
+              // Deactivate all buttons and hide all panes
+              tabButtons.forEach(btn => btn.classList.remove('active'));
+              tabPanes.forEach(pane => pane.classList.remove('active'));
+
+              // Activate clicked button
+              button.classList.add('active');
+
+              // Show corresponding pane
+              const targetTab = button.dataset.tab;
+              document.getElementById(targetTab).classList.add('active');
+          });
+      });
+
+      // Optional: Add logic for consultation option selection (like adding a class)
+      const consultationOptions = document.querySelectorAll('.consultation-option-card input[type="radio"]');
+      consultationOptions.forEach(radio => {
+          radio.addEventListener('change', () => {
+              consultationOptions.forEach(r => r.closest('.consultation-option-card').classList.remove('clinic-visit-selected'));
+              if (radio.checked) {
+                  radio.closest('.consultation-option-card').classList.add('clinic-visit-selected');
+              }
+          });
+      });
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Deactivate all buttons and hide all panes
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabPanes.forEach(pane => pane.classList.remove('active'));
+
+            // Activate clicked button
+            button.classList.add('active');
+
+            // Show corresponding pane
+            const targetTab = button.dataset.tab;
+            document.getElementById(targetTab).classList.add('active');
+
+            // If switching to Availability tab, ensure first date is active and times are shown
+            if (targetTab === 'availability') {
+                const firstDateCard = document.querySelector('.date-selection-grid .date-option-card');
+                const availableTimesSection = document.querySelector('.available-times-section');
+
+                // Reset active state for all date cards
+                document.querySelectorAll('.date-option-card').forEach(card => card.classList.remove('active'));
+                // Set the first date card as active
+                if (firstDateCard) {
+                    firstDateCard.classList.add('active');
+                }
+                // Show the available times section
+                if (availableTimesSection) {
+                    availableTimesSection.classList.add('show');
+                }
+            }
+        });
+    });
+
+    // Optional: Add logic for consultation option selection (like adding a class)
+    const consultationOptions = document.querySelectorAll('.consultation-option-card input[type="radio"]');
+    consultationOptions.forEach(radio => {
+        radio.addEventListener('change', () => {
+            consultationOptions.forEach(r => r.closest('.consultation-option-card').classList.remove('clinic-visit-selected'));
+            if (radio.checked) {
+                radio.closest('.consultation-option-card').classList.add('clinic-visit-selected');
+            }
+        });
+    });
+
+    // --- New JavaScript for Date and Time Slot Selection ---
+    const dateOptionCards = document.querySelectorAll('.date-option-card');
+    const availableTimesSection = document.querySelector('.available-times-section');
+    const timeSlotTags = document.querySelectorAll('.time-slot-tag'); // Get all time slots
+
+    // Handle Date Card Clicks
+    dateOptionCards.forEach(card => {
+        card.addEventListener('click', () => {
+            // Remove 'active' class from all date cards
+            dateOptionCards.forEach(c => c.classList.remove('active'));
+
+            // Add 'active' class to the clicked card
+            card.classList.add('active');
+
+            // Show the available times section
+            availableTimesSection.classList.add('show');
+
+            // Optional: You could fetch/update time slots based on the selected date here
+            // For this example, we're just showing the static list.
+        });
+    });
+
+    // Handle Time Slot Tag Clicks (Optional: for selection feedback)
+    timeSlotTags.forEach(slot => {
+        slot.addEventListener('click', () => {
+            // Remove 'selected' class from all time slots
+            timeSlotTags.forEach(s => s.classList.remove('selected'));
+
+            // Add 'selected' class to the clicked time slot
+            slot.classList.add('selected');
+        });
+    });
+
+    // Initial state: When page loads, if Availability is the default active tab,
+    // ensure the "Today" date card is active and times are shown.
+    const initialActiveTab = document.querySelector('.tab-button.active');
+    if (initialActiveTab && initialActiveTab.dataset.tab === 'availability') {
+         const firstDateCard = document.querySelector('.date-selection-grid .date-option-card');
+         if (firstDateCard) {
+             firstDateCard.classList.add('active');
+         }
+         if (availableTimesSection) {
+            availableTimesSection.classList.add('show');
+         }
+    }
+});
+
+</script>
 
 {% endblock content %}
