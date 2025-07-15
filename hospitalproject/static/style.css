@@ -3282,7 +3282,7 @@ body {
   .rh-login-title {
     font-size: 2.2rem;
     font-weight: 700;
-    color: var(--rh-login-text-color);
+    color:#8b5cf6;
     margin-bottom: 1rem;
     transition: color 0.3s ease;
   }
@@ -3318,7 +3318,7 @@ body {
   }
   
   .rh-login-button {
-    background: linear-gradient(to right, #070707, #0a0b0a);
+    background: #8b5cf6;
     border: none;
     color: #fff;
     border-radius: 0.75rem;
@@ -3456,7 +3456,7 @@ body {
   .rh-signup-title {
     font-size: 2.2rem;
     font-weight: 700;
-    color: var(--rh-signup-text-color);
+    color: #8b5cf6;
     margin-bottom: 1rem;
     transition: color 0.3s ease;
   }
@@ -3494,7 +3494,7 @@ body {
   /* Removed .rh-signup-form-label as per request */
   
   .rh-signup-button {
-    background: linear-gradient(to right, #111211, #040404);
+    background: #8b5cf6;
     border: none;
     color: #fff;
     border-radius: 0.75rem;

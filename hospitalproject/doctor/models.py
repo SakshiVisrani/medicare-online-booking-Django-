@@ -2,7 +2,9 @@ from django.db import models
 from  autoslug import AutoSlugField
 from django.conf import settings
 from datetime import time, date
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 
 # Create your models here.
@@ -51,4 +53,23 @@ class DoctorAvailability(models.Model):
 
      def __str__(self):
         return f"{self.doctor.name} - {self.date} at {self.time}"
+
+class Appointment(models.Model):
+    
+    patient = models.ForeignKey(User, on_delete=models.CASCADE)
+    doctor = models.ForeignKey('Doctor', on_delete=models.CASCADE)
+    date = models.DateField()
+    time = models.TimeField()
+
+    CONSULTATION_TYPES = [
+        ('clinic_visit', 'Clinic Visit'),
+        ('video_call', 'Video Call'),
+    ]
+    consultation_type = models.CharField(max_length=20, choices=CONSULTATION_TYPES, default='clinic_visit')
+    consultation_fee = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    platform_fee = models.DecimalField(max_digits=10, decimal_places=2, default=50.00)
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    def __str__(self):
+        return f"{self.patient.username} with Dr. {self.doctor.name} on {self.date} at {self.time}"
 

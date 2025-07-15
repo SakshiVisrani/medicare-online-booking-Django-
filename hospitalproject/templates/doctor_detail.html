@@ -219,99 +219,105 @@
       </div>
   </div>
 
+  <ul>
+    {% for appt in appointments %}
+      <li>{{ appt.date }} at {{ appt.time }} - Booked by {{ appt.patient.username }}</li>
+    {% endfor %}
+  </ul>
+
   <div class="right-column">
-      <div class="book-appointment-card">
-          <h2 class="book-appointment-title">Book Appointment</h2>
-          <h3 class="consultation-type-heading">Consultation Type</h3>
-
-          <div class="consultation-options">
-              <label class="consultation-option-card clinic-visit-selected">
-                  <input type="radio" name="consultation_type" value="clinic_visit" checked>
-                  <div class="option-content">
-                      <div class="option-header">
-                          <i class="fas fa-hospital option-icon"></i>
-                          <span class="option-name">Clinic Visit</span>
-                      </div>
-                      <p class="option-description">In-person consultation</p>
-                      <span class="option-price">₹{{doctor.consultation_fee}}</span>
-                  </div>
-              </label>
-
-              <label class="consultation-option-card">
-                  <input type="radio" name="consultation_type" value="video_call">
-                  <div class="option-content">
-                      <div class="option-header">
-                          <i class="fas fa-video option-icon"></i>
-                          <span class="option-name">Video Call</span>
-                      </div>
-                      <p class="option-description">Online consultation</p>
-                      <span class="option-price">₹{{doctor.online_consultation}}</span>
-                  </div>
-
-                </div> {# Closing tag for consultation-options #}
-
-                <div class="price-breakdown-section">
-                    <h3 class="section-subtitle">Price Breakdown</h3>
-                    <div class="price-item">
-                        <span class="price-label">Consultation Fee:</span>
-                        <span class="price-value">₹{{doctor.consultation_fee}}</span>
-                    </div>
-                    <div class="price-item">
-                        <span class="price-label">Platform Fee:</span>
-                        <span class="price-value">₹{{doctor.platform_fee}}</span>
-                    </div>
-                    {# Add Total row here if it's dynamic, otherwise, it can be styled with JS #}
-                    <div class="price-item total-price">
-                        <span class="price-label">Taxes (18%):</span>
-                        <span class="price-value">₹153</span>
-                    </div>
-                    <div class="price-item total-price">
-                        <span class="price-label">Total:</span>
-                        <span class="price-value">₹1003</span>
-                    </div>
-                </div>
-    
-                <div class="quick-information-section">
-                    <h3 class="section-subtitle">Quick Information</h3>
-                    <div class="info-item">
-                        <i class="fas fa-clock info-icon"></i>
-                        <div class="info-text">
-                            <span class="info-label">Next Available</span>
-                            <span class="info-value">Today 2:00 PM</span>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-comment-dots info-icon"></i>
-                        <div class="info-text">
-                            <span class="info-label">Response Time</span>
-                            <span class="info-value">15 mins</span>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-users info-icon"></i>
-                        <div class="info-text">
-                            <span class="info-label">Patients Treated</span>
-                            <span class="info-value">2,500+ patients</span>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-globe-americas info-icon"></i>
-                        <div class="info-text">
-                            <span class="info-label">Consultation Types</span>
-                            <span class="info-value">In-person & Video</span>
-                        </div>
-                    </div>
-                </div>
-    
-                {# The "Book Appointment" button will likely go here #}
-              </label>
+    <div class="book-appointment-card">
+      <h2 class="book-appointment-title">Book Appointment</h2>
+      <h3 class="consultation-type-heading">Consultation Type</h3>
+  
+      <form method="POST" action="{% url 'book-slot' %}">
+        {% csrf_token %}
+        <input type="hidden" name="doctor_id" value="{{ doctor.id }}">
+  
+        <div class="consultation-options">
+          <label class="consultation-option-card clinic-visit-selected">
+            <input type="radio" name="consultation_type" value="clinic_visit" checked>
+            <div class="option-content">
+              <div class="option-header">
+                <i class="fas fa-hospital option-icon"></i>
+                <span class="option-name">Clinic Visit</span>
+              </div>
+              <p class="option-description">In-person consultation</p>
+              <span class="option-price">₹{{ doctor.consultation_fee }}</span>
+            </div>
+          </label>
+  
+          <label class="consultation-option-card">
+            <input type="radio" name="consultation_type" value="video_call">
+            <div class="option-content">
+              <div class="option-header">
+                <i class="fas fa-video option-icon"></i>
+                <span class="option-name">Video Call</span>
+              </div>
+              <p class="option-description">Online consultation</p>
+              <span class="option-price">₹{{ doctor.online_consultation }}</span>
+            </div>
+          </label>
+        </div> {# consultation-options end #}
+  
+        <div class="price-breakdown-section">
+          <h3 class="section-subtitle">Price Breakdown</h3>
+          <div class="price-item">
+            <span class="price-label">Consultation Fee:</span>
+            <span id="consultation-fee" class="price-value">₹{{ doctor.consultation_fee }}</span>
           </div>
-
-          {# The "Price Breakdown" section will go here later #}
-      </div>
+          <div class="price-item">
+            <span class="price-label">Platform Fee:</span>
+            <span id="platform-fee" class="price-value">₹{{ doctor.platform_fee }}</span>
+          </div>
+          <div class="price-item total-price">
+            <span class="price-label">Taxes (18%):</span>
+            <span id="taxes" class="price-value">₹0</span>
+          </div>
+          <div class="price-item total-price">
+            <span class="price-label">Total:</span>
+            <span id="total-price" class="price-value">₹0</span>
+          </div>
+        </div>
+  
+        <div class="quick-information-section">
+          <h3 class="section-subtitle">Quick Information</h3>
+          <div class="info-item">
+            <i class="fas fa-clock info-icon"></i>
+            <div class="info-text">
+              <span class="info-label">Next Available</span>
+              <span class="info-value">Today 2:00 PM</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-comment-dots info-icon"></i>
+            <div class="info-text">
+              <span class="info-label">Response Time</span>
+              <span class="info-value">15 mins</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-users info-icon"></i>
+            <div class="info-text">
+              <span class="info-label">Patients Treated</span>
+              <span class="info-value">2,500+ patients</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-globe-americas info-icon"></i>
+            <div class="info-text">
+              <span class="info-label">Consultation Types</span>
+              <span class="info-value">In-person & Video</span>
+            </div>
+          </div>
+        </div>
+  
+        <button type="submit" class="book-appointment-btn" style="margin-top: 20px;">Pay with Razorpay</button>
+      </form>
+    </div>
   </div>
-</div>
 
+  
 <script>
   // Simple JavaScript for tab switching
   document.addEventListener('DOMContentLoaded', () => {
@@ -438,6 +444,44 @@
          }
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const consultationFees = {
+      clinic_visit: parseFloat("{{ doctor.consultation_fee }}"),
+      video_call: parseFloat("{{ doctor.online_consultation }}")
+    };
+    const platformFee = parseFloat("{{ doctor.platform_fee }}");
+    const taxRate = 0.18;
+
+    const consultationFeeEl = document.getElementById('consultation-fee');
+    const platformFeeEl = document.getElementById('platform-fee');
+    const taxesEl = document.getElementById('taxes');
+    const totalPriceEl = document.getElementById('total-price');
+
+    function updatePrices(selectedType) {
+      const consultationFee = consultationFees[selectedType] || 0;
+      const taxAmount = (consultationFee + platformFee) * taxRate;
+      const total = consultationFee + platformFee + taxAmount;
+
+      consultationFeeEl.textContent = '₹' + consultationFee.toFixed(2);
+      platformFeeEl.textContent = '₹' + platformFee.toFixed(2);
+      taxesEl.textContent = '₹' + taxAmount.toFixed(2);
+      totalPriceEl.textContent = '₹' + total.toFixed(2);
+    }
+
+    // On page load initialize
+    updatePrices('clinic_visit');
+
+    // Handle radio change
+    const radios = document.querySelectorAll('input[name="consultation_type"]');
+    radios.forEach(radio => {
+      radio.addEventListener('change', e => {
+        if (e.target.checked) {
+          updatePrices(e.target.value);
+        }
+      });
+    });
+  });
 
 </script>
 
