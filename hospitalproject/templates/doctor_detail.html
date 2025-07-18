@@ -230,7 +230,7 @@
       <h2 class="book-appointment-title">Book Appointment</h2>
       <h3 class="consultation-type-heading">Consultation Type</h3>
   
-      <form method="POST" action="{% url 'book-slot' %}">
+      <form method="POST" action="{% url 'book-slot' doctor.slug %}">
         {% csrf_token %}
         <input type="hidden" name="doctor_id" value="{{ doctor.id }}">
   

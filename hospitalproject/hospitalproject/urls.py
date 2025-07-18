@@ -30,7 +30,7 @@ urlpatterns = [
     path('register/doctor',views.doctor,name='doctor'),
     path('register/patient',views.patient,name='patient'),
     path('contact',views.contact,name='contact'),
-    path('doctors/', include('doctor.urls')),
+    path('', include('doctor.urls')),
     path('login',views.user_login,name='login'),
     path('logout/',views.user_logout,name='logout'),
     path('signin/' ,views.register, name='signin')

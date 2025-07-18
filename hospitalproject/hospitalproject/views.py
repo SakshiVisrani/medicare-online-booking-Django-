@@ -25,7 +25,7 @@ def register(request):
     if request.method == "GET":
         return render(request, "signin.html")
     elif request.method == "POST":
-        print("POST request")
+        print(user,"POST request")
 
         username = request.POST.get("username")
         first_name = request.POST.get("first_name")
@@ -36,7 +36,7 @@ def register(request):
         
         if password != passwordconfirmation:
             message = "Passwords do not match"
-            return render(request, "signin.html", {"message": message})
+            return render(request, "register.html", {"message": message})
         
         user=User.objects.create_user(
             username=username,

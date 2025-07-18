@@ -3,6 +3,7 @@
 <header class="navbar">
   <div class="container">
       <div class="logo">
+        <a href="{% url 'home' %}" class="logo-link">
           <i class="fas fa-heartbeat"></i>
           <span>MediCare</span>
           <span class="healthcare-platform">Healthcare Platform</span>
@@ -11,10 +12,15 @@
           <div class="dropdown">
             <a href="#" class="dropdown-toggle">Find Doctors <i class="fas fa-chevron-down"></i></a>
             <div class="dropdown-menu">
-              <a href="#">Cardiologist</a>
-              <a href="#">Neurologist</a>
-              <a href="#">Dermatologist</a>
-              <a href="#">Dentist</a>
+              <a href="{% url 'doctors_by_speciality' 'cardiologist' %}">Cardiologist</a>
+              <a href="{% url 'doctors_by_speciality' 'neurologist' %}">Neurologist</a>
+              <a href="{% url 'doctors_by_speciality' 'dermatologist' %}">Dermatologist</a>
+              <a href="{% url 'doctors_by_speciality' 'dentist' %}">Dentist</a>
+              <a href="{% url 'doctors_by_speciality' 'ophthalmology' %}">Ophthalmology</a>
+              <a href="{% url 'doctors_by_speciality' 'pediatrics' %}">Pediatrics</a>
+              <a href="{% url 'doctors_by_speciality' 'orthopedics' %}">Orthopedics</a>
+              <a href="{% url 'doctors_by_speciality' 'psychiatry' %}">Psychiatry</a>
+
 
             </div>
           </div>
@@ -25,16 +31,16 @@
           <a href="#">About</a>
       </nav>
       <div class="auth-buttons">
-        {% if request.user.first_name %}
-        <a class="btn btn-Primary mx-2">
-          {{request.user.first_name}}{{request.user.last_name}}
-        </a>
-        <a class="btn btn-danger mx-2" href="{% url 'logout' %}" role="button" id="button">logout</a>
-        {% else %}
-          <a href="#" class="icon-link"><i class="fas fa-bell"></i></a>
-          <a href="{% url 'login' %}" class="icon-link"><i class="fas fa-user-circle"></i> Login</a>
-          <button class="sign-up-btn">Sign Up Free</button>
-        {% endif %}
+        {% if request.user.is_authenticated %}
+  <a class="btn btn-Primary mx-2">
+    {{ request.user.first_name }}{{request.user.last_name}}
+  </a>
+  <a class="btn btn-danger mx-2" href="{% url 'logout' %}" role="button" id="button">logout</a>
+{% else %}
+  <a href="#" class="icon-link"><i class="fas fa-bell"></i></a>
+  <a href="{% url 'login' %}" class="icon-link"><i class="fas fa-user-circle"></i> Login</a>
+  <a href="{% url 'signin' %}" class="sign-up-btn">Sign Up Free</a>
+{% endif %}
       </div>
   </div>
 </header>

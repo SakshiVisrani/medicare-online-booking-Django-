@@ -85,19 +85,31 @@ body {
     z-index: 10;
 }
 
-.navbar .logo {
+.navbar .logo a {
     display: flex;
     align-items: center;
     font-size: 24px;
     font-weight: 700;
-    color: var(--primary-purple);
-    margin-right: 30px;
+    color: var(--primary-purple);  /* Maintain your theme color */
+    text-decoration: none;         /* Remove underline from <a> */
 }
 
-.navbar .logo i {
+.navbar .logo a:hover {
+    color: var(--primary-purple);  /* Optional: no color change on hover */
+}
+
+.navbar .logo a i {
     font-size: 30px;
     margin-right: 8px;
 }
+
+.navbar .logo a .healthcare-platform {
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 5px;
+    color: #777; /* Optional: tweak this as needed */
+}
+
 
 .navbar .logo .healthcare-platform {
     font-size: 14px;

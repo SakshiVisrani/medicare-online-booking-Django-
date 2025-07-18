@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Book an Appointment with {{ doctor.name }}</h2>
+
+<form method="post">
+  {% csrf_token %}
+  <label for="date">Booking Date:</label>
+  <input type="date" name="date" value="{{ date }}" readonly>
+  <br><br>
+  {{ form.as_p }}
+
+  <button type="submit" class="btn btn-primary">Book Appointment</button>
+</form>
+{% endblock %}

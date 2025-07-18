@@ -4,8 +4,10 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.shortcuts import render, redirect
 from datetime import datetime, timedelta, time ,date
-from .models import Doctor,DoctorAvailability,Appointment
+from .models import Doctor,DoctorAvailability,Booking
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from .forms import SlotBookingForm
 
 
 # Create your views here.
@@ -14,16 +16,17 @@ def doctors(request):
     return render(request,'doctors.html',{'doctors': doctors})
 
 
+
 class DoctorDetailView(DetailView):
-    model=Doctor
-    template_name='doctor_detail.html'
-    context_object_name='doctor'
+    model = Doctor
+    template_name = 'doctor_detail.html'
+    context_object_name = 'doctor'
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['appointments'] = Appointment.objects.filter(doctor=self.object).order_by('date', 'time')
+        context['appointments'] = Booking.objects.filter(doctor=self.object).order_by('slot__date', 'slot__time')
         return context
 
 
@@ -38,6 +41,50 @@ class SpecialityDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["doctors"]=Doctor.objects.all()
         return context
+    
+def doctors_by_speciality(request, speciality_slug):
+    speciality = get_object_or_404(Speciality, slug=speciality_slug)
+    doctors = Doctor.objects.filter(speciality=speciality)
+    return render(request, 'doctors_by_speciality.html', {
+        'doctors': doctors,
+        'speciality': speciality.name
+    })
+
+
+
+@login_required
+def book_slot(request,slug):
+    doctor = get_object_or_404(Doctor, slug=slug)
+
+    date_str = request.GET.get('date')
+    date = datetime.strptime(date_str, "%Y-%m-%d").date() if date_str else datetime.today().date()
+
+    if request.method == 'POST':
+        form = SlotBookingForm(doctor, date, request.POST)
+        if form.is_valid():
+            slot = form.cleaned_data['slot']
+            slot.is_booked = True
+            slot.save()
+
+            Booking.objects.create(
+                doctor=doctor,
+                user=request.user,
+                slot=slot
+            )
+            return redirect('booking_success')  
+    else:
+        form = SlotBookingForm(doctor, date)
+
+    return render(request, 'book_slot.html', {
+        'form': form,
+        'doctor': doctor,
+        'date': date
+    })
+
+
+
+
+
     
 
 
@@ -80,67 +127,112 @@ def search_doctors(request):
     })
 
 
-def book_slot(request):
-    if request.method == 'POST':
-        doctor_id = request.POST.get('doctor_id')
-        date_str = request.POST.get('date')         # Format: YYYY-MM-DD
-        time_str = request.POST.get('time')         # Format: HH:MM
-        consultation_type = request.POST.get('consultation_type')  # 'clinic_visit' or 'video_call'
+def doctor_schedule_view(request, doctor_id):
+    doctor = get_object_or_404(Doctor, id=doctor_id)
+    availability = DoctorAvailability.objects.filter(doctor=doctor)
 
-        doctor = get_object_or_404(Doctor, id=doctor_id)
-        date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
-        time_obj = datetime.strptime(time_str, '%H:%M').time()
+    availability_data = {}
+    for slot in availability:
+        time_str = slot.time.strftime("%H:%M")
+        availability_data.setdefault(slot.day, []).append(time_str)
 
-        # Set consultation fee based on type
-        if consultation_type == 'clinic_visit':
-            consultation_fee = doctor.consultation_fee
-        elif consultation_type == 'video_call':
-            consultation_fee = doctor.online_consultation
-        else:
-            return JsonResponse({'success': False, 'error': 'Invalid consultation type'}, status=400)
+    return render(request, 'doctor_schedule.html', {
+        'doctor': doctor,
+        'availability_data': availability_data,
+    })
 
-        platform_fee = doctor.platform_fee or 50
-        tax = 0.18 * (consultation_fee + platform_fee)
-        total = consultation_fee + platform_fee + tax
+def get_slots_for_day(request):
+    doctor_id = request.GET.get('doctor_id')
+    day = request.GET.get('day')
 
-        # Save appointment
-        appointment = Appointment.objects.create(
-            doctor=doctor,
-            patient=request.user,
-            date=date_obj,
-            time=time_obj,
-            consultation_type=consultation_type,
-            consultation_fee=consultation_fee,
-            platform_fee=platform_fee,
-            total=total
-        )
+    doctor = get_object_or_404(Doctor, id=doctor_id)
+    slots = DoctorAvailability.objects.filter(doctor=doctor, day=day).order_by('time')
+    slot_times = [slot.time.strftime("%H:%M") for slot in slots]
 
-        # Define all available slots
-        all_slots = [
-            time(9, 0), time(10, 0), time(11, 0),
-            time(12, 0), time(14, 0), time(15, 0),
-            time(16, 0), time(17, 0), time(18, 0)
-        ]
-
-        try:
-            current_index = all_slots.index(time_obj)
-            next_slot = all_slots[current_index + 1]
-        except (ValueError, IndexError):
-            next_slot = None
-
-        return JsonResponse({
-            'success': True,
-            'next_slot': next_slot.strftime('%I:%M %p') if next_slot else 'No more slots today',
-            'consultation_fee': consultation_fee,
-            'platform_fee': platform_fee,
-            'tax': round(tax),
-            'total': round(total)
-        })
-
-    return JsonResponse({'success': False}, status=400)
+    return JsonResponse({'slots': slot_times})
 
 
 
+# def book_slot(request):
+#     if request.method == 'POST':
+#         doctor_id = request.POST.get('doctor_id')
+#         date_str = request.POST.get('date')         # Format: YYYY-MM-DD
+#         time_str = request.POST.get('time')         # Format: HH:MM
+#         consultation_type = request.POST.get('consultation_type')  # 'clinic_visit' or 'video_call'
+
+#         doctor = get_object_or_404(Doctor, id=doctor_id)
+#         date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
+#         time_obj = datetime.strptime(time_str, '%H:%M').time()
+
+#         # Set consultation fee based on type
+#         if consultation_type == 'clinic_visit':
+#             consultation_fee = doctor.consultation_fee
+#         elif consultation_type == 'video_call':
+#             consultation_fee = doctor.online_consultation
+#         else:
+#             return JsonResponse({'success': False, 'error': 'Invalid consultation type'}, status=400)
+
+#         platform_fee = doctor.platform_fee or 50
+#         tax = 0.18 * (consultation_fee + platform_fee)
+#         total = consultation_fee + platform_fee + tax
+
+#         # Save appointment
+#         appointment = Appointment.objects.create(
+#             doctor=doctor,
+#             patient=request.user,
+#             date=date_obj,
+#             time=time_obj,
+#             consultation_type=consultation_type,
+#             consultation_fee=consultation_fee,
+#             platform_fee=platform_fee,
+#             total=total
+#         )
+
+#         # Define all available slots
+#         all_slots = [
+#             time(9, 0), time(10, 0), time(11, 0),
+#             time(12, 0), time(14, 0), time(15, 0),
+#             time(16, 0), time(17, 0), time(18, 0)
+#         ]
+
+#         try:
+#             current_index = all_slots.index(time_obj)
+#             next_slot = all_slots[current_index + 1]
+#         except (ValueError, IndexError):
+#             next_slot = None
+
+#         return JsonResponse({
+#             'success': True,
+#             'next_slot': next_slot.strftime('%I:%M %p') if next_slot else 'No more slots today',
+#             'consultation_fee': consultation_fee,
+#             'platform_fee': platform_fee,
+#             'tax': round(tax),
+#             'total': round(total)
+#         })
+
+#     return JsonResponse({'success': False}, status=400)
+
+
+# def book_slot(request):
+#     if request.method == 'POST':
+#         doctor_id = request.POST.get('doctor_id')
+#         booking_date = request.POST.get('booking_date')  # format: YYYY-MM-DD
+#         booking_time = request.POST.get('booking_time')  # format: HH:MM
+#         payment_mode = request.POST.get('payment_mode')
+
+#         doctor = get_object_or_404(Doctor, id=doctor_id)
+
+#         Appointment.objects.create(
+#             doctor=doctor,
+#             patient=request.user,
+#             date=booking_date,
+#             time=booking_time,
+#             payment_mode=payment_mode
+#         )
+#         return redirect('booking_confirmation')
+#     else:
+#         doctors = Doctor.objects.all() 
+#         return render(request, 'book_slot.html', {'doctors': doctors})
 
 
 
