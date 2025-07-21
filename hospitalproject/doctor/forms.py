@@ -1,4 +1,5 @@
 # forms.py
+from .models import Booking
 
 from django import forms
 from .models import AppointmentSlot
@@ -18,3 +19,8 @@ class SlotBookingForm(forms.Form):
             date=date,
             is_booked=False
         ).order_by('time')
+
+class BookingForm(forms.ModelForm):
+    class Meta:
+        model = Booking
+        fields = ['slot']  

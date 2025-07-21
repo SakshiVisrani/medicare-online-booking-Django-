@@ -170,9 +170,10 @@
                               <span class="review-date">Reviewed on April 22, 2024</span>
                           </div>
                       </div>
-                  </div>
+                </div>
 
-                  <div id="availability" class="tab-pane">
+                {% comment %} 
+                <div id="availability" class="tab-pane">
                     <h2 class="section-title">Available Time Slots</h2>
                 
                     <h3 class="select-date-heading">Select Date</h3>
@@ -213,8 +214,37 @@
                             <span class="time-slot-tag">6:00 PM</span>
                         </div>
                     </div>
+                </div> 
+                {% endcomment %}
+                <div id="availability" class="tab-pane">
+                    <h2 class="section-title">Available Time Slots</h2>
+                
+                    <h3 class="select-date-heading">Select Date</h3>
+                    <div class="date-selection-grid">
+                        {% for day in availability_data %}
+                        <div class="date-option-card {% if forloop.first %}active{% endif %}" data-date="{{ day.date }}">
+                            <span class="day-of-week">{{ day.day }}</span>
+                            <span class="slots-available">{{ day.slot_count }} slots</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                
+                    <div class="available-times-section">
+                        <h3 class="section-subtitle" style="margin-top: 25px;">Available Times</h3>
+                        
+                        {% for day in availability_data %}
+                        <div class="time-slots-grid time-slot-group {% if not forloop.first %}d-none{% endif %}" data-date="{{ day.date }}">
+                            {% for slot in day.slots %}
+                            <form action="{% url 'book-appointment' slot.id %}" method="get" style="display: inline;">
+                                <button class="time-slot-tag" type="submit">{{ slot.time|time:"g:i A" }}</button>
+                            </form>
+                        {% endfor %}
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
-              </div>
+            </div>
+                
           </div>
       </div>
   </div>
@@ -484,5 +514,28 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 </script>
-
+<script>
+    document.querySelectorAll('.date-option-card').forEach(card => {
+        card.addEventListener('click', function () {
+            // Switch active class
+            document.querySelectorAll('.date-option-card').forEach(c => c.classList.remove('active'));
+            this.classList.add('active');
+    
+            // Get the selected date
+            const selectedDate = this.getAttribute('data-date');
+    
+            // Hide all time slot groups
+            document.querySelectorAll('.time-slot-group').forEach(group => {
+                group.classList.add('d-none');
+            });
+    
+            // Show the one matching selected date
+            const activeGroup = document.querySelector('.time-slot-group[data-date="' + selectedDate + '"]');
+            if (activeGroup) {
+                activeGroup.classList.remove('d-none');
+            }
+        });
+    });
+    </script>
+    
 {% endblock content %}

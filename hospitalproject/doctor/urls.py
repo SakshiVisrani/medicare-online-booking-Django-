@@ -1,5 +1,4 @@
 from django.urls import path 
-from . import views
 from .views import DoctorDetailView, SpecialityDetailView , doctor_availability ,search_doctors , book_slot
 
 # urlpatterns = [
@@ -15,14 +14,15 @@ from .views import DoctorDetailView, SpecialityDetailView , doctor_availability 
 
 
 from django.urls import path
-from .views import book_slot, DoctorDetailView, SpecialityDetailView, doctor_availability, search_doctors
+from .views import book_slot, DoctorDetailView, SpecialityDetailView, doctor_availability, search_doctors,doctors_by_speciality,book_appointment,doctors
 
 urlpatterns = [
-  path('book-slot/<slug:slug>/', book_slot, name='book-slot'),  # ✅ Corrected
-    path('doctors/', views.doctors, name='doctors'),
-    path('doctor/<slug:slug>/', DoctorDetailView.as_view(), name='doctor-detail'),
-    path('doctor/<slug:slug>/availabsility/', doctor_availability, name='doctor-availability'),
-    path('speciality/<slug:slug>', SpecialityDetailView.as_view(), name='speciality-detail'),
-    path('search/', search_doctors, name='search-doctors'),
-    path('speciality/<str:speciality_slug>/', views.doctors_by_speciality, name='doctors_by_speciality'),
+   path('book-slot/<slug:slug>/', book_slot, name='book-slot'),  # ✅ Corrected
+   path('doctors/', doctors, name='doctors'),
+   path('doctor/<slug:slug>/', DoctorDetailView.as_view(), name='doctor-detail'),
+   path('doctor/<slug:slug>/availabsility/', doctor_availability, name='doctor-availability'),
+   path('speciality/<slug:slug>', SpecialityDetailView.as_view(), name='speciality-detail'),
+   path('search/', search_doctors, name='search-doctors'),
+   path('speciality/<str:speciality_slug>/',doctors_by_speciality, name='doctors_by_speciality'),
+   path('book/<int:slot_id>/', book_appointment, name='book-appointment'),
 ]

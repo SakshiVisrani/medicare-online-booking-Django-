@@ -1,21 +1,24 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from .models import Doctor,Speciality
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.shortcuts import render, redirect
 from datetime import datetime, timedelta, time ,date
-from .models import Doctor,DoctorAvailability,Booking
+from .models import Doctor,Booking,AppointmentSlot
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from .forms import SlotBookingForm
+from .forms import SlotBookingForm, BookingForm
 
-
+from datetime import date, timedelta
 # Create your views here.
 def doctors(request):
     doctors = Doctor.objects.all()
     return render(request,'doctors.html',{'doctors': doctors})
 
 
+from collections import defaultdict
+from datetime import date, timedelta
+import calendar
 
 class DoctorDetailView(DetailView):
     model = Doctor
@@ -26,7 +29,38 @@ class DoctorDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['appointments'] = Booking.objects.filter(doctor=self.object).order_by('slot__date', 'slot__time')
+        doctor = self.object
+
+        # Get booked appointments
+        context['appointments'] = Booking.objects.filter(
+            doctor=doctor
+        ).order_by('slot__date', 'slot__time')
+
+        # Get available slots for next 5 days
+        today = date.today()
+        end_date = today + timedelta(days=4)
+
+        slots = AppointmentSlot.objects.filter(
+            doctor=doctor,
+            date__range=(today, end_date),
+            is_booked=False
+        ).order_by('date', 'time')
+
+        # Group slots by date
+        grouped_slots = defaultdict(list)
+        for slot in slots:
+            grouped_slots[slot.date].append(slot)
+
+        availability_data = []
+        for dt, time_slots in grouped_slots.items():
+            availability_data.append({
+                'date': dt,
+                'day': calendar.day_name[dt.weekday()],
+                'slots': time_slots,
+                'slot_count': len(time_slots)
+            })
+
+        context['availability_data'] = availability_data
         return context
 
 
@@ -151,6 +185,30 @@ def get_slots_for_day(request):
 
     return JsonResponse({'slots': slot_times})
 
+
+@login_required
+def book_appointment(request, slot_id):      #checkout page   create razorpay order here inside this view
+    slot = get_object_or_404(AppointmentSlot, id=slot_id, is_booked=False)
+
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            booking = form.save(commit=False)
+            booking.doctor = slot.doctor
+            booking.user = request.user
+            booking.slot = slot
+            booking.save()
+            slot.is_booked = True
+            slot.save()
+            return redirect('/')  # Make a success page
+    else:
+        form = BookingForm(initial={'slot': slot})
+
+    return render(request, 'book_appointment.html', {
+        'form': form,
+        'slot': slot,
+        'doctor': slot.doctor
+    })
 
 
 # def book_slot(request):
