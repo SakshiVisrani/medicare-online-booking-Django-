@@ -33,7 +33,8 @@ urlpatterns = [
     path('', include('doctor.urls')),
     path('login',views.user_login,name='login'),
     path('logout/',views.user_logout,name='logout'),
-    path('signin/' ,views.register, name='signin')
+    path('signin/' ,views.register, name='signin'),
+    path('health_plans/' , views.health_plans , name='health_plans')
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)

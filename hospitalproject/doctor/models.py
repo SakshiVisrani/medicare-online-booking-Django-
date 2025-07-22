@@ -24,31 +24,35 @@ class Speciality(models.Model):
         return self.name
 
 class Doctor(models.Model):
-    name = models.CharField(max_length=100 , default="")
+    name = models.CharField(max_length=100, default="")
     image = models.ImageField(upload_to='doctor_images/', default='default.jpg')
-    experience = models.IntegerField(help_text="Years of experience" , default="")
-    location = models.CharField(max_length=100 , default="")
+    experience = models.IntegerField(help_text="Years of experience", default=0)
+    location = models.CharField(max_length=100, default="")
     clinic_name = models.CharField(max_length=100, blank=True, null=True, default="")
-    speciality = models.ForeignKey(Speciality, on_delete=models.CASCADE, related_name='doctors', default="")
-    response_time = models.IntegerField(help_text="Responds in how many minutes", null=True, blank=True, default="")
+    speciality = models.ForeignKey('Speciality', on_delete=models.CASCADE, related_name='doctors', default="")
+    response_time = models.IntegerField(help_text="Responds in how many minutes", null=True, blank=True, default=0)
     consultation_fee = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
-    online_consultation=models.DecimalField(max_digits=6 , decimal_places=2 , null=True, blank=True)
-    platform_fee=models.DecimalField(max_digits=6, decimal_places=2 , null=True, blank=True)
+    online_consultation = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    platform_fee = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     old_fee = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     next_available_day = models.CharField(max_length=100, blank=True, null=True, default="")
     next_available_time = models.DateTimeField(null=True, blank=True)
     rating = models.FloatField(default=0.0)
     reviews_count = models.PositiveIntegerField(default=0)
 
-    
-    
-    slug = AutoSlugField(populate_from='name', unique=True, always_update=True , default="")  
+    contact_number = models.CharField(max_length=15, blank=True, null=True)
+    email = models.EmailField(max_length=254, blank=True, null=True)
+    patients_treated = models.PositiveIntegerField(default=0)
 
+    education_1 = models.CharField("Education 1", max_length=255, blank=True, null=True)
+    education_2 = models.CharField("Education 2", max_length=255, blank=True, null=True)
+    education_3 = models.CharField("Education 3", max_length=255, blank=True, null=True)
+    education_4 = models.CharField("Education 4", max_length=255, blank=True, null=True)
+
+    slug = AutoSlugField(populate_from='name', unique=True, always_update=True, default="")
 
     def __str__(self):
-        return f"Dr. {self.name} ({self.speciality} {self.location})"
-
-
+        return f"Dr. {self.name} ({self.speciality} - {self.location})"
 # DAYS_OF_WEEK = [
 #     ('Monday', 'Monday'),
 #     ('Tuesday', 'Tuesday'),

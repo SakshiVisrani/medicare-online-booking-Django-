@@ -27,10 +27,27 @@
                       </div>
                   </div>
                   <div class="social-icons">
-                      <button class="social-btn heart-btn"><i class="far fa-heart"></i></button>
-                      <button class="social-btn call-btn"><i class="fas fa-phone-alt"></i></button>
-                      <button class="social-btn message-btn"><i class="far fa-envelope"></i></button>
-                  </div>
+                    <button class="social-btn heart-btn"><i class="far fa-heart"></i></button>
+                
+                    <!-- Phone -->
+                    <div class="social-btn call-btn" onclick="toggleInfo(this)" style="position: relative; cursor: pointer; margin-right: 10px;">
+                        <i class="fas fa-phone-alt"></i>
+                        <div class="info-popup" style="display:none; position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%);
+                            background: #eee; padding: 5px 10px; border-radius: 5px; font-weight: bold; white-space: nowrap; box-shadow: 0 0 5px rgba(0,0,0,0.2); z-index: 10;">
+                            {{ doctor.contact_number }}
+                        </div>
+                    </div>
+                
+                    <!-- Email -->
+                    <div class="social-btn message-btn" onclick="toggleInfo(this)" style="position: relative; cursor: pointer;">
+                        <i class="far fa-envelope"></i>
+                        <div class="info-popup" style="display:none; position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%);
+                            background: #eee; padding: 5px 10px; border-radius: 5px; font-weight: bold; white-space: nowrap; box-shadow: 0 0 5px rgba(0,0,0,0.2); z-index: 10;">
+                            {{ doctor.email }}
+                        </div>
+                    </div>
+                </div>
+                
               </div>
 
               <div class="doctor-details-grid">
@@ -44,7 +61,7 @@
                   </div>
                   <div class="detail-item">
                       <i class="fas fa-users detail-icon"></i>
-                      <span><span class="detail-value">2,500+</span> Patients Treated</span>
+                      <span><span class="detail-value">{{doctor.patients_treated}}+</span> Patients Treated</span>
                   </div>
                   <div class="detail-item">
                       <i class="fas fa-clock detail-icon"></i>
@@ -53,10 +70,10 @@
               </div>
 
               <div class="doctor-degrees-section">
-                  <span class="degree-tag">MD</span>
-                  <span class="degree-tag">MBBS</span>
-                  <span class="degree-tag">DM Cardiology</span>
-                  <span class="degree-tag">FACC</span>
+                  <span class="degree-tag">{{doctor.education_1}}</span>
+                  <span class="degree-tag">{{doctor.education_2}}</span>
+                  <span class="degree-tag">{{doctor.education_3}}</span>
+                  <span class="degree-tag">{{doctor.education_4}}</span>
               </div>
 
               <p class="languages-spoken"><i class="fas fa-language"></i> clinic name : <span class="lang-list">{{doctor.clinic_name}}</span></p>
@@ -536,6 +553,36 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+
+
+
+    function toggleInfo(element) {
+        const infoDiv = element.querySelector('.info-popup');
+    
+        // Hide all other info popups so only one shows at a time
+        document.querySelectorAll('.info-popup').forEach(div => {
+          if (div !== infoDiv) {
+            div.style.display = 'none';
+          }
+        });
+    
+        // Toggle current one
+        if (infoDiv.style.display === 'block') {
+          infoDiv.style.display = 'none';
+        } else {
+          infoDiv.style.display = 'block';
+        }
+      }
+    
+      // Optional: Click anywhere outside to close popups
+      document.addEventListener('click', function(event) {
+        if (!event.target.closest('.social-btn')) {
+          document.querySelectorAll('.info-popup').forEach(div => {
+            div.style.display = 'none';
+          });
+        }
+      });
     </script>
     
 {% endblock content %}

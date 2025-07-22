@@ -20,25 +20,32 @@ def contact(request):
 def signin(request):
     return render (request, 'signin.html')
 
+def health_plans(request):
+    return render (request , 'health_plans.html')
+
 
 def register(request):
     if request.method == "GET":
         return render(request, "signin.html")
-    elif request.method == "POST":
-        print(user,"POST request")
 
+    elif request.method == "POST":
         username = request.POST.get("username")
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
         email = request.POST.get("email")
         password = request.POST.get("password")
         passwordconfirmation = request.POST.get("confirm_password")
-        
+
         if password != passwordconfirmation:
             message = "Passwords do not match"
             return render(request, "register.html", {"message": message})
-        
-        user=User.objects.create_user(
+
+        if User.objects.filter(username=username).exists():
+            return render(request, "register.html", {"message": "Username already taken."})
+        if User.objects.filter(email=email).exists():
+            return render(request, "register.html", {"message": "Email already registered."})
+
+        user = User.objects.create_user(
             username=username,
             first_name=first_name,
             last_name=last_name,
@@ -46,9 +53,9 @@ def register(request):
             password=password,
             is_active=True
         )
-        message = "Registered Successful"
+
+        message = "Registration Successful. Please sign in."
         return render(request, "signin.html", {"message": message})
-    
 
 def user_login(request):
     if request.method == "GET":

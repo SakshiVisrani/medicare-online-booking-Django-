@@ -1,0 +1,297 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="health-plan-section">
+    <div class="health-plan-container">
+        <span class="section-badge">Healthcare Plans</span>
+        <h2 class="section-title">Choose Your <span class="highlight-text">Health Plan</span></h2>
+        <p class="section-description">
+            Simple, transparent healthcare plans designed for your needs. Get quality medical care
+            without breaking the bank.
+        </p>
+
+        <div class="plan-toggle-buttons">
+            <button class="plan-button active" id="monthlyBtn">Monthly</button>
+            <div class="yearly-option">
+                <button class="plan-button" id="yearlyBtn">Yearly</button>
+                <span class="save-badge">Save 20%</span>
+            </div>
+        </div>
+
+        <div class="health-plan-cards-wrapper">
+            <div class="health-plan-cards" id="monthlyPlans">
+                <div class="plan-card">
+                    <div class="card-icon-wrapper basic">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="card-title">Basic Care</h3>
+                    <p class="card-subtitle">Essential healthcare coverage</p>
+                    <p class="price">₹299<span class="price-duration">/month</span></p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle check-icon"></i> 5 Doctor Consultations/month</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Basic Health Checkup</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Medicine Delivery</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Lab Tests (Basic)</li>
+                        <li><i class="fas fa-times-circle cross-icon"></i> Video Consultations</li>
+                        <li><i class="fas fa-times-circle cross-icon"></i> Specialist Consultations</li>
+                        <li><i class="fas fa-times-circle cross-icon"></i> 24/7 Emergency Support</li>
+                        <li><i class="fas fa-times-circle cross-icon"></i> Health Insurance</li>
+                    </ul>
+                    </div>
+
+                <div class="plan-card popular">
+                    <span class="most-popular-badge red-badge">Most Popular</span>
+                    <div class="card-icon-wrapper premium">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="card-title">Premium Care</h3>
+                    <p class="card-subtitle">Comprehensive healthcare solution</p>
+                    <p class="price">₹599<span class="price-duration">/month</span></p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle check-icon"></i> Unlimited Doctor Consultations</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Comprehensive Health Checkup</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Free Medicine Delivery</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> All Lab Tests Included</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Video Consultations</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Specialist Consultations</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> 24/7 Emergency Support</li>
+                        <li><i class="fas fa-times-circle cross-icon"></i> Health Insurance</li>
+                    </ul>
+                    </div>
+
+                <div class="plan-card">
+                    <div class="card-icon-wrapper elite">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="card-title">Elite Care</h3>
+                    <p class="card-subtitle">Premium healthcare with insurance</p>
+                    <p class="price">₹999<span class="price-duration">/month</span></p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle check-icon"></i> Unlimited Doctor Consultations</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Comprehensive Health Checkup</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Free Medicine Delivery</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> All Lab Tests + Advanced</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Video Consultations</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Specialist Consultations</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> 24/7 Emergency Support</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Health Insurance (5L)</li>
+                    </ul>
+                    </div>
+            </div>
+
+            <div class="health-plan-cards" id="yearlyPlans" style="display: none;">
+                <div class="plan-card">
+                    <div class="card-icon-wrapper basic">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="card-title">Basic Care</h3>
+                    <p class="card-subtitle">Essential healthcare coverage</p>
+                    <p class="price">₹2999<span class="price-duration">/year</span> 
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle check-icon"></i> 5 Doctor Consultations/month</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Basic Health Checkup</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Medicine Delivery</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Lab Tests (Basic)</li>
+                        <li><i class="fas fa-times-circle cross-icon"></i> Video Consultations</li>
+                        <li><i class="fas fa-times-circle cross-icon"></i> Specialist Consultations</li>
+                        <li><i class="fas fa-times-circle cross-icon"></i> 24/7 Emergency Support</li>
+                        <li><i class="fas fa-times-circle cross-icon"></i> Health Insurance</li>
+                    </ul>
+                    </div>
+
+                <div class="plan-card popular">
+                    <span class="most-popular-badge red-badge">Most Popular</span>
+                    <div class="card-icon-wrapper premium">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="card-title">Premium Care</h3>
+                    <p class="card-subtitle">Comprehensive healthcare solution</p>
+                    <p class="price">₹5999<span class="price-duration">/year</span> 
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle check-icon"></i> Unlimited Doctor Consultations</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Comprehensive Health Checkup</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Free Medicine Delivery</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> All Lab Tests Included</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Video Consultations</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Specialist Consultations</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> 24/7 Emergency Support</li>
+                        <li><i class="fas fa-times-circle cross-icon"></i> Health Insurance</li>
+                    </ul>
+                    </div>
+
+                <div class="plan-card">
+                    <div class="card-icon-wrapper elite">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="card-title">Elite Care</h3>
+                    <p class="card-subtitle">Premium healthcare with insurance</p>
+                    <p class="price">₹9999<span class="price-duration">/year</span> 
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle check-icon"></i> Unlimited Doctor Consultations</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Comprehensive Health Checkup</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Free Medicine Delivery</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> All Lab Tests + Advanced</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Video Consultations</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Specialist Consultations</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> 24/7 Emergency Support</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Health Insurance (5L)</li>
+                    </ul>
+                    </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="faq-section">
+    <div class="faq-container">
+        <h2 class="faq-title">Frequently Asked Questions</h2>
+        <p class="faq-description">
+            Get answers to common questions about our health plans
+        </p>
+
+        <div class="faq-items">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>What is included in the health plans?</h3>
+                    <i class="fas fa-chevron-down arrow-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Our health plans include doctor consultations, health checkups, medicine delivery, lab tests, and depending on the plan - video consultations, specialist care, emergency support, and health insurance coverage.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Can I change my plan anytime?</h3>
+                    <i class="fas fa-chevron-down arrow-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, you can upgrade or downgrade your health plan at any time through your account dashboard. Changes will typically take effect from your next billing cycle.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Are there any hidden charges?</h3>
+                    <i class="fas fa-chevron-down arrow-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>No, we believe in complete transparency. All charges are clearly outlined when you select a plan. There are no hidden fees or surprise costs.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>How does the consultation limit work?</h3>
+                    <i class="fas fa-chevron-down arrow-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>For plans with a consultation limit, you get a specified number of doctor consultations per month/year. Once you reach this limit, subsequent consultations may be charged at a discounted rate or you can upgrade your plan.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>What happens if I exceed my consultation limit?</h3>
+                    <i class="fas fa-chevron-down arrow-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>If you exceed your consultation limit, you will typically have the option to pay for additional consultations at a reduced member rate, or you can choose to upgrade to a higher-tier plan with unlimited consultations.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Is there a waiting period for health insurance?</h3>
+                    <i class="fas fa-chevron-down arrow-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Depending on the health insurance provider and the specific policy, there might be a waiting period for certain pre-existing conditions or specific treatments. Details will be provided with your policy documents.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Can I add family members to my plan?</h3>
+                    <i class="fas fa-chevron-down arrow-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Currently, these are individual plans. We offer separate family plans that cover multiple members. Contact our support team to learn about family plan options.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>How do i cancel my subscription?</h3>
+                    <i class="fas fa-chevron-down arrow-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>You can cancel your subscription anytime from your account dashboard or by contacting our support team. Cancellation will be effective at the end of your current billing cycle.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Are video consultations available 24/7? </h3>
+                    <i class="fas fa-chevron-down arrow-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Video consultations are available from 8 AM to 10 PM daily for Premium and Elite plans. Emergency support (Elite plan) is available 24/7.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const monthlyBtn = document.getElementById('monthlyBtn');
+        const yearlyBtn = document.getElementById('yearlyBtn');
+        const monthlyPlans = document.getElementById('monthlyPlans');
+        const yearlyPlans = document.getElementById('yearlyPlans');
+
+        function switchPlan(planType) {
+            if (planType === 'monthly') {
+                monthlyBtn.classList.add('active');
+                yearlyBtn.classList.remove('active');
+                monthlyPlans.style.display = 'flex'; // Show monthly
+                yearlyPlans.style.display = 'none'; // Hide yearly
+            } else if (planType === 'yearly') {
+                yearlyBtn.classList.add('active');
+                monthlyBtn.classList.remove('active');
+                yearlyPlans.style.display = 'flex'; // Show yearly
+                monthlyPlans.style.display = 'none'; // Hide monthly
+            }
+        }
+
+        monthlyBtn.addEventListener('click', function() {
+            switchPlan('monthly');
+        });
+
+        yearlyBtn.addEventListener('click', function() {
+            switchPlan('yearly');
+        });
+
+        // Initialize to monthly plans when the page loads
+        switchPlan('monthly');
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // ... (Your existing monthly/yearly plan toggle JS goes here) ...
+    
+        // FAQ Section JavaScript
+        const faqQuestions = document.querySelectorAll('.faq-question');
+    
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.closest('.faq-item'); // Get the parent .faq-item
+                faqItem.classList.toggle('active'); // Toggle the 'active' class on the item
+            });
+        });
+    });
+</script>
+
+
+{% endblock content %}

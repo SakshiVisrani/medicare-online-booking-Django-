@@ -10,7 +10,7 @@
       </div>
       <nav class="nav-links">
           <div class="dropdown">
-            <a href="#" class="dropdown-toggle">Find Doctors <i class="fas fa-chevron-down"></i></a>
+            <a href="#" class="dropdown-toggle">Specialities <i class="fas fa-chevron-down"></i></a>
             <div class="dropdown-menu">
               <a href="{% url 'doctors_by_speciality' 'cardiologist' %}">Cardiologist</a>
               <a href="{% url 'doctors_by_speciality' 'neurologist' %}">Neurologist</a>
@@ -25,8 +25,8 @@
             </div>
           </div>
           
-          <a href="#">Specialties</a>
-          <a href="#">Health Plans</a>
+          <a href="{% url 'doctors' %}">Find Doctors</a>
+          <a href="{% url 'health_plans' %}">Health Plans</a>
           <a href="#">Lab Tests</a>
           <a href="#">About</a>
       </nav>
