@@ -27,8 +27,7 @@
           
           <a href="{% url 'doctors' %}">Find Doctors</a>
           <a href="{% url 'health_plans' %}">Health Plans</a>
-          <a href="#">Lab Tests</a>
-          <a href="#">About</a>
+          <a href="{% url 'about'%}">About</a>
       </nav>
       <div class="auth-buttons">
         {% if request.user.is_authenticated %}

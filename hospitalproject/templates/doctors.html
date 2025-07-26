@@ -6,8 +6,9 @@
 
 
 
-  <div class="col"><div class="row row-cols-1 row-cols-md-1 g-1">
+{% comment %} <div class="row row-cols-1 row-cols-md-1 g-1"> {% endcomment %}
 
+<div class="doctor-row row">
 
    {% for doctor in doctors %}
      
@@ -15,7 +16,7 @@
 
    {% endfor %}
   
-  </div>
-
+  {% comment %} </div> {% endcomment %}
+</div>
 
 {% endblock %}

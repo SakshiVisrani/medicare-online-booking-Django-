@@ -7,12 +7,12 @@
            {% for product in speciality.doctor_set.all %}
                 {% include "doctor_card.html" with d=doctor %}
             {% empty %}
-                <h1>No Products found</h1>
+                <h1>No Doctors found</h1>
            {% endfor%}
            </div>
 
            <hr>
-           <p>Other Products</p>
+           <p>Other Doctors</p>
            {% for doctor in doctors %}
 
            <li>{{doctor.doctor_name}}</li>

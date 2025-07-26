@@ -3639,16 +3639,19 @@ body {
     padding: 30px;
     display: flex;
     flex-direction: column;
-    gap: 20px; /* General spacing between sections within the card */
+    gap: 2px; /* General spacing between sections within the card */
     font-family: var(--font-primary);
     height: 100%; /* CRUCIAL: Ensures all cards in a Bootstrap row have the same height */
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
     /* Add explicit width if you want a fixed size regardless of Bootstrap columns,
        but Bootstrap's col-md-6 handles width responsively. */
     /* max-width: 450px; /* Example: if you want to limit max width of a single card on very large screens */
-    margin: 0 auto; /* Center card content if max-width is set and space is available */
+    margin: 10px; /* Center card content if max-width is set and space is available */
 }
-
+.doctor-row{
+    flex-shrink: 0;
+    max-width: 100%;
+}
 .doctor-header {
     display: flex;
     align-items: flex-start; /* Align avatar and info to top */
@@ -6710,3 +6713,1408 @@ body {
         font-size: 14px;
     }
 }
+
+
+
+
+
+/* --- CSS Variables (ensure these are defined at the top of your CSS, e.g., in :root) --- */
+:root {
+    /* Existing variables (from previous responses) */
+    --primary-purple: #8B5CF6;
+    --secondary-pink: #EC4899;
+    --text-dark: #1F2937;
+    --text-gray: #4B5563;
+    --light-gray-bg: #F8F8F8;
+    --white-bg: #FFFFFF;
+    --border-light: #E0E7FF;
+    --green-badge: #10B981;
+
+    /* Variables for the 'Transforming Healthcare' section */
+    --healthcare-bg-gradient-start: rgba(230, 230, 255, 0.4);
+    --healthcare-bg-gradient-end: rgba(255, 230, 240, 0.4);
+
+    --stat-icon-red: #F43F5E; /* Red icon color */
+    --stat-icon-purple: #8B5CF6; /* Purple icon color */
+    --stat-icon-blue: #3B82F6; /* Blue icon color */
+    --stat-icon-green: #10B981; /* Green icon color */
+
+    --stat-icon-bg-red: #FFE0E6; /* Light red background for icon */
+    --stat-icon-bg-purple: #F5F3FF; /* Light purple background for icon */
+    --stat-icon-bg-blue: #E0F2FE; /* Light blue background for icon */
+    --stat-icon-bg-green: #D1FAE5; /* Light green background for icon */
+
+    --card-hover-shadow-strong: rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+
+    /* NEW: Very light hover background colors for stat cards */
+    --stat-hover-red-light: #FFF8F9; /* Very light, almost white with a hint of red */
+    --stat-hover-purple-light: #FAF8FF; /* Very light purple */
+    --stat-hover-blue-light: #F8FCFF; /* Very light blue */
+    --stat-hover-green-light: #F8FFF8; /* Very light green */
+}
+
+/* ------------------------------------- */
+/* TRANSFORMING HEALTHCARE SECTION */
+/* ------------------------------------- */
+.transforming-healthcare-section {
+    padding: 80px 20px;
+    text-align: center;
+    background: linear-gradient(to right, var(--healthcare-bg-gradient-start), var(--healthcare-bg-gradient-end));
+    overflow: hidden;
+}
+
+.healthcare-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.section-badge-center {
+    background-color: var(--F5F3FF); /* Light purple from previous badge */
+    color: var(--primary-purple);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #D8B4FE; /* Slightly darker purple border */
+    box-shadow: 0 2px 4px rgba(139, 92, 246, 0.1);
+    display: inline-flex; /* Allows icon and text to be on same line */
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+}
+
+.section-badge-center i {
+    font-size: 16px;
+}
+
+.section-title-healthcare {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.section-title-healthcare .highlight-text {
+    background: linear-gradient(to right, var(--primary-purple), var(--secondary-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.section-description-healthcare {
+    font-size: 17px;
+    color: var(--text-gray);
+    line-height: 1.6;
+    margin-bottom: 50px; /* Space before the stat cards */
+    max-width: 800px; /* Adjust max width for readability */
+}
+
+.healthcare-stats-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Responsive grid for 4 cards */
+    gap: 30px;
+    justify-content: center; /* Center the grid items */
+}
+
+.stat-card {
+    background-color: var(--white-bg);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    padding: 30px 20px; /* Adjust padding for cards */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    /* Updated transition to include background-color */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    border: 2px solid transparent; /* Keep transparent border for consistent box model, but no color */
+}
+
+/* Updated: Hover effect for Stat Cards */
+.stat-card:hover {
+    transform: translateY(-8px); /* Lifts the card */
+    box-shadow: 0 12px 30px var(--card-hover-shadow-strong); /* More pronounced shadow */
+    border-color: transparent; /* Explicitly ensure no colored border */
+    /* Add a very light background color matching the card's theme */
+}
+
+/* Specific hover background colors for each card type */
+.stat-card:nth-child(1):hover { /* Red card */
+    background-color: var(--stat-hover-red-light);
+}
+
+.stat-card:nth-child(2):hover { /* Purple card */
+    background-color: var(--stat-hover-purple-light);
+}
+
+.stat-card:nth-child(3):hover { /* Blue card */
+    background-color: var(--stat-hover-blue-light);
+}
+
+.stat-card:nth-child(4):hover { /* Green card */
+    background-color: var(--stat-hover-green-light);
+}
+
+
+.stat-icon-wrapper {
+    width: 70px;
+    height: 70px;
+    border-radius: 15px; /* Squared with rounded corners as per image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon-wrapper i {
+    font-size: 32px;
+    color: var(--white-bg); /* Default white icon color inside wrappers */
+}
+
+/* Specific colors for each stat icon wrapper */
+.stat-icon-wrapper.red {
+    background-color: var(--stat-icon-red);
+}
+.stat-icon-wrapper.red i {
+    color: var(--white-bg); /* Icons are white in the image */
+}
+
+.stat-icon-wrapper.purple {
+    background-color: var(--stat-icon-purple);
+}
+.stat-icon-wrapper.purple i {
+    color: var(--white-bg);
+}
+
+.stat-icon-wrapper.blue {
+    background-color: var(--stat-icon-blue);
+}
+.stat-icon-wrapper.blue i {
+    color: var(--white-bg);
+}
+
+.stat-icon-wrapper.green {
+    background-color: var(--stat-icon-green);
+}
+.stat-icon-wrapper.green i {
+    color: var(--white-bg);
+}
+
+
+.stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.stat-description {
+    font-size: 16px;
+    color: var(--text-gray);
+    margin: 0;
+}
+
+/* --- Responsive Adjustments for Transforming Healthcare Section --- */
+@media (max-width: 992px) {
+    .section-title-healthcare {
+        font-size: 36px;
+    }
+    .section-description-healthcare {
+        font-size: 16px;
+        margin-bottom: 40px;
+    }
+    .healthcare-stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 25px;
+    }
+    .stat-card {
+        padding: 25px 15px;
+    }
+    .stat-number {
+        font-size: 32px;
+    }
+    .stat-description {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .transforming-healthcare-section {
+        padding: 60px 15px;
+    }
+    .section-title-healthcare {
+        font-size: 30px;
+    }
+    .section-description-healthcare {
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+    .healthcare-stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Two columns on tablets */
+        gap: 20px;
+    }
+    .stat-icon-wrapper {
+        width: 60px;
+        height: 60px;
+    }
+    .stat-icon-wrapper i {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .transforming-healthcare-section {
+        padding: 40px 10px;
+    }
+    .section-title-healthcare {
+        font-size: 26px;
+    }
+    .section-description-healthcare {
+        font-size: 13px;
+        margin-bottom: 25px;
+    }
+    .healthcare-stats-grid {
+        grid-template-columns: 1fr; /* Single column on mobile */
+        gap: 15px;
+    }
+    .stat-card {
+        padding: 20px 10px;
+    }
+    .stat-icon-wrapper {
+        width: 50px;
+        height: 50px;
+    }
+    .stat-icon-wrapper i {
+        font-size: 24px;
+    }
+    .stat-number {
+        font-size: 28px;
+    }
+    .stat-description {
+        font-size: 14px;
+    }
+}
+
+/* --- CSS Variables (ensure these are defined at the top of your CSS, e.g., in :root) --- */
+:root {
+    /* Main brand colors */
+    --primary-purple: #8B5CF6;
+    --secondary-pink: #EC4899;
+    --text-dark: #1F2937;
+    --text-gray: #4B5563;
+    --light-gray-bg: #F8F8F8;
+    --white-bg: #FFFFFF;
+    --border-light: #E0E7FF;
+    --green-check: #10B981; /* Green for checkmarks */
+
+    /* Gradients */
+    --button-gradient-start: #A78BFA;
+    --button-gradient-end: #EC4899;
+
+    /* New variables for Mission/Vision section */
+    --mv-icon-bg-light-purple: #F3E8FF; /* Light background for icons */
+    --mv-icon-color: #8B5CF6; /* Icon color, same as primary purple */
+    --mv-list-icon-color-check: #10B981; /* Green for check icons */
+    --mv-list-icon-color-star: #FFD700; /* Gold for star icons, adjust as needed */
+    --mv-border-color: #F0F2F5; /* Subtle border for cards */
+}
+
+/* ------------------------------------- */
+/* MISSION & VISION SECTION */
+/* ------------------------------------- */
+.mission-vision-section {
+    padding: 80px 20px;
+    background-color: var(--light-gray-bg);
+    text-align: center;
+}
+
+.mission-vision-container {
+    max-width: 1000px;
+    margin: 0 auto 60px auto; /* Add margin-bottom for space before "Core Values" title */
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+}
+
+.mv-card {
+    background-color: var(--white-bg);
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    padding: 40px;
+    flex: 1; /* Allows cards to grow and shrink */
+    min-width: 400px; /* Minimum width for each card */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align content to the left */
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--mv-border-color); /* Subtle border */
+}
+
+.mv-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.mv-icon-wrapper {
+    background-color: var(--mv-icon-bg-light-purple);
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 10px rgba(139, 92, 246, 0.1); /* Subtle shadow for the icon wrapper */
+}
+
+.mv-icon-wrapper i {
+    font-size: 28px;
+    color: var(--mv-icon-color);
+}
+
+.mv-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+}
+
+.mv-description {
+    font-size: 16px;
+    color: var(--text-gray);
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.mv-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%; /* Ensure list takes full width for alignment */
+}
+
+.mv-list li {
+    font-size: 15px;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mv-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* Specific icon colors for lists */
+.mv-card:nth-child(1) .mv-list i { /* For Mission card's list */
+    color: var(--mv-list-icon-color-check);
+    font-size: 18px;
+}
+
+.mv-card:nth-child(2) .mv-list i { /* For Vision card's list */
+    color: var(--mv-list-icon-color-star); /* Gold color for stars */
+    font-size: 18px;
+}
+
+.core-values-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-top: 60px; /* Space above the title */
+    margin-bottom: 0;
+}
+
+.core-values-title .highlight-text {
+    background: linear-gradient(to right, var(--primary-purple), var(--secondary-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+
+/* --- Responsive Adjustments for Mission/Vision Section --- */
+@media (max-width: 1024px) {
+    .mission-vision-container {
+        flex-direction: column; /* Stack cards vertically */
+        align-items: center;
+        gap: 25px;
+    }
+    .mv-card {
+        min-width: unset; /* Remove min-width to allow better scaling */
+        width: 100%;
+        max-width: 500px; /* Constrain max width for better readability */
+        padding: 35px;
+    }
+    .mv-title {
+        font-size: 26px;
+    }
+    .mv-description {
+        font-size: 15px;
+    }
+    .mv-list li {
+        font-size: 14px;
+    }
+    .core-values-title {
+        font-size: 38px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mission-vision-section {
+        padding: 60px 15px;
+    }
+    .mv-card {
+        padding: 30px;
+    }
+    .mv-icon-wrapper {
+        width: 55px;
+        height: 55px;
+        margin-bottom: 20px;
+    }
+    .mv-icon-wrapper i {
+        font-size: 26px;
+    }
+    .mv-title {
+        font-size: 24px;
+    }
+    .mv-description {
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+    .mv-list li {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+    .core-values-title {
+        font-size: 32px;
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mission-vision-section {
+        padding: 40px 10px;
+    }
+    .mv-card {
+        padding: 25px;
+    }
+    .mv-icon-wrapper {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 15px;
+    }
+    .mv-icon-wrapper i {
+        font-size: 24px;
+    }
+    .mv-title {
+        font-size: 20px;
+    }
+    .mv-description {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+    .mv-list li {
+        font-size: 12px;
+        gap: 8px;
+    }
+    .mv-list i {
+        font-size: 16px !important; /* Adjust if needed */
+    }
+    .core-values-title {
+        font-size: 28px;
+        margin-top: 40px;
+    }
+}
+
+/* --- CSS Variables (ensure these are defined at the top of your CSS, e.g., in :root) --- */
+:root {
+    /* Main brand colors */
+    --primary-purple: #8B5CF6; /* Main accent purple */
+    --secondary-pink: #EC4899; /* Main accent pink */
+    --text-dark: #1F2937; /* Dark text for headings */
+    --text-gray: #4B5563; /* Gray text for body/secondary info */
+    --light-gray-bg: #F8F8F8; /* Background color for sections */
+    --white-bg: #FFFFFF; /* White background for cards */
+    --border-light: #E0E7FF; /* Light border/separator color */
+
+    /* Gradients */
+    --gradient-purple-pink: linear-gradient(to right, var(--primary-purple), var(--secondary-pink));
+    --gradient-pink-purple: linear-gradient(to right, var(--secondary-pink), var(--primary-purple));
+
+    /* General Card Shadow */
+    --card-shadow-light: rgba(0, 0, 0, 0.05);
+    --card-shadow-medium: rgba(0, 0, 0, 0.1);
+
+    /* --- Core Values Section Specific Colors --- */
+    --core-values-heading-color: var(--text-dark);
+    --core-values-highlight-color: var(--primary-purple);
+    --core-values-description-color: var(--text-gray);
+    --core-values-card-bg: var(--white-bg);
+    --core-values-card-shadow: rgba(0, 0, 0, 0.05);
+    --core-values-card-hover-shadow: rgba(0, 0, 0, 0.1);
+
+    /* Value Icon box colors */
+    --icon-heart-bg: #FEE2E2;
+    --icon-heart-color: #EF4444;
+    --icon-shield-bg: #D1FAE5;
+    --icon-shield-color: #10B981;
+    --icon-lightbulb-bg: #FFFBEB;
+    --icon-lightbulb-color: #FBBF24;
+    --icon-check-bg: #E0E7FF;
+    --icon-check-color: #6366F1;
+
+
+    /* --- Our Journey Section Specific Colors --- */
+    --journey-line-color: var(--primary-purple); /* Purple line */
+    --journey-dot-color: var(--primary-purple); /* Purple dots */
+    --journey-card-bg: var(--white-bg);
+    --journey-card-shadow: rgba(0, 0, 0, 0.08);
+    --journey-year-color: var(--primary-purple);
+    --journey-title-color: var(--text-dark);
+    --journey-text-color: var(--text-gray);
+
+
+    /* --- Health Plan Section Specific Colors --- */
+    --plan-header-tag-bg: #F5F3FF; /* Light purple for "Healthcare Plans" tag */
+    --plan-header-tag-text: var(--primary-purple);
+    --plan-heading-color: var(--text-dark);
+    --plan-highlight-color: var(--secondary-pink); /* Pink for "Health Plan" word */
+    --plan-description-color: var(--text-gray);
+
+    --toggle-button-bg: #F3F4F6;
+    --toggle-button-text: #6B7280;
+    --toggle-button-active-bg: var(--gradient-purple-pink);
+    --toggle-button-active-text: var(--white-bg);
+    --save-tag-bg: #10B981; /* Green for "Save 20%" */
+    --save-tag-text: var(--white-bg);
+
+    --pricing-card-bg: var(--white-bg);
+    --pricing-card-shadow: rgba(0, 0, 0, 0.08);
+    --pricing-card-border: #E0E0E0;
+    --most-popular-border: var(--primary-purple); /* Purple border for most popular */
+    --most-popular-tag-bg: var(--gradient-purple-pink);
+    --most-popular-tag-text: var(--white-bg);
+
+    --plan-title-color: var(--text-dark);
+    --plan-subtitle-color: var(--text-gray);
+    --price-color: var(--text-dark);
+    --period-color: var(--text-gray);
+    --old-price-color: #9CA3AF;
+    --save-amount-color: #10B981; /* Green for save amount */
+
+    --feature-text-color: var(--text-gray);
+    --feature-icon-color-active: #10B981; /* Green check */
+    --feature-icon-color-disabled: #D1D5DB; /* Grey cross */
+
+    --choose-plan-btn-bg: var(--primary-purple);
+    --choose-plan-btn-text: var(--white-bg);
+    --choose-plan-btn-hover: var(--secondary-pink); /* Pink on hover for general btn */
+    --premium-btn-bg: var(--gradient-purple-pink);
+    --premium-btn-hover-bg: var(--gradient-pink-purple); /* Reverse gradient on hover */
+
+    /* Plan icon backgrounds */
+    --basic-icon-bg: #D1FAE5; /* Light green */
+    --basic-icon-color: #059669; /* Dark green */
+
+    --premium-icon-bg: #EDE9FE; /* Light purple */
+    --premium-icon-color: var(--primary-purple); /* Purple */
+
+    --elite-icon-bg: #FEE2E2; /* Light red */
+    --elite-icon-color: #EF4444; /* Red */
+}
+
+/* --- Base Styles --- */
+body {
+    font-family: 'Poppins', sans-serif; /* Or your preferred font */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--light-gray-bg);
+    color: var(--text-dark);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* General section heading and description styles */
+.section-heading {
+    font-size: 44px;
+    font-weight: 700;
+    color: var(--text-dark); /* Using general dark text for consistency */
+    margin-bottom: 15px;
+}
+
+.section-description {
+    font-size: 18px;
+    color: var(--text-gray); /* Using general gray text for consistency */
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto 60px;
+}
+
+
+/* ------------------------------------- */
+/* CORE VALUES SECTION */
+/* ------------------------------------- */
+.core-values-section {
+    background-color: var(--white-bg);
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.core-values-section .section-heading .highlight {
+    background: var(--gradient-purple-pink);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Exactly 2 columns */
+    gap: 30px;
+    justify-content: center;
+    align-items: stretch; /* Ensures cards have the same height */
+    max-width: 1000px; /* Wider cards */
+    margin: 0 auto;
+}
+
+.value-card {
+    background-color: var(--core-values-card-bg);
+    border-radius: 15px;
+    box-shadow: 0 8px 30px var(--core-values-card-shadow);
+    padding: 30px;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-grow: 1; /* Allows the card to grow and maintain equal height */
+}
+
+.value-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px var(--core-values-card-hover-shadow);
+}
+
+.icon-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* Specific icon box colors */
+.icon-box.heart-icon-bg { background-color: var(--icon-heart-bg); color: var(--icon-heart-color); }
+.icon-box.shield-icon-bg { background-color: var(--icon-shield-bg); color: var(--icon-shield-color); }
+.icon-box.lightbulb-icon-bg { background-color: var(--icon-lightbulb-bg); color: var(--icon-lightbulb-color); }
+.icon-box.check-icon-bg { background-color: var(--icon-check-bg); color: var(--icon-check-color); }
+
+.value-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.value-description {
+    font-size: 16px;
+    color: var(--text-gray);
+    line-height: 1.6;
+    flex-grow: 1; /* Helps descriptions fill space for equal card height */
+}
+
+
+/* ------------------------------------- */
+/* OUR JOURNEY SECTION (Timeline) */
+/* ------------------------------------- */
+.our-journey-section {
+    background-color: var(--light-gray-bg);
+    padding: 60px 20px; /* Slightly reduced top/bottom padding */
+    text-align: center;
+}
+
+.our-journey-section .section-heading {
+    margin-bottom: 10px; /* Slightly reduced heading margin */
+}
+
+.our-journey-section .section-description {
+    margin-bottom: 40px; /* Slightly reduced description margin */
+}
+
+.timeline {
+    position: relative;
+    /* Increased max-width for even wider cards */
+    max-width: 1100px; /* Adjust this to control the overall width of the timeline */
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* The vertical line */
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 6px; /* Increased line thickness for more prominence */
+    background-color: var(--journey-line-color); /* Purple line color */
+    top: 0;
+    bottom: 0;
+    left: 50%; /* Center the line */
+    margin-left: -3px; /* Adjust to perfectly center the 6px line */
+    z-index: 1; /* Ensure line is behind content */
+}
+
+.timeline-item {
+    padding: 8px 0; /* Further reduced vertical padding for items */
+    position: relative;
+    width: 50%;
+    margin-bottom: 25px; /* Further reduced space between items */
+    z-index: 2; /* Ensure items are above the line */
+}
+
+/* Circles on the timeline */
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 22px; /* Slightly increased circle size */
+    height: 22px; /* Slightly increased circle size */
+    background-color: var(--white-bg); /* White background for the circle */
+    border: 4px solid var(--journey-dot-color); /* Purple border for the circle */
+    top: 22px; /* Adjust to center vertically on the line, relative to timeline-item */
+    border-radius: 50%;
+    z-index: 2; /* Ensure circles are above the line */
+}
+
+.timeline-item.left {
+    left: 0;
+    padding-right: 80px; /* Increased right padding to accommodate wider cards */
+}
+
+.timeline-item.right {
+    left: 50%;
+    padding-left: 80px; /* Increased left padding to accommodate wider cards */
+}
+
+.timeline-item.left::after {
+    right: -11px; /* Adjust circle position for increased size and line width */
+}
+
+.timeline-item.right::after {
+    left: -11px; /* Adjust circle position for increased size and line width */
+}
+
+.timeline-content {
+    background-color: var(--journey-card-bg);
+    border-radius: 15px;
+    /* Further Decreased padding for shorter height */
+    padding: 15px 20px; /* Reduced top/bottom padding more */
+    box-shadow: 0 8px 30px var(--journey-card-shadow);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: auto; /* Allow height to adjust based on content */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center content if card height varies slightly */
+}
+
+.timeline-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.timeline-year {
+    font-size: 24px; /* Slightly reduced font size */
+    font-weight: 700;
+    color: var(--journey-year-color);
+    margin-bottom: 3px; /* Further reduced margin */
+}
+
+.timeline-title {
+    font-size: 16px; /* Slightly reduced font size */
+    font-weight: 600;
+    color: var(--journey-title-color);
+    margin-bottom: 5px; /* Further reduced margin */
+}
+
+.timeline-text {
+    font-size: 14px; /* Slightly reduced font size */
+    color: var(--journey-text-color);
+    line-height: 1.4; /* Adjusted line height */
+}
+
+/* ------------------------------------- */
+/* CHOOSE YOUR HEALTH PLAN SECTION */
+/* ------------------------------------- */
+.health-plan-section {
+    background-color: var(--white-bg);
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.section-tag {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--plan-header-tag-bg);
+    color: var(--plan-header-tag-text);
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.section-tag i {
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+.health-plan-section .section-heading {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--plan-heading-color);
+    margin-bottom: 15px;
+}
+
+.health-plan-section .section-heading .highlight-pink {
+    background: var(--gradient-purple-pink); /* Use the pink/purple gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.health-plan-section .section-description {
+    font-size: 18px;
+    color: var(--plan-description-color);
+    line-height: 1.6;
+    max-width: 650px;
+    margin: 0 auto 50px;
+}
+
+.toggle-switch {
+    display: flex;
+    justify-content: center;
+    background-color: var(--toggle-button-bg);
+    border-radius: 30px;
+    padding: 5px;
+    width: fit-content;
+    margin: 0 auto 50px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-button {
+    background-color: transparent;
+    border: none;
+    color: var(--toggle-button-text);
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.toggle-button.active {
+    background: var(--toggle-button-active-bg);
+    color: var(--toggle-button-active-text);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-button .save-tag {
+    background-color: var(--save-tag-bg);
+    color: var(--save-tag-text);
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1100px; /* Adjusted for overall grid width */
+    margin: 0 auto;
+    align-items: stretch; /* Ensure cards have equal height */
+}
+
+.pricing-card {
+    background-color: var(--pricing-card-bg);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px var(--pricing-card-shadow);
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+    border: 2px solid var(--pricing-card-border);
+    transition: all 0.3s ease;
+}
+
+.pricing-card.most-popular {
+    border-color: var(--most-popular-border);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px); /* Lift the popular card */
+}
+
+.most-popular-tag {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--most-popular-tag-bg);
+    color: var(--most-popular-tag-text);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.plan-header {
+    margin-bottom: 25px;
+}
+
+.icon-wrapper {
+    width: 70px;
+    height: 70px;
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    margin: 0 auto 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon wrapper specific colors */
+.icon-wrapper.basic-icon-bg { background-color: var(--basic-icon-bg); color: var(--basic-icon-color); }
+.icon-wrapper.premium-icon-bg { background-color: var(--premium-icon-bg); color: var(--premium-icon-color); }
+.icon-wrapper.elite-icon-bg { background-color: var(--elite-icon-bg); color: var(--elite-icon-color); }
+
+
+.plan-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--plan-title-color);
+    margin-bottom: 8px;
+}
+
+.plan-subtitle {
+    font-size: 15px;
+    color: var(--plan-subtitle-color);
+}
+
+.plan-price {
+    margin-bottom: 30px;
+}
+
+.plan-price .currency {
+    font-size: 24px;
+    font-weight: 700;
+    vertical-align: super;
+}
+
+.plan-price .price {
+    font-size: 50px;
+    font-weight: 700;
+    color: var(--price-color);
+}
+
+.plan-price .period {
+    font-size: 18px;
+    color: var(--period-color);
+    font-weight: 500;
+}
+
+.plan-price .old-price {
+    font-size: 14px;
+    color: var(--old-price-color);
+    margin-top: 5px;
+}
+
+.plan-price .old-price del {
+    margin-right: 5px;
+}
+
+.plan-price .save-amount {
+    color: var(--save-amount-color);
+    font-weight: 600;
+}
+
+.plan-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px;
+    text-align: left;
+    flex-grow: 1; /* Pushes button to bottom for equal height */
+}
+
+.plan-features li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    color: var(--feature-text-color);
+    margin-bottom: 15px;
+}
+.plan-features li:last-child {
+    margin-bottom: 0;
+}
+
+.plan-features li i {
+    font-size: 18px;
+}
+
+.plan-features li .fa-check-circle {
+    color: var(--feature-icon-color-active);
+}
+
+.plan-features li.disabled {
+    color: var(--feature-icon-color-disabled);
+    text-decoration: line-through;
+}
+
+.plan-features li.disabled .fa-times-circle {
+    color: var(--feature-icon-color-disabled);
+}
+
+.choose-plan-btn {
+    background-color: var(--choose-plan-btn-bg);
+    color: var(--choose-plan-btn-text);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%; /* Full width button */
+}
+
+.choose-plan-btn:hover {
+    background-color: var(--choose-plan-btn-hover);
+    transform: translateY(-2px);
+}
+
+.choose-plan-btn.premium-btn {
+    background: var(--premium-btn-bg);
+}
+
+.choose-plan-btn.premium-btn:hover {
+    background: var(--premium-btn-hover-bg);
+}
+
+
+/* --- Responsive Adjustments (General) --- */
+@media (max-width: 1200px) {
+    .container {
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 992px) {
+    .section-heading {
+        font-size: 38px;
+    }
+    .section-description {
+        font-size: 17px;
+        margin-bottom: 50px;
+    }
+
+    /* Core Values */
+    .values-grid {
+        grid-template-columns: repeat(2, 1fr); /* Keep 2 columns on tablets */
+        gap: 25px;
+        max-width: 768px; /* Adjust max-width for intermediate screens */
+    }
+    .value-card {
+        padding: 25px;
+    }
+    .icon-box {
+        width: 55px;
+        height: 55px;
+        font-size: 26px;
+    }
+    .value-title {
+        font-size: 20px;
+    }
+    .value-description {
+        font-size: 15px;
+    }
+
+    /* Our Journey */
+    .timeline {
+        max-width: 800px; /* Adjusted max-width for intermediate screens to make cards wider */
+    }
+    .timeline-item.left,
+    .timeline-item.right {
+        padding-left: 60px;
+        padding-right: 0; /* Reset padding for unified style */
+        width: 100%; /* Take full width */
+        left: 0; /* Align all items to the left */
+        margin-bottom: 30px;
+    }
+    .timeline::after {
+        left: 30px; /* Move line to the left */
+        margin-left: -3px; /* Adjust for new line width */
+    }
+    .timeline-item::after {
+        left: 20px; /* Position circles on the left side of the line */
+        right: unset; /* Remove right positioning */
+    }
+    .timeline-content {
+        padding: 15px 20px; /* Keep padding consistent for height */
+        margin-left: 40px; /* Offset content from the line */
+    }
+    .timeline-year {
+        font-size: 22px;
+    }
+    .timeline-title {
+        font-size: 16px;
+    }
+    .timeline-text {
+        font-size: 14px;
+    }
+
+    /* Health Plans */
+    .health-plan-section .section-heading {
+        font-size: 40px;
+    }
+    .pricing-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        max-width: 900px;
+    }
+    .pricing-card {
+        padding: 30px 20px;
+    }
+    .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+    }
+    .plan-title {
+        font-size: 24px;
+    }
+    .plan-price .price {
+        font-size: 45px;
+    }
+    .plan-features li {
+        font-size: 15px;
+    }
+    .choose-plan-btn {
+        font-size: 16px;
+        padding: 12px 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-heading {
+        font-size: 32px;
+    }
+    .section-description {
+        font-size: 16px;
+        margin-bottom: 40px;
+    }
+
+    /* Core Values */
+    .values-grid {
+        grid-template-columns: 1fr; /* Stack cards vertically */
+        max-width: 400px; /* Constrain width of stacked cards */
+        margin: 0 auto;
+        gap: 20px;
+    }
+    .value-card {
+        padding: 20px;
+        text-align: center;
+        align-items: center;
+    }
+    .icon-box {
+        margin-bottom: 15px;
+    }
+
+    /* Our Journey */
+    .timeline::after {
+        left: 20px; /* Further adjust line for very small screens */
+        width: 4px; /* Revert to thinner line on mobile */
+        margin-left: -2px;
+    }
+    .timeline-item::after {
+        left: 10px;
+        width: 18px; /* Adjust circle size on mobile */
+        height: 18px;
+        top: 18px;
+    }
+    .timeline-content {
+        margin-left: 30px; /* Adjust content offset */
+        padding: 12px 15px; /* Further decrease padding for smaller height */
+    }
+    .timeline-year {
+        font-size: 20px;
+    }
+    .timeline-title {
+        font-size: 14px;
+    }
+    .timeline-text {
+        font-size: 12px;
+    }
+
+    /* Health Plans */
+    .health-plan-section .section-heading {
+        font-size: 32px;
+    }
+    .toggle-switch {
+        flex-direction: column; /* Stack monthly/yearly buttons */
+        width: 80%;
+        max-width: 250px;
+        padding: 8px;
+    }
+    .toggle-button {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    .toggle-button:last-child {
+        margin-bottom: 0;
+    }
+    .pricing-grid {
+        grid-template-columns: 1fr; /* Stack pricing cards vertically */
+        max-width: 350px;
+    }
+    .pricing-card {
+        padding: 25px 15px;
+    }
+    .plan-price .price {
+        font-size: 40px;
+    }
+    .plan-features li {
+        font-size: 14px;
+    }
+    .choose-plan-btn {
+        font-size: 16px;
+        padding: 12px 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .core-values-section, .our-journey-section, .health-plan-section {
+        padding: 40px 10px;
+    }
+    .section-heading {
+        font-size: 28px;
+    }
+    .section-description {
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+
+    /* Core Values */
+    .value-card {
+        padding: 18px;
+    }
+    .icon-box {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+    .value-title {
+        font-size: 18px;
+    }
+    .value-description {
+        font-size: 14px;
+    }
+
+    /* Our Journey */
+    .timeline::after {
+        left: 15px;
+    }
+    .timeline-item::after {
+        left: 5px;
+        width: 16px; /* Further adjust circle size on smaller mobile */
+        height: 16px;
+        top: 16px;
+    }
+    .timeline-content {
+        margin-left: 20px;
+        padding: 10px 12px; /* Further reduced padding */
+    }
+    .timeline-year {
+        font-size: 16px;
+    }
+    .timeline-title {
+        font-size: 13px;
+    }
+    .timeline-text {
+        font-size: 11px;
+        line-height: 1.3;
+    }
+
+    /* Health Plans */
+    .health-plan-section .section-heading {
+        font-size: 28px;
+    }
+    .toggle-button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    .pricing-card {
+        padding: 20px 10px;
+    }
+    .plan-price .price {
+        font-size: 35px;
+    }
+    .plan-features li {
+        font-size: 13px;
+    }
+    .choose-plan-btn {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}
+
+
+.blurred-slot {
+    opacity: 0.5;
+    filter: blur(1px);
+    pointer-events: none;
+    background-color: #f0f0f0;
+    color: #888;
+    border: 1px solid #ccc;
+  }
+
+  .slot-button {
+    padding: 10px 16px;
+    background-color: #fff;
+    border: 1px solid #9d8cf5;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s ease;
+  }
+  .slot-button:hover {
+    background-color: #ede8ff;
+  }
+  

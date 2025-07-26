@@ -1,7 +1,10 @@
-from django.shortcuts import render,HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth import get_user_model
+from django.views.decorators.csrf import csrf_exempt
+
+from doctor.models import Doctor, AppointmentSlot, Booking
 User = get_user_model()
 
 
@@ -22,6 +25,33 @@ def signin(request):
 
 def health_plans(request):
     return render (request , 'health_plans.html')
+
+def about(request):
+    return render(request, 'about.html')
+
+@csrf_exempt
+def payment_success(request):
+    data = request.session.get('booking_data')
+    if not data:
+        return redirect('doctors')  # or show error
+
+    doctor = Doctor.objects.get(id=data['doctor_id'])
+    slot = AppointmentSlot.objects.get(id=data['slot_id'])
+
+    # Mark slot as booked
+    slot.is_booked = True
+    slot.save()
+
+    # Create Booking
+    Booking.objects.create(
+        doctor=doctor,
+        user=request.user,
+        slot=slot
+    )
+
+    del request.session['booking_data']  # clean session
+    return render(request, 'payment_success.html')
+
 
 
 def register(request):

@@ -147,7 +147,9 @@
                         <p>Heart & cardiovascular specialists</p>
                         <div class="card-footer-info">
                             <span class="stats"><i class="fas fa-dot-circle dot-green"></i> 1200+ doctors</span>
-                            <a href="#" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
+
+                            <a href="{% url 'doctors_by_speciality' 'cardiologist' %}" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
+                            
                         </div>
                     </div>
     
@@ -160,7 +162,7 @@
                         <p>Brain & nervous system experts</p>
                         <div class="card-footer-info">
                             <span class="stats"><i class="fas fa-dot-circle dot-green"></i> 800+ doctors</span>
-                            <a href="#" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
+                            <a href="{% url 'doctors_by_speciality' 'neurologist' %}" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
     
@@ -172,7 +174,7 @@
                         <p>Eye care & vision specialists</p>
                         <div class="card-footer-info">
                             <span class="stats"><i class="fas fa-dot-circle dot-green"></i> 600+ doctors</span>
-                            <a href="#" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
+                            <a href="{% url 'doctors_by_speciality' 'ophthalmology' %}" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
     
@@ -185,7 +187,7 @@
                         <p>Teeth & oral care</p>
                         <div class="card-footer-info">
                             <span class="stats"><i class="fas fa-dot-circle dot-green"></i> 2000+ doctors</span>
-                            <a href="#" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
+                            <a href="{% url 'doctors_by_speciality' 'dentist' %}" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
     
@@ -198,7 +200,7 @@
                         <p>Child healthcare specialists</p>
                         <div class="card-footer-info">
                             <span class="stats"><i class="fas fa-dot-circle dot-green"></i> 900+ doctors</span>
-                            <a href="#" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
+                            <a href="{% url 'doctors_by_speciality' 'pediatrics' %}" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
     
@@ -211,7 +213,7 @@
                         <p>Bone & joint specialists</p>
                         <div class="card-footer-info">
                             <span class="stats"><i class="fas fa-dot-circle dot-green"></i> 750+ doctors</span>
-                            <a href="#" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
+                            <a href="{% url 'doctors_by_speciality' 'orthopedics' %}" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
     
@@ -223,7 +225,7 @@
                         <p>Skin & beauty specialists</p>
                         <div class="card-footer-info">
                             <span class="stats"><i class="fas fa-dot-circle dot-green"></i> 500+ doctors</span>
-                            <a href="#" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
+                            <a href="{% url 'doctors_by_speciality' 'dermatologist' %}" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
     
@@ -235,52 +237,9 @@
                         <p>Mental health experts</p>
                         <div class="card-footer-info">
                             <span class="stats"><i class="fas fa-dot-circle dot-green"></i> 400+ doctors</span>
-                            <a href="#" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
+                            <a href="{% url 'doctors_by_speciality' 'psychiatry' %}" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-
-        
-        <section class="expert-doctors-section">
-            <div class="container">
-                <div class="top-rated-tag">
-                    <i class="fas fa-star"></i> Top Rated Doctors
-                </div>
-                <h2 class="section-title">Meet Our <span class="highlight">Expert Doctors</span></h2>
-                <p class="section-description">Book appointments with our verified and experienced doctors. Get quality healthcare from the comfort of your home.</p>
-        
-                <div class="doctor-search-bar">
-                    <div class="search-input-group">
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Search doctors...">
-                    </div>
-                    <div class="search-input-group">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <input type="text" placeholder="Location...">
-                    </div>
-                    <div class="search-input-group select-group">
-                        <i class="fas fa-th-list"></i>
-                        <select>
-                            <option value="">All Specialties</option>
-                            </select>
-                    </div>
-                    <div class="search-input-group select-group">
-                        <i class="fas fa-sort-amount-up"></i>
-                        <select>
-                            <option value="">Sort by Rating</option>
-                            </select>
-                    </div>
-                </div>
-        
-                <div class="quick-filters">
-                    <span class="filter-label">Quick filters:</span>
-                    <button class="filter-button">Available Today</button>
-                    <button class="filter-button">Video Consultation</button>
-                    <button class="filter-button">Top Rated</button>
-                    <button class="filter-button">Under ₹500</button>
                 </div>
             </div>
         </section>

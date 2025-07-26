@@ -8,8 +8,13 @@ from .models import Doctor,Booking,AppointmentSlot
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .forms import SlotBookingForm, BookingForm
+import calendar
+from collections import defaultdict
+import razorpay
+from django.conf import settings
+from hospitalproject.settings import RAZORPAY_ID,RAZORPAY_SECRET
 
-from datetime import date, timedelta
+
 # Create your views here.
 def doctors(request):
     doctors = Doctor.objects.all()
@@ -31,37 +36,16 @@ class DoctorDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         doctor = self.object
 
-        # Get booked appointments
+    # Appointments booked with this doctor (past/future)
         context['appointments'] = Booking.objects.filter(
-            doctor=doctor
+        doctor=doctor
         ).order_by('slot__date', 'slot__time')
 
-        # Get available slots for next 5 days
-        today = date.today()
-        end_date = today + timedelta(days=4)
+    # Get available slots in next 5 days
+        context['availability_data'] = get_available_slots(doctor, days_ahead=5)
 
-        slots = AppointmentSlot.objects.filter(
-            doctor=doctor,
-            date__range=(today, end_date),
-            is_booked=False
-        ).order_by('date', 'time')
-
-        # Group slots by date
-        grouped_slots = defaultdict(list)
-        for slot in slots:
-            grouped_slots[slot.date].append(slot)
-
-        availability_data = []
-        for dt, time_slots in grouped_slots.items():
-            availability_data.append({
-                'date': dt,
-                'day': calendar.day_name[dt.weekday()],
-                'slots': time_slots,
-                'slot_count': len(time_slots)
-            })
-
-        context['availability_data'] = availability_data
         return context
+
 
 
 
@@ -70,50 +54,156 @@ class SpecialityDetailView(DetailView):
     template_name="speciality.html"
     context_object_name="speciality"
     slug_field="slug"
+    slug_url_kwarg = 'slug'
 
     def get_context_data(self, **kwargs) :
         context = super().get_context_data(**kwargs)
         context["doctors"]=Doctor.objects.all()
+       
         return context
     
 def doctors_by_speciality(request, speciality_slug):
-    speciality = get_object_or_404(Speciality, slug=speciality_slug)
+    speciality = get_object_or_404(Speciality, slug__iexact=speciality_slug)
     doctors = Doctor.objects.filter(speciality=speciality)
+    print(doctors,"***********************")
     return render(request, 'doctors_by_speciality.html', {
         'doctors': doctors,
         'speciality': speciality.name
     })
-
-
-
+import uuid
+from .models import AppointmentSlot
+import razorpay
+from .models import Payment
 @login_required
-def book_slot(request,slug):
-    doctor = get_object_or_404(Doctor, slug=slug)
-
-    date_str = request.GET.get('date')
-    date = datetime.strptime(date_str, "%Y-%m-%d").date() if date_str else datetime.today().date()
-
-    if request.method == 'POST':
-        form = SlotBookingForm(doctor, date, request.POST)
-        if form.is_valid():
-            slot = form.cleaned_data['slot']
+def book_slot(request, slug,slot_id):
+    if request.method == "POST":
+            
+        doctor = get_object_or_404(Doctor, slug=slug)
+        slot =  get_object_or_404(AppointmentSlot,id=slot_id)
+        total = float(request.POST.get("total"))
+        print(total)
+        if slot.is_booked:
+            return redirect(f'doctor/{slug}/')
+        else:
+            book = Booking.objects.create(
+            booking_uuid=uuid.uuid4(),
+            doctor=doctor,
+            user=request.user,
+            slot=slot,
+            amount=total,  
+            payment_status='PENDING',
+            )
             slot.is_booked = True
             slot.save()
+            client = razorpay.Client(auth=(settings.RAZORPAY_ID, settings.RAZORPAY_SECRET))
 
-            Booking.objects.create(
-                doctor=doctor,
-                user=request.user,
-                slot=slot
+            data = { "amount": int(total)*100, "currency": "INR", "receipt": str(book.booking_uuid) }
+            payment = client.order.create(data=data)
+            context ={
+                "data":data,
+                "payment":payment,
+                "book":book,
+                "RAZORPAY_KEY_ID":settings.RAZORPAY_ID
+            } 
+            my_payment,create = Payment.objects.get_or_create(
+                booking = book,
+                defaults={
+                    'user': request.user,
+                    'razorpay_order_id': payment.get('id'),
+                    'amount' : total,
+                    'status':"PENDING",
+                    'method': "RAZORPAY",
+                }
             )
-            return redirect('booking_success')  
+            my_payment.razorpay_order_id = payment.get('id')
+            my_payment.amount =  total
+            my_payment.user = request.user
+            my_payment.save()
+            book.save()
+            return render(request,'book_slot.html',context)
+            # return redirect('doctor')
     else:
-        form = SlotBookingForm(doctor, date)
+        return redirect(f'doctor/{slug}/')
 
-    return render(request, 'book_slot.html', {
-        'form': form,
-        'doctor': doctor,
-        'date': date
-    })
+    # Get selected date from query string or default to today
+    # date_str = request.GET.get('date')
+    # date = datetime.strptime(date_str, "%Y-%m-%d").date() if date_str else datetime.today().date()
+    # # Fetch grouped available slots for tab view
+    # availability_data = get_available_slots(doctor)
+
+    # # Fetch slots for selected day
+    # slots_for_day = AppointmentSlot.objects.filter(
+    #     doctor=doctor,
+    #     date=date
+    # ).order_by('time')
+
+    # # Fetch booked slot IDs for that day
+    # booked_slot_ids = Booking.objects.filter(
+    #     doctor=doctor,
+    #     slot__in=slots_for_day
+    # ).values_list('slot_id', flat=True)
+
+    # # Always render book_slot.html (for both GET and POST)
+    # form = SlotBookingForm(doctor, date, request.POST or None)
+    # context =  {
+    #     'form': form,
+    #     'doctor': doctor,
+    #     'date': date,
+    #     'availability_data': availability_data,
+    #     'slots': slots_for_day,
+    #     'booked_slot_ids': booked_slot_ids,
+    # }
+    # return render(request, 'book_slot.html',context)
+
+
+def get_available_slots(doctor, days_ahead=5):
+    """
+    Returns grouped available slots for a doctor over the next `days_ahead` days.
+    """
+    today = date.today()
+    end_date = today + timedelta(days=days_ahead)
+
+    # Fetch unbooked slots
+    slots = AppointmentSlot.objects.filter(
+        doctor=doctor,
+        date__range=(today, end_date),
+        is_booked=False
+    ).order_by('date', 'time')
+
+    # Group by date
+    grouped_slots = defaultdict(list)
+    for slot in slots:
+        grouped_slots[slot.date].append(slot)
+
+    # Format for template
+    availability_data = []
+    for slot_date, slot_list in grouped_slots.items():
+        availability_data.append({
+            'date': slot_date,
+            'day': calendar.day_name[slot_date.weekday()],
+            'slots': slot_list,
+            'slot_count': len(slot_list)
+        })
+    print(f""" 
+    "slots" : {slots}
+
+
+
+    "grouped_slots" :{grouped_slots}
+
+
+
+
+    "availability_data" :{availability_data}
+
+
+    """)
+    return availability_data
+
+
+
+
+
 
 
 
@@ -197,6 +287,7 @@ def book_appointment(request, slot_id):      #checkout page   create razorpay or
             booking.doctor = slot.doctor
             booking.user = request.user
             booking.slot = slot
+            print(book_slot)
             booking.save()
             slot.is_booked = True
             slot.save()
@@ -210,6 +301,41 @@ def book_appointment(request, slot_id):      #checkout page   create razorpay or
         'doctor': slot.doctor
     })
 
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
+from .models import Payment, Booking
+
+@csrf_exempt
+def payment_success(request):
+    if request.method == "POST":
+        razorpay_order_id = request.POST.get('razorpay_order_id')
+        razorpay_payment_id = request.POST.get('razorpay_payment_id')
+        razorpay_signature = request.POST.get('razorpay_signature')
+        try:
+            # Update the payment record
+            payment = Payment.objects.get(razorpay_order_id=razorpay_order_id)
+            payment.razorpay_payment_id = razorpay_payment_id
+            payment.status = "SUCCESS"
+            payment.save()
+
+            # Also update booking status
+            booking = payment.booking
+            booking.payment_status = "SUCCESS"
+            booking.save()
+
+            return render(request, 'payment_success.html', {
+                'payment': payment,
+                'booking': booking
+            })
+
+        except Payment.DoesNotExist:
+            return render(request, 'payment_failed.html', {
+                'message': "Payment record not found."
+            })
+
+    return render(request, 'payment_failed.html', {
+        'message': "Invalid request method."
+    })
 
 # def book_slot(request):
 #     if request.method == 'POST':

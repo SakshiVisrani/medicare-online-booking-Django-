@@ -75,8 +75,25 @@
                   <span class="degree-tag">{{doctor.education_3}}</span>
                   <span class="degree-tag">{{doctor.education_4}}</span>
               </div>
+              
 
-              <p class="languages-spoken"><i class="fas fa-language"></i> clinic name : <span class="lang-list">{{doctor.clinic_name}}</span></p>
+              <p class="languages-spoken">
+                <i class="fas fa-language"></i> clinic name :
+                <span class="lang-list">{{doctor.clinic_name}}</span>
+            </p>
+            
+            <!-- Slots Section Below Clinic Name -->
+            <div class="doctor-degrees-section">
+                {% if slots %}
+                    <h5 style="margin-top: 10px; font-weight: bold;">Available Slots:</h5>
+                    {% for s in slots %}
+                        <span class="degree-tag">Slot: {{ s.time }}</span>
+                    {% endfor %}
+                {% else %}
+                    <span class="degree-tag">No Slots Available</span>
+                {% endif %}
+            </div>
+              
 
               <div class="card-footer-badges detailed-page">
                   <span class="footer-badge"><i class="fas fa-check-circle"></i> Verified Doctor</span>
@@ -189,50 +206,6 @@
                       </div>
                 </div>
 
-                {% comment %} 
-                <div id="availability" class="tab-pane">
-                    <h2 class="section-title">Available Time Slots</h2>
-                
-                    <h3 class="select-date-heading">Select Date</h3>
-                    <div class="date-selection-grid">
-                        <div class="date-option-card active" data-date="today">
-                            <span class="day-of-week">Today</span>
-                            <span class="slots-available">6 slots</span>
-                        </div>
-                        <div class="date-option-card" data-date="tomorrow">
-                            <span class="day-of-week">Tomorrow</span>
-                            <span class="slots-available">8 slots</span>
-                        </div>
-                        <div class="date-option-card" data-date="wed">
-                            <span class="day-of-week">Wed</span>
-                            <span class="slots-available">5 slots</span>
-                        </div>
-                        <div class="date-option-card" data-date="thu">
-                            <span class="day-of-week">Thu</span>
-                            <span class="slots-available">7 slots</span>
-                        </div>
-                        <div class="date-option-card" data-date="fri">
-                            <span class="day-of-week">Fri</span>
-                            <span class="slots-available">4 slots</span>
-                        </div>
-                    </div>
-                
-                    <div class="available-times-section">
-                        <h3 class="section-subtitle" style="margin-top: 25px;">Available Times</h3>
-                        <div class="time-slots-grid">
-                            <span class="time-slot-tag">9:00 AM</span>
-                            <span class="time-slot-tag">10:00 AM</span>
-                            <span class="time-slot-tag">11:00 AM</span>
-                            <span class="time-slot-tag">12:00 PM</span>
-                            <span class="time-slot-tag">2:00 PM</span>
-                            <span class="time-slot-tag">3:00 PM</span>
-                            <span class="time-slot-tag">4:00 PM</span>
-                            <span class="time-slot-tag">5:00 PM</span>
-                            <span class="time-slot-tag">6:00 PM</span>
-                        </div>
-                    </div>
-                </div> 
-                {% endcomment %}
                 <div id="availability" class="tab-pane">
                     <h2 class="section-title">Available Time Slots</h2>
                 
@@ -252,9 +225,18 @@
                         {% for day in availability_data %}
                         <div class="time-slots-grid time-slot-group {% if not forloop.first %}d-none{% endif %}" data-date="{{ day.date }}">
                             {% for slot in day.slots %}
-                            <form action="{% url 'book-appointment' slot.id %}" method="get" style="display: inline;">
-                                <button class="time-slot-tag" type="submit">{{ slot.time|time:"g:i A" }}</button>
-                            </form>
+                           
+                            <button class="time-slot-tag" id="selectedTimeButton"
+                              type="button"
+                              data-time="{{ slot.time|time:'g:i A' }}"
+                              data-date="{{ day.date }}"
+                              data-day="{{ day.day }}"
+                              data-slotId = "{{ slot.id }}"
+                               data-amount="{{ doctor.consultation_fee }}">
+                        {{ slot.time|time:"g:i A" }}
+                       <p style="display:hidden" > {{ slot.id }}</p>
+                    </button>
+                           
                         {% endfor %}
                         </div>
                         {% endfor %}
@@ -267,9 +249,7 @@
   </div>
 
   <ul>
-    {% for appt in appointments %}
-      <li>{{ appt.date }} at {{ appt.time }} - Booked by {{ appt.patient.username }}</li>
-    {% endfor %}
+ 
   </ul>
 
   <div class="right-column">
@@ -277,10 +257,10 @@
       <h2 class="book-appointment-title">Book Appointment</h2>
       <h3 class="consultation-type-heading">Consultation Type</h3>
   
-      <form method="POST" action="{% url 'book-slot' doctor.slug %}">
+      <form class="bookingForm" id="booking-form" method="POST" action="{% url 'book-slot' doctor.slug 0 %}">
         {% csrf_token %}
         <input type="hidden" name="doctor_id" value="{{ doctor.id }}">
-  
+        <input type="hidden" name="total" id="totalAmountField" value="">
         <div class="consultation-options">
           <label class="consultation-option-card clinic-visit-selected">
             <input type="radio" name="consultation_type" value="clinic_visit" checked>
@@ -328,19 +308,19 @@
         </div>
   
         <div class="quick-information-section">
-          <h3 class="section-subtitle">Quick Information</h3>
+          <h3 class="section-subtitle">Booking details</h3>
           <div class="info-item">
             <i class="fas fa-clock info-icon"></i>
             <div class="info-text">
-              <span class="info-label">Next Available</span>
-              <span class="info-value">Today 2:00 PM</span>
+              <span class="info-label">Booking for:</span>
+              <span class="info-value" id="booking-datetime"></span>
             </div>
           </div>
           <div class="info-item">
             <i class="fas fa-comment-dots info-icon"></i>
             <div class="info-text">
-              <span class="info-label">Response Time</span>
-              <span class="info-value">15 mins</span>
+              <span class="info-label">Total Amount: </span>
+              <span class="info-value" id="booking-amount"></span>
             </div>
           </div>
           <div class="info-item">
@@ -359,7 +339,7 @@
           </div>
         </div>
   
-        <button type="submit" class="book-appointment-btn" style="margin-top: 20px;">Pay with Razorpay</button>
+        <button type="submit" class="book-appointment-btn" style="margin-top: 20px;">Book & Pay with Razorpay</button>
       </form>
     </div>
   </div>
@@ -397,8 +377,25 @@
           });
       });
   });
-
   document.addEventListener('DOMContentLoaded', () => {
+    const slotButtons = document.querySelectorAll(".time-slot-tag");
+    const bookingForm = document.getElementsByClassName("bookingForm")[0];
+    
+    const originalAction = bookingForm.getAttribute("action");
+
+    slotButtons.forEach(button => {
+      button.addEventListener("click", (e) => {
+        const slotId = e.currentTarget.querySelector("p").innerText.trim();
+        console.log("Selected Slot ID:", slotId);
+        bookingForm.setAttribute("action", `${originalAction}${slotId}`);
+        console.log("Form action updated to:", bookingForm.getAttribute("action"));
+      });
+    });
+    
+   
+  });
+  
+    document.addEventListener('DOMContentLoaded', () => {
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabPanes = document.querySelectorAll('.tab-pane');
 
@@ -492,6 +489,22 @@
     }
 });
 
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("booking-form");
+
+    form.addEventListener("submit", function (event) {
+      const selectedSlotId = document.getElementById("selected-slot-id").value;
+
+      if (!selectedSlotId) {
+        event.preventDefault(); // Stop form from submitting
+        alert("Please select a time slot before booking.");
+      } else {
+        console.log("Submitting form with slot ID:", selectedSlotId);
+        // You can optionally show a loader or disable the button here
+      }
+    });
+  });
+
 document.addEventListener('DOMContentLoaded', () => {
     const consultationFees = {
       clinic_visit: parseFloat("{{ doctor.consultation_fee }}"),
@@ -514,6 +527,7 @@ document.addEventListener('DOMContentLoaded', () => {
       platformFeeEl.textContent = '₹' + platformFee.toFixed(2);
       taxesEl.textContent = '₹' + taxAmount.toFixed(2);
       totalPriceEl.textContent = '₹' + total.toFixed(2);
+      document.getElementById('totalAmountField').value = total.toFixed(2);
     }
 
     // On page load initialize
@@ -530,8 +544,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-</script>
-<script>
     document.querySelectorAll('.date-option-card').forEach(card => {
         card.addEventListener('click', function () {
             // Switch active class
@@ -583,6 +595,58 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
       });
-    </script>
+
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const slotButtons = document.querySelectorAll(".time-slot-tag");
+        const bookingDatetime = document.getElementById("booking-datetime");
+        const bookingAmount = document.getElementById("booking-amount");
+
+        slotButtons.forEach(button => {
+          button.addEventListener("click", function () {
+            // Get time, date, day, and amount
+            const time = this.dataset.time;
+            const date = this.dataset.date;
+            const day = this.dataset.day;
+            const amount = this.dataset.amount;
+            const slotId = this.dataset.slotId;
+            // Update right panel with date, day, and time
+            if (bookingDatetime) bookingDatetime.textContent = `${day}, ${date} at ${time}`;
+            if (bookingAmount) bookingAmount.textContent = "₹" + amount;
+
+            // Highlight selected slot visually (optional)
+            slotButtons.forEach(btn => btn.classList.remove("selected"));
+            this.classList.add("selected");
+
+          });
+        });
+      });
+
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const slotButtons = document.querySelectorAll(".slot-button");
+        const bookingTimeEl = document.querySelector(".booking-time");
+        const totalAmountEl = document.querySelector(".booking-amount");
     
+        slotButtons.forEach(button => {
+          button.addEventListener("click", function (e) {
+            e.preventDefault();
+    
+            // Remove 'active' class from all slots
+            slotButtons.forEach(btn => btn.classList.remove("selected"));
+    
+            // Add active class to selected one
+            this.classList.add("selected");
+    
+            // Get data attributes
+            const time = this.getAttribute("data-time");
+            const amount = this.getAttribute("data-amount");
+    
+            // Update booking summary
+            if (bookingTimeEl) bookingTimeEl.textContent = time;
+            if (totalAmountEl) totalAmountEl.textContent = "₹" + amount;
+          });
+        });
+      });
+    </script>
 {% endblock content %}

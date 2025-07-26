@@ -13,10 +13,10 @@ User = get_user_model()
 
 class Speciality(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True, blank=True, null=True)  # <--- important
+    slug = models.SlugField(unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        if not self.slug:
+        if not self.slug and self.name:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
@@ -29,7 +29,7 @@ class Doctor(models.Model):
     experience = models.IntegerField(help_text="Years of experience", default=0)
     location = models.CharField(max_length=100, default="")
     clinic_name = models.CharField(max_length=100, blank=True, null=True, default="")
-    speciality = models.ForeignKey('Speciality', on_delete=models.CASCADE, related_name='doctors', default="")
+    speciality = models.ForeignKey(Speciality, on_delete=models.CASCADE, related_name='doctors', default="")
     response_time = models.IntegerField(help_text="Responds in how many minutes", null=True, blank=True, default=0)
     consultation_fee = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     online_consultation = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
@@ -93,11 +93,39 @@ class AppointmentSlot(models.Model):
     @property
     def day_name(self):
         return calendar.day_name[self.date.weekday()]
+payment_status_choices = [
+    ('Pending' ,  'Pending'),
+    ('Completed'  ,   'Completed'),
+    ('Rejected'  ,   'Rejected'),
+    ('Processing'  ,   'Processing'),
+]
 class Booking(models.Model):
+    booking_uuid = models.UUIDField(primary_key=True,max_length=128)
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     slot = models.ForeignKey(AppointmentSlot, on_delete=models.CASCADE)
     booked_at = models.DateTimeField(auto_now_add=True)
+    amount =  models.DecimalField(max_digits=12,decimal_places=2)
+    payment_status = models.CharField(max_length=20,choices=payment_status_choices)
+STATUS_CHOICE=[
+        ('PENDING','PENDING'),
+        ('COMPLETED','COMPLETED'),
+        ('FAILED','FAILED')
+]
+METHOD_CHOICE = [
+        ('RAZORPAY','RAZORPAY'),
+        ('COD','COD'),
+        ('ShopEase_WALLET','ShopEase_WALLET')
+]
+class Payment(models.Model):
+    user=models.ForeignKey(User,on_delete=models.DO_NOTHING)
+    razorpay_order_id = models.CharField(max_length=25,blank=True,default="default")
+    razorpay_payment_id = models.CharField(max_length=25,blank=True,default="default")
+    payment_signature=models.CharField(max_length=128,default='default',blank=True)
+    amount=models.DecimalField(decimal_places=2,max_digits=12)
+    status=models.CharField(choices=STATUS_CHOICE,max_length=25)
+    method=models.CharField(choices=METHOD_CHOICE,max_length=25)
+    booking=models.ForeignKey(Booking,on_delete=models.DO_NOTHING)
 
 # class Appointment(models.Model):
     

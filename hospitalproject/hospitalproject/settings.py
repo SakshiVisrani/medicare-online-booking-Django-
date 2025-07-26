@@ -139,3 +139,8 @@ MEDIA_URL = "/media/"
 
 # Auth user
 AUTH_USER_MODEL='User.CustomUser'
+
+# Razorpay Credentials
+LOGIN_URL = "/login"
+RAZORPAY_ID ='rzp_test_bKsS1GY87yXArI'
+RAZORPAY_SECRET = 'CDA1xXvy6yqD198lS8lKKz81' 
