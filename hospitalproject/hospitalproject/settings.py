@@ -144,3 +144,12 @@ AUTH_USER_MODEL='User.CustomUser'
 LOGIN_URL = "/login"
 RAZORPAY_ID ='rzp_test_bKsS1GY87yXArI'
 RAZORPAY_SECRET = 'CDA1xXvy6yqD198lS8lKKz81' 
+
+# Mail setting
+
+EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST="smtp.gmail.com"
+EMAIL_PORT=587
+EMAIL_HOST_USER="siyavisrani@gmail.com"
+EMAIL_HOST_PASSWORD="jyqn ueaf nhny vydh"
+EMAIL_USE_TLS=True

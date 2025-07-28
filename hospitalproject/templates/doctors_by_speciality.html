@@ -53,13 +53,20 @@
                     <span class="available-time">{{ doctor.next_available }} {{ doctor.next_available_time }}</span>
                 </div>
             </div>
+
+            <div class="card-actions">
+                <button class="btn btn-book-clinic" id="pay-with-razorpay-{{ doctor.id }}" type="button">Pay with Razorpay</button>
+                <a href="{% url 'doctor-detail' slug=doctor.slug %}" class="btn btn-view-profile">
+                View Profile <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
       
             <div class="card-actions">
-                <a href="{% url 'book-slot' doctor.slug %}" class="btn btn-book-clinic">Book Appointment</a>
-                <p>Doctor Slug: {{ doctor.slug }}</p>
-                <a href="{% url 'doctor-detail' slug=doctor.slug %}" class="btn btn-view-profile">
+                {% comment %} <a href="{% url 'book-slot' doctor.slug %}" class="btn btn-book-clinic">Book Appointment</a>
+                <p>Doctor Slug: {{ doctor.slug }}</p> {% endcomment %}
+                {% comment %} <a href="{% url 'doctor-detail' slug=doctor.slug %}" class="btn btn-view-profile">
                     View Profile <i class="fas fa-arrow-right"></i>
-                </a>
+                </a> {% endcomment %}
             </div>
       
             <div class="card-footer-badges">

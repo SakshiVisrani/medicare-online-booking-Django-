@@ -40,7 +40,7 @@ var options = {
     "description": "Doctor Appointment Booking",
     "image": "https://example.com/your_logo",  // Optional
     "order_id": "{{ payment.id }}",  // Razorpay order ID
-    "callback_url": "http://127.0.0.1:8000/payment/success/",
+    "callback_url": "{% url 'payment-success' %}",
     "prefill": {
         "name": "{{ request.user.username }}",
         "email": "{{ request.user.email }}",

@@ -13,17 +13,22 @@ from collections import defaultdict
 import razorpay
 from django.conf import settings
 from hospitalproject.settings import RAZORPAY_ID,RAZORPAY_SECRET
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
 def doctors(request):
-    doctors = Doctor.objects.all()
-    return render(request,'doctors.html',{'doctors': doctors})
+    query = request.GET.get('q')  # Get the search term
+    if query:
+        doctors = Doctor.objects.filter(name__icontains=query)  # Case-insensitive match
+    else:
+        doctors = Doctor.objects.all()
+    return render(request, 'doctors.html', {'doctors': doctors})
 
 
-from collections import defaultdict
-from datetime import date, timedelta
-import calendar
 
 class DoctorDetailView(DetailView):
     model = Doctor
@@ -120,10 +125,80 @@ def book_slot(request, slug,slot_id):
             my_payment.user = request.user
             my_payment.save()
             book.save()
+
+             # Send email to the user
+            subject = 'Appointment Confirmation - Curasync'
+            
+
+            html_message = render_to_string('appointment_confirmation.html', {
+                'user': request.user,
+                'doctor': book.doctor,
+                'slot': book.slot,
+                'booking': book,
+            })
+            plain_message = strip_tags(html_message)
+            print("Sending email to:", request.user.email)
+            send_mail(
+                subject,
+                 "Your appointment has been confirmed ",
+                settings.EMAIL_HOST_USER,
+                ["priyanka.vibhute@itvedant.com" , request.user.email],
+               
+                fail_silently=False,
+            )
             return render(request,'book_slot.html',context)
             # return redirect('doctor')
     else:
         return redirect(f'doctor/{slug}/')
+    
+
+@csrf_exempt
+def payment_success(request):
+    if request.method == "POST":
+        razorpay_order_id = request.POST.get('razorpay_order_id')
+        razorpay_payment_id = request.POST.get('razorpay_payment_id')
+        razorpay_signature = request.POST.get('razorpay_signature')
+
+        try:
+            payment = Payment.objects.get(razorpay_order_id=razorpay_order_id)
+            payment.razorpay_payment_id = razorpay_payment_id
+            payment.status = "SUCCESS"
+            payment.save()
+
+            booking = payment.booking
+            booking.payment_status = "SUCCESS"
+            booking.save()
+
+            # Send email to the user
+            subject = 'Appointment Confirmation - Curasync'
+            
+
+            html_message = render_to_string('appointment_confirmation.html', {
+                'user': request.user,
+                'doctor': booking.doctor,
+                'slot': booking.slot,
+                'booking': booking,
+            })
+            plain_message = strip_tags(html_message)
+            print("Sending email to:", request.user.email)
+            send_mail(
+                subject,
+                 "Mail Sent",
+                settings.EMAIL_HOST_USER,
+                ["priyanka.vibhute@itvedant.com"],
+                fail_silently=False,
+            )
+            print("Bye")
+            return render(request, 'payment_success.html', {'booking': booking})
+
+        except Payment.DoesNotExist:
+            return render(request, 'payment_failed.html', {
+                'message': "Payment record not found."
+            })
+
+    return render(request, 'payment_failed.html', {
+        'message': "Invalid request method."
+    })
 
     # Get selected date from query string or default to today
     # date_str = request.GET.get('date')
@@ -301,41 +376,7 @@ def book_appointment(request, slot_id):      #checkout page   create razorpay or
         'doctor': slot.doctor
     })
 
-from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render
-from .models import Payment, Booking
 
-@csrf_exempt
-def payment_success(request):
-    if request.method == "POST":
-        razorpay_order_id = request.POST.get('razorpay_order_id')
-        razorpay_payment_id = request.POST.get('razorpay_payment_id')
-        razorpay_signature = request.POST.get('razorpay_signature')
-        try:
-            # Update the payment record
-            payment = Payment.objects.get(razorpay_order_id=razorpay_order_id)
-            payment.razorpay_payment_id = razorpay_payment_id
-            payment.status = "SUCCESS"
-            payment.save()
-
-            # Also update booking status
-            booking = payment.booking
-            booking.payment_status = "SUCCESS"
-            booking.save()
-
-            return render(request, 'payment_success.html', {
-                'payment': payment,
-                'booking': booking
-            })
-
-        except Payment.DoesNotExist:
-            return render(request, 'payment_failed.html', {
-                'message': "Payment record not found."
-            })
-
-    return render(request, 'payment_failed.html', {
-        'message': "Invalid request method."
-    })
 
 # def book_slot(request):
 #     if request.method == 'POST':

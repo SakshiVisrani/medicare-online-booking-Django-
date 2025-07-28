@@ -7,14 +7,23 @@
 
 
 {% comment %} <div class="row row-cols-1 row-cols-md-1 g-1"> {% endcomment %}
-
+  <div class="container my-4">
+    <form method="GET" action="{% url 'doctors' %}">
+        <div class="input-group mb-4 shadow-sm">
+            <input type="text" name="q" class="form-control" placeholder="Search doctors by name..." value="{{ request.GET.q }}">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
 <div class="doctor-row row">
 
-   {% for doctor in doctors %}
-     
-   {% include "doctor_card.html" with d=doctor %}
-
-   {% endfor %}
+  {% if doctors %}
+  {% for doctor in doctors %}
+      {% include "doctor_card.html" with doctor=doctor %}
+  {% endfor %}
+{% else %}
+  <p>No doctors found matching your search.</p>
+{% endif %}
   
   {% comment %} </div> {% endcomment %}
 </div>
