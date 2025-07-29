@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/booking-style.css' %}">
+
+<div class="container my-5">
+    <h2 class="text-center mb-5">📋 My Appointments</h2>
+
+    {% if bookings %}
+        <div class="row">
+            {% for booking in bookings %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="booking-card">
+                        <div class="booking-header">
+                            <h5>Dr. {{ booking.doctor.name }}</h5>
+                            <span class="status 
+                                {% if booking.payment_status == 'SUCCESS' %}status-success
+                                {% elif booking.payment_status == 'PENDING' %}status-pending
+                                {% else %}status-rejected{% endif %}">
+                                {{ booking.payment_status }}
+                            </span>
+                        </div>
+                        <div class="booking-details">
+                            <p><strong>📅 Date:</strong> {{ booking.slot.date|date:"M j, Y" }}</p>
+                            <p><strong>🕒 Time:</strong> {{ booking.slot.time }}</p>
+                        </div>
+
+                        {% if not booking.cancelled %}
+                            <form method="post" action="{% url 'cancel-booking' booking.booking_uuid %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-cancel">❌ Cancel</button>
+                            </form>
+                        {% else %}
+                            <div class="cancelled-label">Cancelled</div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="no-bookings text-center">No appointments found.</div>
+    {% endif %}
+</div>
+
+{% endblock content %}

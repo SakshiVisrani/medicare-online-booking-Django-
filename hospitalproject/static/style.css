@@ -3289,6 +3289,7 @@ body {
     max-width: 650px;
     width: 100%;
     transition: background-color 0.3s ease, border-color 0.3s ease;
+    margin:55px;
   }
   
   .rh-login-title {
@@ -3463,6 +3464,7 @@ body {
     max-width: 700px;
     width: 100%;
     transition: background-color 0.3s ease, border-color 0.3s ease;
+    margin: 55px;
   }
   
   .rh-signup-title {
@@ -8119,4 +8121,210 @@ body {
   }
   
 
-  
+  .curasync-email-container {
+    position: relative;
+    left: 20%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+    margin: 55px;
+    align-items: center;
+    justify-content: center;
+    width: 800px;
+  }
+
+  .curasync-header {
+    color: #1abc9c;
+    text-align: center;
+  }
+
+  .curasync-section-title {
+    font-size: 18px;
+    margin-top: 25px;
+    color: #444;
+  }
+
+  .curasync-list {
+    padding-left: 20px;
+    margin-bottom: 15px;
+  }
+
+  .curasync-list-item {
+    margin-bottom: 10px;
+  }
+
+  .curasync-footer {
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+    margin-top: 30px;
+  }
+
+  .curasync-btn {
+    display: inline-block;
+    background-color: #1abc9c;
+    color: white;
+    padding: 12px 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  .curasync-amount {
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+
+  .curasync-demo-btn {
+  background-color: #1abc9c;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.curasync-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.6);
+}
+
+.curasync-modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border-radius: 10px;
+  width: 70%;
+  max-width: 800px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.curasync-close {
+  color: #aaa;
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.curasync-close:hover,
+.curasync-close:focus {
+  color: black;
+  text-decoration: none;
+}
+
+
+.booking-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.booking-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.15);
+}
+
+.booking-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.booking-header h5 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.status {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-success {
+    background: #e0fce0;
+    color: #2e7d32;
+}
+
+.status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-rejected {
+    background: #fdecea;
+    color: #c62828;
+}
+
+.booking-details p {
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+}
+
+.btn-cancel {
+    background: #dc3545;
+    color: white;
+    border: none;
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 25px;
+    transition: 0.2s;
+}
+
+.btn-cancel:hover {
+    background: #b52a38;
+}
+
+.cancelled-label {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #888;
+}
+
+.no-bookings {
+    font-size: 1.2rem;
+    padding: 50px;
+    color: #777;
+}
+.blob-pink {
+    background-color: #ed1cbf;
+    width: 300px;
+    height: 300px;
+    top: 50px;
+    left: -100px;
+    transform: rotate(20deg);
+}
+.blob-purple {
+    background-color: #2929ea;
+    width: 400px;
+    height: 400px;
+    bottom: -50px;
+    right: -150px;
+    transform: rotate(-30deg);
+}

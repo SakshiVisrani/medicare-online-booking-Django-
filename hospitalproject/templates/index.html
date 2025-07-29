@@ -1,18 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
 
-
-
-    
     {% block content %}
     <main>
         {# Hero Section #}
-        <section class="hero-section bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 overflow-hidden">
+        <section class="hero-section absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-pink-300 to-rose-400 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-pulse" style ="background-color: white;">
             <div class="container">
                 <div class="trusted-badge">
-                    <span class="dot green"></span>
-                    <span class="dot blue"></span>
-                    <span class="dot purple"></span>
+                    <span class="dot-green"></span>
+                    <span class="dot-pink"></span>
+                    <span class="dot-purple"></span>
                     Trusted by 2M+ patients worldwide
                 </div>
                 <h1>Your Health,<br>Our Priority</h1>
@@ -56,10 +53,10 @@
                 {# Popular Searches #}
                 <div class="popular-searches">
                     <span>Popular searches:</span>
-                    <a href="#">Cardiologist</a>
-                    <a href="#">Dentist</a>
-                    <a href="#">Dermatologist</a>
-                    <a href="#">Neurologist</a>
+                    <a href="{% url 'doctors_by_speciality' 'cardiologist' %}">Cardiologist</a>
+                    <a href="{% url 'doctors_by_speciality' 'dentist' %}">Dentist</a>
+                    <a href="{% url 'doctors_by_speciality' 'dermatologist' %}">Dermatologist</a>
+                    <a href="{% url 'doctors_by_speciality' 'neurologist' %}">Neurologist</a>
                 </div>
             </div>
             {# Background Blobs #}
@@ -67,7 +64,7 @@
             <div class="blob-purple"></div>
         </section>
 
-        <section class="features-stats-section">
+        <section class="features-stats-section" style="background-color: white;">
             <div class="container feature-cards-grid">
                 <div class="feature-card">
                     <div class="icon-wrapper red">
@@ -119,9 +116,15 @@
             </div>
     
             <div class="container call-to-action-buttons">
-             <button class="book-appointment-btn">Book Appointment Now <i class="fas fa-arrow-right"></i></button>
-                <button class="watch-demo-btn"><i class="fas fa-play"></i> Watch Demo</button>
+                <a href="{% url 'signin' %}" class="book-appointment-btn">Book Appointment Now </i></a>
+                <button class="curasync-demo-btn" onclick="openVideoModal()"><i class="fas fa-play"></i> Watch Demo</button>
             </div>
+            <div id="curasync-video-modal" class="curasync-modal">
+                <div class="curasync-modal-content">
+                  <span class="curasync-close" onclick="closeVideoModal()">&times;</span>
+                  <iframe id="curasync-video-frame" width="100%" height="400" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+              </div>
 
             <div class="blob-pink"></div>
             <div class="blob-purple"></div>
@@ -418,9 +421,38 @@
         </div>
     </div>
 </section>
-
         
     </main>
+
+    <script>
+        function openVideoModal() {
+          const modal = document.getElementById("curasync-video-modal");
+          const iframe = document.getElementById("curasync-video-frame");
+      
+          // Replace with your YouTube video URL
+          const youtubeURL = "https://youtu.be/nnd7u-WGwfc?si=ODpPBZ_mGtaUng3M";
+          
+          iframe.src = youtubeURL;
+          modal.style.display = "block";
+        }
+      
+        function closeVideoModal() {
+          const modal = document.getElementById("curasync-video-modal");
+          const iframe = document.getElementById("curasync-video-frame");
+      
+          iframe.src = "";  // Stop video when modal closes
+          modal.style.display = "none";
+        }
+      
+        // Optional: close on outside click
+        window.onclick = function(event) {
+          const modal = document.getElementById("curasync-video-modal");
+          if (event.target == modal) {
+            closeVideoModal();
+          }
+        }
+      </script>
+      
 
 {% endblock content %}
 

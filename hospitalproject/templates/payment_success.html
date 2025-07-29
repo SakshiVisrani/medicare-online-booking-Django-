@@ -1,90 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Appointment Confirmation</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f7fafa;
-      padding: 30px;
-      color: #333;
-    }
+{% extends "base.html" %}
 
-    .curasync-email-container {
-      max-width: 600px;
-      margin: 0 auto;
-      background-color: #ffffff;
-      border-radius: 10px;
-      padding: 30px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
-    }
-
-    .curasync-header {
-      color: #1abc9c;
-      text-align: center;
-    }
-
-    .curasync-section-title {
-      font-size: 18px;
-      margin-top: 25px;
-      color: #444;
-    }
-
-    .curasync-list {
-      padding-left: 20px;
-      margin-bottom: 15px;
-    }
-
-    .curasync-list-item {
-      margin-bottom: 10px;
-    }
-
-    .curasync-footer {
-      text-align: center;
-      font-size: 14px;
-      color: #777;
-      margin-top: 30px;
-    }
-
-    .curasync-btn {
-      display: inline-block;
-      background-color: #1abc9c;
-      color: white;
-      padding: 12px 20px;
-      margin-top: 20px;
-      border-radius: 5px;
-      text-decoration: none;
-      text-align: center;
-    }
-
-    .curasync-amount {
-      font-size: 20px;
-      color: #333;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-  </style>
-</head>
-<body>
+{% block content %}
   <div class="curasync-email-container">
-    <h2 class="curasync-header">Appointment Confirmed 🎉</h2>
+    <h2 class="curasync-header">Appointment Confirmed!</h2>
 
     <p>Hi {{ user.first_name|default:user.username }},</p>
-    <p>Thank you for booking your appointment with <strong>Curasync Health</strong>. Your appointment has been confirmed successfully.</p>
+    <p>Thank you for booking your appointment with <strong>Medicare Health</strong>. Your appointment has been confirmed successfully.</p>
 
     <div class="curasync-section-title">👨‍⚕️ Doctor Details</div>
     <ul class="curasync-list">
-      <li class="curasync-list-item"><strong>Name:</strong> Dr. {{ doctor.name }}</li>
-      <li class="curasync-list-item"><strong>Speciality:</strong> {{ doctor.speciality }}</li>
-      <li class="curasync-list-item"><strong>Experience:</strong> {{ doctor.experience }} years</li>
+      <li class="curasync-list-item"><strong>Name:</strong> Dr. {{ booking.doctor.name }}</li>
+      <li class="curasync-list-item"><strong>Speciality:</strong> {{ booking.doctor.speciality }}</li>
+      <li class="curasync-list-item"><strong>Experience:</strong> {{ booking.doctor.experience }} years</li>
     </ul>
 
     <div class="curasync-section-title">🕒 Appointment Slot</div>
     <ul class="curasync-list">
-      <li class="curasync-list-item"><strong>Date:</strong> {{ slot.date }}</li>
-      <li class="curasync-list-item"><strong>Time:</strong> {{ slot.time }}</li>
-      <li class="curasync-list-item"><strong>Consultation Type:</strong> {{ slot.consultation_type }}</li>
+      <li class="curasync-list-item"><strong>Date:</strong> {{ booking.slot.date }}</li>
+      <li class="curasync-list-item"><strong>Time:</strong> {{ booking.slot.time }}</li>
+      
     </ul>
 
     <p class="curasync-amount">💳 Amount Paid: ₹{{ booking.amount }}</p>
@@ -96,5 +30,5 @@
       Need help? <a href="mailto:support@curasync.com">Contact Support</a>
     </p>
   </div>
-</body>
-</html>
+  {% endblock content %}
+

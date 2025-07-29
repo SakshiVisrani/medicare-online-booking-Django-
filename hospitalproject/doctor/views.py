@@ -17,6 +17,8 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
 # Create your views here.
@@ -127,7 +129,7 @@ def book_slot(request, slug,slot_id):
             book.save()
 
              # Send email to the user
-            subject = 'Appointment Confirmation - Curasync'
+            subject = 'Appointment Confirmation - Medicare'
             
 
             html_message = render_to_string('appointment_confirmation.html', {
@@ -142,14 +144,55 @@ def book_slot(request, slug,slot_id):
                 subject,
                  "Your appointment has been confirmed ",
                 settings.EMAIL_HOST_USER,
-                ["priyanka.vibhute@itvedant.com" , request.user.email],
-               
+                ["priyanka.vibhute@itvedant.com" , "visranisiya406@gmail.com" , request.user.email],
+                html_message=html_message,
                 fail_silently=False,
             )
+          
+
             return render(request,'book_slot.html',context)
             # return redirect('doctor')
     else:
         return redirect(f'doctor/{slug}/')
+    
+@login_required
+def my_bookings(request):
+    bookings = Booking.objects.filter(user=request.user).order_by('-booked_at')
+    return render(request, 'my_bookings.html', {'bookings': bookings})
+
+@login_required
+def cancel_booking(request, booking_uuid):
+    booking = get_object_or_404(Booking, booking_uuid=booking_uuid, user=request.user)
+
+    if booking.cancelled:
+        return redirect('my-bookings')
+
+    booking.cancelled = True
+    booking.slot.is_booked = False
+    booking.slot.save()
+    booking.save()
+
+    # Send cancellation email
+    send_mail(
+        subject='Your Appointment Has Been Cancelled',
+        
+        message=f'''
+Hi {request.user.first_name},
+
+Your appointment with Dr. {booking.doctor.name} on {booking.slot.date} at {booking.slot.time} has been successfully cancelled.
+
+If this was a mistake, please log in to rebook another slot.
+
+Thank you,
+Medicare Team
+''',
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[request.user.email],
+        fail_silently=False,
+    )
+
+    return redirect('my-bookings')
+
     
 
 @csrf_exempt

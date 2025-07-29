@@ -22,9 +22,12 @@ urlpatterns = [
    path('book-slot/<slug:slug>/<int:slot_id>', book_slot, name='book-slot'), 
    # path('speciality/<slug:slug>/', SpecialityDetailView.as_view(), name='speciality-detail'),
    path('search/', search_doctors, name='search-doctors'),
-    path('speciality/<str:speciality_slug>/',views.doctors_by_speciality, name='doctors_by_speciality'),
+   path('speciality/<str:speciality_slug>/',views.doctors_by_speciality, name='doctors_by_speciality'),
    path('book/<int:slot_id>/', book_appointment, name='book-appointment'),
    path('payment/success/', payment_success, name='payment-success'),
+   path('my-bookings/', views.my_bookings, name='my-bookings'),
+   path('cancel-booking/<uuid:booking_uuid>/', views.cancel_booking, name='cancel-booking'),
+
 
 
 ]

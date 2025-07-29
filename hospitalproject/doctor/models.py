@@ -39,7 +39,8 @@ class Doctor(models.Model):
     next_available_time = models.DateTimeField(null=True, blank=True)
     rating = models.FloatField(default=0.0)
     reviews_count = models.PositiveIntegerField(default=0)
-
+    address = models.TextField(blank=True, null=True, default="")
+    
     contact_number = models.CharField(max_length=15, blank=True, null=True)
     email = models.EmailField(max_length=254, blank=True, null=True)
     patients_treated = models.PositiveIntegerField(default=0)
@@ -107,6 +108,8 @@ class Booking(models.Model):
     booked_at = models.DateTimeField(auto_now_add=True)
     amount =  models.DecimalField(max_digits=12,decimal_places=2)
     payment_status = models.CharField(max_length=20,choices=payment_status_choices)
+    cancelled = models.BooleanField(default=False)
+    cancelled_at = models.DateTimeField(null=True, blank=True)
 STATUS_CHOICE=[
         ('PENDING','PENDING'),
         ('COMPLETED','COMPLETED'),
