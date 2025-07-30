@@ -56,6 +56,7 @@ def payment_success(request):
 
 def register(request):
     if request.method == "GET":
+        print("asdfghjk")
         return render(request, "signin.html")
 
     elif request.method == "POST":
@@ -68,12 +69,12 @@ def register(request):
 
         if password != passwordconfirmation:
             message = "Passwords do not match"
-            return render(request, "register.html", {"message": message})
+            return render(request, "signin.html", {"message": message})
 
         if User.objects.filter(username=username).exists():
-            return render(request, "register.html", {"message": "Username already taken."})
+            return render(request, "signin.html", {"message": "Username already taken."})
         if User.objects.filter(email=email).exists():
-            return render(request, "register.html", {"message": "Email already registered."})
+            return render(request, "signin.html", {"message": "Email already registered."})
 
         user = User.objects.create_user(
             username=username,
@@ -85,7 +86,7 @@ def register(request):
         )
 
         message = "Registration Successful. Please sign in."
-        return render(request, "signin.html", {"message": message})
+        return redirect("login")
 
 def user_login(request):
     if request.method == "GET":

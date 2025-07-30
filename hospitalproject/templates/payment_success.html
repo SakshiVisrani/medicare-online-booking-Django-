@@ -18,12 +18,12 @@
     <ul class="curasync-list">
       <li class="curasync-list-item"><strong>Date:</strong> {{ booking.slot.date }}</li>
       <li class="curasync-list-item"><strong>Time:</strong> {{ booking.slot.time }}</li>
-      
+      <li class="curasync-list-item"><strong>Consultation Type:</strong> {{ slot.consultation_type }}</li>
     </ul>
 
     <p class="curasync-amount">💳 Amount Paid: ₹{{ booking.amount }}</p>
 
-    <a href="http://127.0.0.1:8000/" class="curasync-btn">Visit Dashboard</a>
+    {% comment %} <a href="http://127.0.0.1:8000/" class="curasync-btn">Visit Dashboard</a> {% endcomment %}
 
     <p class="curasync-footer">
       This is an automated message. Please do not reply.<br>

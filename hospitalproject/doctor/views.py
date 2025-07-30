@@ -19,6 +19,9 @@ from django.utils.html import strip_tags
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from .forms import ReviewForm
+from .models import  Review
+from django.contrib import messages
 
 
 # Create your views here.
@@ -43,15 +46,60 @@ class DoctorDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         doctor = self.object
 
-    # Appointments booked with this doctor (past/future)
         context['appointments'] = Booking.objects.filter(
-        doctor=doctor
+            doctor=doctor
         ).order_by('slot__date', 'slot__time')
 
-    # Get available slots in next 5 days
         context['availability_data'] = get_available_slots(doctor, days_ahead=5)
 
+        reviews = doctor.reviews_received.all()
+        context['reviews'] = reviews
+
+        review_form = ReviewForm()
+        context['review_form'] = review_form
+
+        user_already_reviewed = False
+        if self.request.user.is_authenticated:
+            user_already_reviewed = Review.objects.filter(
+                patient=self.request.user, doctor=doctor
+            ).exists()
+        context['user_already_reviewed'] = user_already_reviewed
+
         return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        doctor = self.object
+
+        if not request.user.is_authenticated:
+            messages.error(request, "You must be logged in to submit a review.")
+            return redirect('login')
+
+        user_already_reviewed = Review.objects.filter(
+            patient=request.user, doctor=doctor
+        ).exists()
+
+        if user_already_reviewed:
+            messages.warning(request, "You have already submitted a review for this doctor.")
+            return redirect(self.get_success_url())
+
+        review_form = ReviewForm(request.POST)
+        if review_form.is_valid():
+            review = review_form.save(commit=False)
+            review.patient = request.user
+            review.doctor = doctor
+            review.save()
+            messages.success(request, "Your review has been submitted successfully!")
+            return redirect(self.get_success_url())
+        else:
+            messages.error(request, "There was an error with your review submission. Please check your input.")
+            context = self.get_context_data(object=self.object)
+            context['review_form'] = review_form
+            return self.render_to_response(context)
+
+    def get_success_url(self):
+        return reverse('doctor_detail', kwargs={'slug': self.object.slug}) + '#reviews'
+
 
 
 
@@ -180,6 +228,7 @@ def cancel_booking(request, booking_uuid):
 Hi {request.user.first_name},
 
 Your appointment with Dr. {booking.doctor.name} on {booking.slot.date} at {booking.slot.time} has been successfully cancelled.
+Your Refund will be processed soon
 
 If this was a mistake, please log in to rebook another slot.
 
@@ -212,11 +261,11 @@ def payment_success(request):
             booking.payment_status = "SUCCESS"
             booking.save()
 
-            # Send email to the user
-            subject = 'Appointment Confirmation - Curasync'
+            
+            subject = 'Appointment Confirmation - Medicare'
             
 
-            html_message = render_to_string('appointment_confirmation.html', {
+            html_message = render_to_string('email_confirmation.html', {
                 'user': request.user,
                 'doctor': booking.doctor,
                 'slot': booking.slot,
@@ -226,9 +275,11 @@ def payment_success(request):
             print("Sending email to:", request.user.email)
             send_mail(
                 subject,
-                 "Mail Sent",
+                "Booking Done",
                 settings.EMAIL_HOST_USER,
                 ["priyanka.vibhute@itvedant.com"],
+                                html_message=html_message,
+
                 fail_silently=False,
             )
             print("Bye")
@@ -243,7 +294,13 @@ def payment_success(request):
         'message': "Invalid request method."
     })
 
-    # Get selected date from query string or default to today
+
+
+
+
+
+
+    # #Get selected date from query string or default to today
     # date_str = request.GET.get('date')
     # date = datetime.strptime(date_str, "%Y-%m-%d").date() if date_str else datetime.today().date()
     # # Fetch grouped available slots for tab view

@@ -8328,3 +8328,30 @@ body {
     right: -150px;
     transform: rotate(-30deg);
 }
+
+
+/* Styling for the interactive star rating input */
+.star-rating-input {
+    display: inline-block;
+    font-size: 2em; /* Adjust star size as needed */
+    color: lightgray; /* Default color for unselected stars */
+    cursor: pointer; /* Indicates stars are clickable */
+}
+
+.star-rating-input .star {
+    transition: color 0.2s ease-in-out; /* Smooth transition for color changes */
+}
+
+/* Color for hovered and selected stars */
+.star-rating-input .star.hovered,
+.star-rating-input .star.selected {
+    color: gold; /* Gold color for active stars */
+}
+
+/* Ensure existing review stars also use gold/lightgray */
+.star-rating .star-filled {
+    color: gold;
+}
+.star-rating .star-empty {
+    color: lightgray;
+}

@@ -17,7 +17,7 @@ from django.urls import path
 from .views import book_slot, DoctorDetailView, SpecialityDetailView, doctor_availability, search_doctors,doctors_by_speciality,book_appointment,doctors, payment_success
 urlpatterns = [
    path('doctors/', doctors, name='doctors'),
-   path('doctor/<slug:slug>/', DoctorDetailView.as_view(), name='doctor-detail'),
+   path('doctor/<slug:slug>/', DoctorDetailView.as_view(), name='doctor_detail'),
     path('doctor/<slug:slug>/availability/', doctor_availability, name='doctor-availability'),
    path('book-slot/<slug:slug>/<int:slot_id>', book_slot, name='book-slot'), 
    # path('speciality/<slug:slug>/', SpecialityDetailView.as_view(), name='speciality-detail'),

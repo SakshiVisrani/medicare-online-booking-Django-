@@ -54,6 +54,42 @@ class Doctor(models.Model):
 
     def __str__(self):
         return f"Dr. {self.name} ({self.speciality} - {self.location})"
+    
+
+class Review(models.Model):
+    patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews_given')
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='reviews_received')
+    rating = models.IntegerField(
+        choices=[(i, str(i)) for i in range(1, 6)], 
+        help_text="Rate your experience from 1 to 5 stars."
+    )
+
+    comment = models.TextField(
+        blank=True, 
+        null=True,  
+        help_text="Share your thoughts about your experience with the doctor."
+    )
+
+    
+    review_date = models.DateField(default=date.today)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+   
+    class Meta:
+        
+        unique_together = ('patient', 'doctor')
+
+       
+        ordering = ['-created_at']
+
+        verbose_name = "Doctor Review"
+        verbose_name_plural = "Doctor Reviews"
+
+
+    def __str__(self):
+        return f"Review by {self.patient.username} for Dr. {self.doctor.name} - {self.rating} stars"
+
 # DAYS_OF_WEEK = [
 #     ('Monday', 'Monday'),
 #     ('Tuesday', 'Tuesday'),
