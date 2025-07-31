@@ -82,17 +82,12 @@
                 <span class="lang-list">{{doctor.clinic_name}}</span>
             </p>
             
-            <!-- Slots Section Below Clinic Name -->
-            <div class="doctor-degrees-section">
-                {% if slots %}
-                    <h5 style="margin-top: 10px; font-weight: bold;">Available Slots:</h5>
-                    {% for s in slots %}
-                        <span class="degree-tag">Slot: {{ s.time }}</span>
-                    {% endfor %}
-                {% else %}
-                    <span class="degree-tag">No Slots Available</span>
-                {% endif %}
-            </div>
+
+            <p class="languages-spoken">
+                <i class="fas fa-language"></i> address :
+                <span class="lang-list">{{doctor.address}}</span>
+            </p>
+           
               
 
               <div class="card-footer-badges detailed-page">
@@ -178,7 +173,8 @@
                           <li>**MBBS**, Seth G.S. Medical College, Mumbai (2001)</li>
                       </ul>
                   </div>
-<div id="reviews" class="tab-pane fade show active" role="tabpanel" aria-labelledby="reviews-tab">
+            
+<div id="reviews" class="tab-pane fade show " role="tabpanel" aria-labelledby="reviews-tab">
     <h2 class="section-title">Patient Reviews</h2>
     <p>Read what patients are saying about Dr. {{ doctor.name }}.</p>
 
@@ -235,7 +231,7 @@
         {% endif %}
     </div>
 
-    <h4 class="mt-4 mb-3">What Patients Are Saying:</h4>
+    
     {% if reviews %}
         {% for review in reviews %}
         <div class="card mb-3 review-card">

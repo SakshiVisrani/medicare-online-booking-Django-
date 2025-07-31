@@ -9,7 +9,7 @@
 
 
 
-    <div class="col-sm-12 col-md-12 col-xl-4 col-xxl-4  col-12 mb-2">
+    <div class="col-sm-12 col-md-12 col-xl-4 col-xxl-4  col-12 mb-2 my-4">
         <div class="doctor-card ">
             <div class="doctor-header">
                 <div class="doctor-avatar-wrapper">
@@ -58,7 +58,7 @@
             </div>
 
             <div class="card-actions">
-                <button class="btn btn-book-clinic" id="pay-with-razorpay-{{ doctor.id }}" type="button">Pay with Razorpay</button>
+            
                 <a href="{% url 'doctor_detail' slug=doctor.slug %}" class="btn btn-view-profile">
                 View Profile <i class="fas fa-arrow-right"></i>
                 </a>

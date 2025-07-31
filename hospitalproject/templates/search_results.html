@@ -4,7 +4,7 @@
 
 
 {% if doctors %}
-  <div class="doctor-cards-container row">
+  <div class="doctor-cards-container row my-5">
     {% for doctor in doctors %}
       {% include "doctor_card.html" with doctor=doctor %}
     {% endfor %}

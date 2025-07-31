@@ -1,45 +1,124 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block content %}
+
+
 <link rel="stylesheet" href="{% static 'css/booking-style.css' %}">
 
 <div class="container my-5">
     <h2 class="text-center mb-5">📋 My Appointments</h2>
 
-    {% if bookings %}
-        <div class="row">
-            {% for booking in bookings %}
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="booking-card">
-                        <div class="booking-header">
-                            <h5>Dr. {{ booking.doctor.name }}</h5>
-                            <span class="status 
-                                {% if booking.payment_status == 'SUCCESS' %}status-success
-                                {% elif booking.payment_status == 'PENDING' %}status-pending
-                                {% else %}status-rejected{% endif %}">
-                                {{ booking.payment_status }}
-                            </span>
-                        </div>
-                        <div class="booking-details">
-                            <p><strong>📅 Date:</strong> {{ booking.slot.date|date:"M j, Y" }}</p>
-                            <p><strong>🕒 Time:</strong> {{ booking.slot.time }}</p>
-                        </div>
+    <!-- Nav Pills -->
+    <ul class="nav nav-pills justify-content-center mb-4" id="appointmentsTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="upcoming-tab" data-bs-toggle="pill" href="#upcoming" role="tab" aria-controls="upcoming" aria-selected="true">
+                Upcoming Appointments
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="previous-tab" data-bs-toggle="pill" href="#previous" role="tab" aria-controls="previous" aria-selected="false">
+                Previous Appointments
+            </a>
+        </li>
+    </ul>
 
-                        {% if not booking.cancelled %}
-                            <form method="post" action="{% url 'cancel-booking' booking.booking_uuid %}">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-cancel">❌ Cancel</button>
-                            </form>
-                        {% else %}
-                            <div class="cancelled-label">Cancelled</div>
-                        {% endif %}
-                    </div>
+    <!-- Tab Content -->
+    <div class="tab-content" id="appointmentsTabContent">
+
+        <!-- Upcoming Appointments -->
+        <div class="tab-pane fade show active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
+            {% if upcoming_bookings %}
+                <div class="row">
+                    {% for booking in upcoming_bookings %}
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="booking-card">
+                                <div class="booking-header">
+                                    <h5>Dr. {{ booking.doctor.name }}</h5>
+                                   
+                                    <span class="status 
+                                        {% if booking.payment_status == 'SUCCESS' %}status-success
+                                        {% elif booking.payment_status == 'PENDING' %}status-pending
+                                        {% else %}status-rejected{% endif %}">
+                                        {{ booking.payment_status }}
+
+                                    </span>
+                                </div>
+                                <div class="booking-details">
+                                    <p><strong>📅 Date:</strong> {{ booking.slot.date|date:"M j, Y" }}</p>
+                                    <p><strong>🕒 Time:</strong> {{ booking.slot.time }}</p>
+                                </div>
+
+                                {% if not booking.cancelled %}
+                                    <form method="post" action="{% url 'cancel-booking' booking.booking_uuid %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-cancel">❌ Cancel</button>
+                                        
+                                    </form>
+                                    <br>
+                                     {% if booking.payment_status == "PENDING" %}
+                                     <form action="/book-slot/{{ booking.doctor.slug }}/{{ booking.slot.id }}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" value="{{booking.amount}}" name="total">
+                                        <input type="hidden" value="1" name="is_pending_payment">
+                                         <button type="submit" class="btn btn-success" >Pay Now And Confirm Your Booking</button>
+                                     </form>
+                                    {% endif %}
+                                {% else %}
+                                    <div class="cancelled-label">Cancelled</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
+            {% else %}
+                <div class="no-bookings text-center">No upcoming appointments found.</div>
+            {% endif %}
         </div>
-    {% else %}
-        <div class="no-bookings text-center">No appointments found.</div>
-    {% endif %}
+
+        <!-- Previous Appointments -->
+        <div class="tab-pane fade" id="previous" role="tabpanel" aria-labelledby="previous-tab">
+            {% if previous_bookings %}
+                <div class="row">
+                    {% for booking in previous_bookings %}
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="booking-card">
+                                <div class="booking-header">
+                                    <h5>Dr. {{ booking.doctor.name }}</h5>
+                                    <span class="status 
+                                        {% if booking.payment_status == 'SUCCESS' %}status-success
+                                        {% elif booking.payment_status == 'PENDING' %}status-pending
+                                        {% else %}status-rejected{% endif %}">
+                                        {{ booking.payment_status }}
+                                    </span>
+                                </div>
+                                <div class="booking-details">
+                                    <p><strong>📅 Date:</strong> {{ booking.slot.date|date:"M j, Y" }}</p>
+                                    <p><strong>🕒 Time:</strong> {{ booking.slot.time }}</p>
+                                </div>
+
+                                {% if not booking.cancelled %}
+                                    <div class="text-muted small">Completed</div>
+                                {% else %}
+                                    <div class="cancelled-label">Cancelled</div>
+                                {% endif %}
+
+                                {% if booking.payment_status == 'SUCCESS' and booking.slot.date < today %}
+                                    <a href="{% url 'doctor_detail' booking.doctor.slug %}#reviews" class="btn btn-sm btn-info mt-2">Leave a Review</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-bookings text-center">No previous appointments found.</div>
+            {% endif %}
+        </div>
+    </div>
 </div>
+
+
+
+
 
 {% endblock content %}

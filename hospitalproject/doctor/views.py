@@ -13,7 +13,7 @@ from collections import defaultdict
 import razorpay
 from django.conf import settings
 from hospitalproject.settings import RAZORPAY_ID,RAZORPAY_SECRET
-from django.core.mail import send_mail
+from django.core.mail import send_mail,EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.views.decorators.csrf import csrf_exempt
@@ -132,13 +132,15 @@ from .models import Payment
 @login_required
 def book_slot(request, slug,slot_id):
     if request.method == "POST":
-            
+        if slot_id ==0:
+            messages.error(request,"Pls Select Slot First")
+            return redirect('doctor_detail',slug = slug) 
         doctor = get_object_or_404(Doctor, slug=slug)
         slot =  get_object_or_404(AppointmentSlot,id=slot_id)
         total = float(request.POST.get("total"))
         print(total)
-        if slot.is_booked:
-            return redirect(f'doctor/{slug}/')
+        if slot.is_booked and not (request.POST.get('is_pending_payment')):
+            return redirect(f'/doctor/{slug}/')
         else:
             book = Booking.objects.create(
             booking_uuid=uuid.uuid4(),
@@ -148,6 +150,16 @@ def book_slot(request, slug,slot_id):
             amount=total,  
             payment_status='PENDING',
             )
+            #make correction in this HP
+            # book = Booking.objects.get_or_create(
+            #     slot=slot,
+            # other_attributes ={
+            # booking_uuid:uuid.uuid4(),
+            # doctor:doctor,
+            # user:request.user,
+            # amount:total,  
+            # payment_status:'PENDING'}
+            # )
             slot.is_booked = True
             slot.save()
             client = razorpay.Client(auth=(settings.RAZORPAY_ID, settings.RAZORPAY_SECRET))
@@ -177,36 +189,60 @@ def book_slot(request, slug,slot_id):
             book.save()
 
              # Send email to the user
-            subject = 'Appointment Confirmation - Medicare'
+            # subject = 'Appointment Confirmation - Medicare'
             
 
-            html_message = render_to_string('appointment_confirmation.html', {
-                'user': request.user,
-                'doctor': book.doctor,
-                'slot': book.slot,
-                'booking': book,
-            })
-            plain_message = strip_tags(html_message)
-            print("Sending email to:", request.user.email)
-            send_mail(
-                subject,
-                 "Your appointment has been confirmed ",
-                settings.EMAIL_HOST_USER,
-                ["priyanka.vibhute@itvedant.com" , "visranisiya406@gmail.com" , request.user.email],
-                html_message=html_message,
-                fail_silently=False,
-            )
+            # html_message = render_to_string('appointment_confirmation.html', {
+            #     'user': request.user,
+            #     'doctor': book.doctor,
+            #     'slot': book.slot,
+            #     'booking': book,
+            # })
+            # plain_message = strip_tags(html_message)
+            # print("Sending email to:", request.user.email)
+            # send_mail(
+            #     subject,
+            #      "Your appointment has been confirmed ",
+            #     settings.EMAIL_HOST_USER,
+            #     ["priyanka.vibhute@itvedant.com" , "visranisiya406@gmail.com" , request.user.email],
+            #     html_message=html_message,
+            #     fail_silently=False,
+            # )
+           
           
 
             return render(request,'book_slot.html',context)
             # return redirect('doctor')
     else:
-        return redirect(f'doctor/{slug}/')
-    
+        return redirect(f'/doctor/{slug}/')
+from django.utils import timezone
 @login_required
 def my_bookings(request):
-    bookings = Booking.objects.filter(user=request.user).order_by('-booked_at')
-    return render(request, 'my_bookings.html', {'bookings': bookings})
+    user_bookings = Booking.objects.filter(user=request.user).order_by('slot__date', 'slot__time')
+
+    upcoming_bookings = []
+    previous_bookings = []
+
+    current_datetime = timezone.now()
+
+    for booking in user_bookings:
+        # Assuming slot.date is a DateField and slot.time is a TimeField
+        # Combine date and time to create a datetime object for comparison
+        slot_datetime = timezone.make_aware(
+            timezone.datetime.combine(booking.slot.date, booking.slot.time)
+        )
+
+        if slot_datetime >= current_datetime:
+            upcoming_bookings.append(booking)
+        else:
+            previous_bookings.append(booking)
+
+    context = {
+        'upcoming_bookings': upcoming_bookings,
+        'previous_bookings': previous_bookings,
+    }
+    print(previous_bookings[0].slot.date)
+    return render(request, 'my_bookings.html', context)
 
 @login_required
 def cancel_booking(request, booking_uuid):
@@ -279,9 +315,17 @@ def payment_success(request):
                 settings.EMAIL_HOST_USER,
                 ["priyanka.vibhute@itvedant.com"],
                                 html_message=html_message,
-
                 fail_silently=False,
             )
+            email = EmailMultiAlternatives(
+                subject,
+                 "Your appointment has been confirmed ",
+                settings.EMAIL_HOST_USER,
+                ["priyanka.vibhute@itvedant.com" , "visranisiya406@gmail.com" , request.user.email],
+            )
+            email.attach_alternative(html_message,'text/html')
+
+            email.send()
             print("Bye")
             return render(request, 'payment_success.html', {'booking': booking})
 

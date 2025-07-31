@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>{{ speciality }} Found {{ doctors|length }} doctors.</h2>
+
 <div class="doctor-list row">
     {% for doctor in doctors %}
-    <div class="col-12 col-md-4 "> {# Bootstrap grid classes for responsive layout #}
+    <div class="col-12 col-md-4 my-4"> {# Bootstrap grid classes for responsive layout #}
         <div class="doctor-card">
             <div class="doctor-header">
                 <div class="doctor-avatar-wrapper">
