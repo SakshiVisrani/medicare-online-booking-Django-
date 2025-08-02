@@ -142,25 +142,39 @@ def book_slot(request, slug,slot_id):
         if slot.is_booked and not (request.POST.get('is_pending_payment')):
             return redirect(f'/doctor/{slug}/')
         else:
-            book = Booking.objects.create(
-            booking_uuid=uuid.uuid4(),
-            doctor=doctor,
-            user=request.user,
-            slot=slot,
-            amount=total,  
-            payment_status='PENDING',
+            # Allow booking if no booking exists with 'Completed' status
+            # 1. Check if the slot is already booked with a Completed payment
+            existing_completed_booking = Booking.objects.filter(
+                slot=slot,
+                payment_status='Completed'
+            ).first()
+
+            if existing_completed_booking:
+                messages.error(request, "This slot has already been booked.")
+                return redirect('some_page')  # Replace with actual view name
+
+            # 2. Reuse or create booking where status is NOT 'Completed'
+            book, created = Booking.objects.get_or_create(
+                slot=slot,
+                defaults={
+                    'booking_uuid': uuid.uuid4(),
+                    'doctor': doctor,
+                    'amount': total,
+                    'user' : request.user,
+                    'payment_status': 'Processing'
+                }
             )
-            #make correction in this HP
-            # book = Booking.objects.get_or_create(
-            #     slot=slot,
-            # other_attributes ={
-            # booking_uuid:uuid.uuid4(),
-            # doctor:doctor,
-            # user:request.user,
-            # amount:total,  
-            # payment_status:'PENDING'}
-            # )
-            slot.is_booked = True
+
+            # Optional: update doctor or amount if reused
+            if not created:
+                book.doctor = doctor
+                book.user = request.user
+                book.amount = total
+                book.payment_status = 'Processing'  # Reset to processing
+                book.save()
+
+
+            # slot.is_booked = True
             slot.save()
             client = razorpay.Client(auth=(settings.RAZORPAY_ID, settings.RAZORPAY_SECRET))
 
@@ -241,7 +255,7 @@ def my_bookings(request):
         'upcoming_bookings': upcoming_bookings,
         'previous_bookings': previous_bookings,
     }
-    print(previous_bookings[0].slot.date)
+    
     return render(request, 'my_bookings.html', context)
 
 @login_required
@@ -295,8 +309,12 @@ def payment_success(request):
 
             booking = payment.booking
             booking.payment_status = "SUCCESS"
+            booking.user = request.user
+            booking.cancelled = False
             booking.save()
-
+            slot = booking.slot
+            slot.is_booked = True
+            slot.save()
             
             subject = 'Appointment Confirmation - Medicare'
             

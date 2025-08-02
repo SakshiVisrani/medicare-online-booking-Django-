@@ -2,147 +2,48 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Appointment Confirmation</title>
-    <style>
-        /* Reset styles to ensure consistent rendering across email clients */
-        body, div, p, ul, li, h1, h2, h3, h4, h5, h6 {
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4; /* Light grey background for the overall email client window */
-            color: #333333; /* Default text color for the body if not overridden */
-            line-height: 1.6;
-        }
-        /* Main container for the entire email content */
-        .email-container {
-            max-width: 600px; /* Standard width for emails */
-            margin: 20px auto; /* Center the email on the page */
-            background-color: #333333; /* Dark background as in the image */
-            border-radius: 8px; /* Slightly rounded corners */
-            overflow: hidden; /* Ensures content stays within rounded corners */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-            color: #ffffff; /* White text color for the main content areas */
-        }
-        /* Header section styles */
-        .header {
-            background-color: #333333; /* Dark background */
-            padding: 20px;
-            text-align: center;
-            color: #28a745; /* Green color for "Appointment Confirmed" text */
-            font-size: 24px;
-            font-weight: bold;
-        }
-        /* Main content area padding */
-        .content {
-            padding: 20px;
-        }
-        .content p {
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
-        /* Styles for the Doctor and Appointment Slot sections */
-        .details-section {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #444444; /* Slightly lighter dark for distinct sections */
-            border-radius: 5px;
-        }
-        .details-section h3 {
-            color: #ffffff;
-            font-size: 18px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #555555; /* Separator line below heading */
-            padding-bottom: 5px;
-        }
-        .details-section ul {
-            list-style: none; /* Remove bullet points */
-            padding: 0;
-            margin: 0;
-        }
-        .details-section ul li {
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
-        /* Amount Paid section style */
-        .amount-paid {
-            font-size: 20px;
-            font-weight: bold;
-            color: #ffffff;
-            margin-top: 20px;
-            text-align: right; /* Align to the right as in the image */
-            padding-right: 20px; /* Matches content padding */
-            padding-bottom: 20px; /* Added padding to match image bottom space */
-        }
-        /* Styles for the button container */
-        .button-container {
-            text-align: center;
-            padding: 20px;
-            background-color: #333333; /* Dark background */
-        }
-        /* Button styling */
-        .button {
-            display: inline-block; /* Allows padding and width */
-            padding: 10px 20px;
-            background-color: #28a745; /* Green button color */
-            color: #ffffff; /* White text for button */
-            text-decoration: none; /* Remove underline from link */
-            border-radius: 5px; /* Rounded button corners */
-            font-weight: bold;
-            /* Specific styles for better Outlook compatibility */
-            mso-padding-alt: 10px 20px; /* Outlook specific padding */
-            font-size: 16px;
-            border: none; /* Ensure no default borders */
-        }
-        /* Footer section styles */
-        .footer {
-            padding: 20px;
-            text-align: center;
-            font-size: 12px;
-            color: #aaaaaa; /* Lighter grey for footer text */
-            background-color: #222222; /* Even darker background for footer */
-        }
-        .footer a {
-            color: #bbbbbb; /* Lighter link color in footer */
-            text-decoration: none;
-        }
-    </style>
 </head>
-<body>
-    <div class="email-container">
-        <div class="header">
-            Appointment Confirmed siya &#x1F389;
-        </div>
-        <div class="content">
-            <p>Hi {{ user.first_name|default:"User" }},</p>
-            <p>Thank you for booking your appointment with <strong>Curasync Health</strong>. Your appointment has been confirmed successfully.</p>
-
-            <div class="details-section">
-                <h3>&#x1F468;&#x200D;&#x2695;&#xFE0F; Doctor Details</h3>
-                <ul>
-                    <li><strong>Name:</strong> Dr. {{ doctor.name }}</li>
-                    <li><strong>Speciality:</strong> {{ doctor.speciality }}</li>
-                    <li><strong>Experience:</strong> {{ doctor.experience }} years</li>
-                </ul>
-            </div>
-
-            <div class="details-section">
-                <h3>&#x23F0; Appointment Slot</h3>
-                <ul>
-                    <li><strong>Date:</strong> {{ slot.date|date:"F d, Y" }}</li>
-                    <li><strong>Time:</strong> {{ slot.time|time:"g a" }}</li>
-                    <li><strong>Consultation Type:</strong> {% if booking.consultation_type %}{{ booking.consultation_type }}{% else %}Online Consultation{% endif %}</li>
-                </ul>
-            </div>
-
-            <p class="amount-paid">&#x1F4B5; Amount Paid: ₹{{ booking.amount_paid|floatformat:"1" }}</p>
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333333; line-height: 1.6; margin: 0; padding: 0;">
+    <div style="max-width: 600px; margin: 20px auto; background-color: #333333; border-radius: 8px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); color: #ffffff;">
+        
+        <!-- Header -->
+        <div style="background-color: #333333; padding: 20px; text-align: center; color: #28a745; font-size: 24px; font-weight: bold;">
+            Appointment Confirmed {{ user.first_name|default:"User" }}!
         </div>
         
-        <div class="footer">
-            <p>&copy; 2025 Curasync Health. All rights reserved.</p>
-            <p>If you have any questions, please contact us at +91 1800-123-4567</p>
+        <!-- Content -->
+        <div style="padding: 20px;">
+            <p style="margin-bottom: 10px;">Hi {{ user.first_name|default:"User" }},</p>
+            <p style="margin-bottom: 10px;">Thank you for booking your appointment with <strong>Medicare Health</strong>. Your appointment has been confirmed successfully.</p>
+
+            <!-- Doctor Details -->
+            <div style="margin-top: 20px; padding: 15px; background-color: #444444; border-radius: 5px;">
+                <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 10px; border-bottom: 1px solid #555555; padding-bottom: 5px;">👨‍⚕️ Doctor Details</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 8px; font-size: 16px;"><strong>Name:</strong> Dr. {{ doctor.name }}</li>
+                    <li style="margin-bottom: 8px; font-size: 16px;"><strong>Speciality:</strong> {{ doctor.speciality }}</li>
+                    <li style="margin-bottom: 8px; font-size: 16px;"><strong>Experience:</strong> {{ doctor.experience }} years</li>
+                </ul>
+            </div>
+
+            <!-- Appointment Slot -->
+            <div style="margin-top: 20px; padding: 15px; background-color: #444444; border-radius: 5px;">
+                <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 10px; border-bottom: 1px solid #555555; padding-bottom: 5px;">⏰ Appointment Slot</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 8px; font-size: 16px;"><strong>Date:</strong> {{ slot.date|date:"F d, Y" }}</li>
+                    <li style="margin-bottom: 8px; font-size: 16px;"><strong>Time:</strong> {{ slot.time|time:"g a" }}</li>
+                </ul>
+            </div>
+
+            <!-- Amount Paid -->
+            <p style="font-size: 20px; font-weight: bold; color: #ffffff; margin-top: 20px; text-align: right; padding-right: 20px; padding-bottom: 20px;">💵 Amount Paid: ₹{{ booking.amount }}</p>
+        </div>
+
+        <!-- Footer -->
+        <div style="padding: 20px; text-align: center; font-size: 12px; color: #aaaaaa; background-color: #222222;">
+            <p style="margin: 0;">&copy; 2025 Medicare Health. All rights reserved.</p>
+            <p style="margin: 0;">If you have any questions, please contact us at +91 1800-123-4567</p>
         </div>
     </div>
 </body>

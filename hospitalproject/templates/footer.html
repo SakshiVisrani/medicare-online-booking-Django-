@@ -22,22 +22,22 @@
             <div class="footer-col footer-links">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="#">Find Doctors</a></li>
-                    <li><a href="#">Book Appointment</a></li>
-                    <li><a href="#">Health Plans</a></li>
-                    <li><a href="#">Lab Tests</a></li>
-                    <li><a href="#">Medicine</a></li>
+                    <li><a href="{% url 'doctors' %}">Find Doctors</a></li>
+                    <li><a href="">Book Appointment</a></li>
+                    <li><a href="{% url 'health_plans' %}">Health Plans</a></li>
+                    <li><a href="{% url 'about'%}">About Us</a></li>
+                    <li><a href="{% url 'home' %}">Medicare</a></li>
                 </ul>
             </div>
 
             <div class="footer-col footer-links">
                 <h3>Specialties</h3>
                 <ul>
-                    <li><a href="#">Cardiology</a></li>
-                    <li><a href="#">Neurology</a></li>
-                    <li><a href="#">Pediatrics</a></li>
-                    <li><a href="#">Orthopedics</a></li>
-                    <li><a href="#">Dermatology</a></li>
+                    <li><a href="{% url 'doctors_by_speciality' 'cardiologist' %}">Cardiology</a></li>
+                    <li><a href="{% url 'doctors_by_speciality' 'neurologist' %}">Neurology</a></li>
+                    <li><a href="{% url 'doctors_by_speciality' 'pediatrics' %}">Pediatrics</a></li>
+                    <li><a href="{% url 'doctors_by_speciality' 'orthopedics' %}">Orthopedics</a></li>
+                    <li><a href="{% url 'doctors_by_speciality' 'dermatologist' %}">Dermatology</a></li>
                 </ul>
             </div>
 

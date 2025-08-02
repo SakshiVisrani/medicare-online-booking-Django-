@@ -56,7 +56,7 @@
                                         
                                     </form>
                                     <br>
-                                     {% if booking.payment_status == "PENDING" %}
+                                     {% if booking.payment_status == "PENDING" or booking.payment_status == "Processing" %}
                                      <form action="/book-slot/{{ booking.doctor.slug }}/{{ booking.slot.id }}" method="post">
                                         {% csrf_token %}
                                         <input type="hidden" value="{{booking.amount}}" name="total">

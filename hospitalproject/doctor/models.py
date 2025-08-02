@@ -139,7 +139,7 @@ payment_status_choices = [
 class Booking(models.Model):
     booking_uuid = models.UUIDField(primary_key=True,max_length=128)
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,blank=True,null=True)
     slot = models.ForeignKey(AppointmentSlot, on_delete=models.CASCADE)
     booked_at = models.DateTimeField(auto_now_add=True)
     amount =  models.DecimalField(max_digits=12,decimal_places=2)

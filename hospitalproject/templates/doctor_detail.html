@@ -53,11 +53,11 @@
               <div class="doctor-details-grid">
                   <div class="detail-item">
                       <i class="fas fa-briefcase detail-icon"></i>
-                      <span><span class="detail-value">{{doctor.experience}}</span> Experience</span>
+                      <span><span class="detail-value">{{doctor.experience}}</span> years of Experience</span>
                   </div>
                   <div class="detail-item">
                       <i class="fas fa-map-marker-alt detail-icon"></i>
-                      <span><span class="detail-value">{{doctor.location}}</span> Location</span>
+                      <span>Location</span> <span class="detail-value">{{doctor.location}}</span>
                   </div>
                   <div class="detail-item">
                       <i class="fas fa-users detail-icon"></i>
@@ -65,7 +65,7 @@
                   </div>
                   <div class="detail-item">
                       <i class="fas fa-clock detail-icon"></i>
-                      <span><span class="detail-value">{{doctor.response_time}}</span> Response Time</span>
+                      <span><span class="detail-value">{{doctor.response_time}}</span> mins Response Time</span>
                   </div>
               </div>
 
@@ -128,7 +128,7 @@
 
                       <h3 class="section-subtitle">Specializations</h3>
                       <div class="specialization-tags">
-                          <span class="specialization-tag"><i class="fas fa-check-circle"></i> Interventional Cardiology</span>
+                          <span class="specialization-tag"><i class="fas fa-check-circle"></i> Interventional {{doctor.speciality}}</span>
                           <span class="specialization-tag"><i class="fas fa-check-circle"></i> Cardiac Catheterization</span>
                           <span class="specialization-tag"><i class="fas fa-check-circle"></i> Heart Disease Prevention</span>
                           <span class="specialization-tag"><i class="fas fa-check-circle"></i> Hypertension Management</span>
@@ -140,12 +140,12 @@
                       <div class="services-offered-grid">
                           <div class="service-option-card">
                               <span class="service-name">In-person Consultation</span>
-                              <span class="service-price">₹800</span>
+                              <span class="service-price">₹{{doctor.consultation_fee}}</span>
                               <p class="service-description">Comprehensive physical examination</p>
                           </div>
                           <div class="service-option-card">
                               <span class="service-name">Video Consultation</span>
-                              <span class="service-price">₹600</span>
+                              <span class="service-price">₹{{doctor.online_consultation}}</span>
                               <p class="service-description">Online consultation via video call</p>
                           </div>
                           <div class="service-option-card">

@@ -425,33 +425,33 @@
     </main>
 
     <script>
-        function openVideoModal() {
-          const modal = document.getElementById("curasync-video-modal");
-          const iframe = document.getElementById("curasync-video-frame");
-      
-          // Replace with your YouTube video URL
-          const youtubeURL = "https://youtu.be/nnd7u-WGwfc?si=ODpPBZ_mGtaUng3M";
-          
-          iframe.src = youtubeURL;
-          modal.style.display = "block";
-        }
-      
-        function closeVideoModal() {
-          const modal = document.getElementById("curasync-video-modal");
-          const iframe = document.getElementById("curasync-video-frame");
-      
-          iframe.src = "";  // Stop video when modal closes
-          modal.style.display = "none";
-        }
-      
-        // Optional: close on outside click
-        window.onclick = function(event) {
-          const modal = document.getElementById("curasync-video-modal");
-          if (event.target == modal) {
-            closeVideoModal();
-          }
-        }
-      </script>
+  function openVideoModal() {
+    const modal = document.getElementById("curasync-video-modal");
+    const iframe = document.getElementById("curasync-video-frame");
+
+    // Correct embed URL
+    const youtubeURL = "https://www.youtube.com/embed/nnd7u-WGwfc";
+
+    iframe.src = youtubeURL;
+    modal.style.display = "block";
+  }
+
+  function closeVideoModal() {
+    const modal = document.getElementById("curasync-video-modal");
+    const iframe = document.getElementById("curasync-video-frame");
+
+    iframe.src = "";  // Clear video source to stop it
+    modal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    const modal = document.getElementById("curasync-video-modal");
+    if (event.target == modal) {
+      closeVideoModal();
+    }
+  }
+</script>
+
       
 
 {% endblock content %}

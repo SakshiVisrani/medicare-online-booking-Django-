@@ -24,9 +24,7 @@
                         <span>{{ doctor.rating }} ({{ doctor.review_count }} reviews)</span>
                     </div>
                 </div>
-                <button class="favorite-btn" aria-label="Add to favorites">
-                    <i class="far fa-thumbs-up"></i>
-                </button>
+             
             </div>
       
             <div class="doctor-meta">
@@ -55,7 +53,7 @@
             </div>
 
             <div class="card-actions">
-                <button class="btn btn-book-clinic" id="pay-with-razorpay-{{ doctor.id }}" type="button">Pay with Razorpay</button>
+               
                 <a href="{% url 'doctor_detail' slug=doctor.slug %}" class="btn btn-view-profile">
                 View Profile <i class="fas fa-arrow-right"></i>
                 </a>
